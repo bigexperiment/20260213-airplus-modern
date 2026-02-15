@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f6f7f2;
+  --foreground: #0c1715;
+  --muted: #eef0e8;
+  --muted-foreground: #5d6762;
+  --primary: #0d8f82;
+  --primary-foreground: #effffb;
+  --accent: #f59e0b;
+  --accent-foreground: #1b1203;
+  --border: #d6ddd4;
+  --field-bg: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --font-sans: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #081412;
+    --foreground: #dcedea;
+    --muted: #0f1f1b;
+    --muted-foreground: #98aaa4;
+    --primary: #30c6b7;
+    --primary-foreground: #01100d;
+    --accent: #ffd07a;
+    --accent-foreground: #1d1400;
+    --border: #1b322d;
+    --field-bg: rgba(255,255,255,0.04);
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* fancy subtle grain for depth */
+.bg-noise {
+  background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+.aurora-bg {
+  background:
+    radial-gradient(50rem 28rem at 10% -5%, color-mix(in oklab, var(--primary) 22%, transparent), transparent 65%),
+    radial-gradient(45rem 26rem at 92% 6%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 68%),
+    var(--background);
+}
+
+.container-px {
+  padding-left: clamp(1rem, 4vw, 2rem);
+  padding-right: clamp(1rem, 4vw, 2rem);
+}
+
+.section {
+  padding-top: clamp(2rem, 6vw, 4rem);
+  padding-bottom: clamp(2rem, 6vw, 4rem);
+}
+
+.glass {
+  backdrop-filter: saturate(180%) blur(12px);
+  background: color-mix(in oklab, var(--muted) 58%, transparent);
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 30px color-mix(in oklab, black 14%, transparent);
+}
+
+/* generic form field */
+.field {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--field-bg);
+  color: inherit;
+  border-radius: 0.6rem;
+  padding: 0.5rem 0.75rem;
+}
+.field:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 25%, transparent);
+}
