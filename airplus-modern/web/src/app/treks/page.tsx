@@ -2,6 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import Image from "next/image";
 import Link from "next/link";
+import { popularTrekSlugs } from "@/content/trekGuides";
 
 type Trek = {
   slug: string;
@@ -25,7 +26,15 @@ async function readTreks(): Promise<Trek[]> {
       return JSON.parse(data) as Trek;
     })
   );
-  return treks.sort((a, b) => a.title.localeCompare(b.title));
+  const order = new Map<string, number>(popularTrekSlugs.map((slug, idx) => [slug, idx]));
+  return treks.sort((a, b) => {
+    const aOrder = order.get(a.slug);
+    const bOrder = order.get(b.slug);
+    if (aOrder !== undefined && bOrder !== undefined) return aOrder - bOrder;
+    if (aOrder !== undefined) return -1;
+    if (bOrder !== undefined) return 1;
+    return a.title.localeCompare(b.title);
+  });
 }
 
 export default async function TreksPage() {
@@ -40,6 +49,7 @@ export default async function TreksPage() {
     if (slug.includes("mardi-himal")) return "/information/assets/cover_mardi_himal.jpg";
     if (slug.includes("poon-hill")) return "/information/assets/cover_poon_hill.jpg";
     if (slug.includes("gokyo")) return "/information/assets/cover_gokyo_lake.jpg";
+    if (slug.includes("langtang")) return "/information/assets/cover_langtang_valley.jpg";
     if (slug.includes("manaslu")) return "/information/assets/trekking_manaslu2.jpg";
     return "/information/assets/hero_main.png";
   };
@@ -67,5 +77,3 @@ export default async function TreksPage() {
     </div>
   );
 }
-
-

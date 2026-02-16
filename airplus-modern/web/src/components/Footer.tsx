@@ -24,7 +24,7 @@ export default function Footer() {
           </Link>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-7">
           <div className="lg:col-span-2 space-y-3">
             <div className="text-lg font-semibold text-foreground">AirPlus Nepal</div>
             <p className="max-w-md text-sm">

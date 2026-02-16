@@ -19,6 +19,13 @@ function isLinkActive(pathname: string, href: string): boolean {
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const mobileQuickLinks = [
+    { label: "Treks", href: "/treks" },
+    { label: "Tours", href: "/tours" },
+    { label: "Acts", href: "/tours#paragliding-pokhara" },
+    { label: "Guide", href: "/travel-guide" },
+    { label: "Contact", href: "/contact" },
+  ];
 
   const isGroupActive = (links: { href: string }[]) => links.some((l) => isLinkActive(pathname, l.href));
 
@@ -34,8 +41,8 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className="container-px h-16 flex items-center justify-between">
-        <Link href="/" className="font-semibold tracking-tight text-lg">AirPlus Nepal</Link>
+      <div className="container-px h-10 md:h-16 flex items-center justify-between">
+        <Link href="/" className="font-semibold tracking-tight text-sm md:text-lg">AirPlus Nepal</Link>
 
         <nav className="hidden lg:flex items-center gap-1">
           {navItems.map((item) => {
@@ -93,12 +100,35 @@ export default function Navbar() {
           </Link>
           <button
             type="button"
-            className="lg:hidden inline-flex items-center justify-center h-9 w-9 rounded-lg border border-white/15"
+            className="lg:hidden inline-flex items-center justify-center h-7 w-7 rounded-md border border-white/15"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
-            {mobileOpen ? <X className="size-4" /> : <Menu className="size-4" />}
+            {mobileOpen ? <X className="size-3.5" /> : <Menu className="size-3.5" />}
           </button>
+        </div>
+      </div>
+
+      <div className="lg:hidden border-t border-white/10">
+        <div className="container-px py-0.5">
+          <div className="flex gap-1 overflow-x-auto no-scrollbar">
+            {mobileQuickLinks.map((link) => {
+              const active = isLinkActive(pathname, link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`shrink-0 rounded-full px-1.5 py-0.5 text-[10px] leading-4 ${
+                    active
+                      ? "bg-white/15 text-foreground"
+                      : "border border-white/15 text-foreground/90"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </div>
 

@@ -1,0 +1,29 @@
+{
+  "slug": "langtang-valley",
+  "title": "Langtang Valley Trek",
+  "region": "Langtang Region",
+  "duration": "10 Days",
+  "destination": "Nepal",
+  "maxElevation": "4,984 m",
+  "difficulty": "Moderate",
+  "accommodation": "Tea House",
+  "transport": "Drive in - Drive Out",
+  "coverImage": "/information/assets/cover_langtang_valley.jpg",
+  "overview": [
+    "A close-to-Kathmandu Himalayan trek with mountain views, Tamang culture, and classic teahouse stays.",
+    "Steady trail progression to Kyanjin Gompa with optional high viewpoints like Kyanjin Ri.",
+    "Great option for trekkers who want a full Nepal mountain experience without Lukla flights."
+  ],
+  "itinerary": [
+    {"day": 1, "title": "Arrival in Kathmandu", "description": "Trip briefing and final gear checks."},
+    {"day": 2, "title": "Drive to Syabrubesi", "description": "Long scenic drive to the Langtang trailhead."},
+    {"day": 3, "title": "Trek to Lama Hotel", "description": "Forest trail along the Langtang Khola."},
+    {"day": 4, "title": "Trek to Langtang Village", "description": "Gradual ascent through alpine transition zones."},
+    {"day": 5, "title": "Trek to Kyanjin Gompa", "description": "Short but scenic day into upper Langtang Valley."},
+    {"day": 6, "title": "Acclimatization Day", "description": "Hike to Kyanjin Ri or nearby ridge viewpoints."},
+    {"day": 7, "title": "Trek to Lama Hotel", "description": "Long descent through valley and forest."},
+    {"day": 8, "title": "Trek to Syabrubesi", "description": "Final trekking day back to roadhead."},
+    {"day": 9, "title": "Drive to Kathmandu", "description": "Return drive with evening free time."},
+    {"day": 10, "title": "Final Departure", "description": "Transfer to airport."}
+  ]
+}
