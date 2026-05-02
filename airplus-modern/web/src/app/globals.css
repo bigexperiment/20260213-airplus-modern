@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f4f8fd;
+  --background: #f3f7fc;
   --foreground: #14213a;
   --muted: #eef4fb;
   --muted-foreground: #61708a;
-  --primary: #1559c6;
+  --primary: #0f57c5;
   --primary-foreground: #ffffff;
-  --accent: #f48120;
+  --accent: #ff8a1f;
   --accent-foreground: #ffffff;
   --border: #d8e2f0;
   --field-bg: #ffffff;
@@ -41,6 +41,13 @@ body {
   color: var(--foreground);
   font-family: "Avenir Next", "Segoe UI", sans-serif;
   background-image: linear-gradient(180deg, #f9fbff 0%, #f4f8fd 100%);
+}
+
+h1,
+h2,
+h3,
+.display-face {
+  font-family: "Avenir Next Condensed", "Avenir Next", "Segoe UI", sans-serif;
 }
 
 .bg-noise {
@@ -141,4 +148,24 @@ select.field option {
 
 .simple-link:hover {
   color: var(--foreground);
+}
+
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  color: var(--foreground);
+  font-size: clamp(2rem, 3.6vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.section-kicker::before,
+.section-kicker::after {
+  content: "";
+  width: 2.5rem;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 999px;
 }

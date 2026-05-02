@@ -91,21 +91,21 @@ export default function PlanForm() {
   return (
     <form onSubmit={onSubmit} className="panel rounded-[1.5rem] p-5 md:p-6 space-y-4">
       <div className="grid md:grid-cols-2 gap-3">
-        <input required placeholder="Name" value={name} onChange={(e)=>setName(e.target.value)} className="field" />
-        <input required type="email" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)} className="field" />
+        <input required placeholder="Your name" value={name} onChange={(e)=>setName(e.target.value)} className="field" />
+        <input required type="email" placeholder="Your email" value={email} onChange={(e)=>setEmail(e.target.value)} className="field" />
         <select required value={country} onChange={(e)=>setCountry(e.target.value)} className="field">
-          <option value="" disabled>Country</option>
+          <option value="" disabled>Your country</option>
           {countries.map((c)=> (<option key={c.value} value={c.value}>{c.label}</option>))}
         </select>
         <select value={trek} onChange={(e)=>setTrek(e.target.value)} className="field">
-          <option value="">Preferred trek/tour (optional)</option>
+          <option value="">Trek or tour you&apos;re considering (optional)</option>
           {options.map((o)=> (<option key={o.value} value={o.value}>{o.label}</option>))}
         </select>
-        <input placeholder="Dates (e.g., Oct 10–24)" value={dates} onChange={(e)=>setDates(e.target.value)} className="field md:col-span-2" />
+        <input placeholder="Travel dates or month (for example, Oct 10-24)" value={dates} onChange={(e)=>setDates(e.target.value)} className="field md:col-span-2" />
       </div>
-      <textarea placeholder="Message" value={message} onChange={(e)=>setMessage(e.target.value)} className="field min-h-[120px]" />
+      <textarea placeholder="Tell us what kind of trip you have in mind, how many people are coming, and anything you are unsure about." value={message} onChange={(e)=>setMessage(e.target.value)} className="field min-h-[120px]" />
       <div className="flex flex-wrap items-center gap-3">
-        <button className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition hover:opacity-90" type="submit">Send Request</button>
+        <button className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition hover:opacity-90" type="submit">Send My Trip Inquiry</button>
         <span className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Replies within 24 hours</span>
         {status && <span className="text-sm text-muted-foreground">{status}</span>}
       </div>

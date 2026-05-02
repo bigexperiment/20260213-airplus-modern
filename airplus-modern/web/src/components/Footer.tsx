@@ -15,7 +15,7 @@ export default function Footer() {
         <div className="space-y-4">
           <BrandLogo />
           <p className="max-w-xs text-sm leading-7 text-white/78">
-            Airplusnepal Treks & Expedition Pvt. Ltd. is your trusted travel partner in Nepal. We create memories that last a lifetime.
+            We help travelers explore Nepal with clear local advice, practical planning, and trips that still feel personal once they begin.
           </p>
         </div>
         <div>
@@ -47,6 +47,22 @@ export default function Footer() {
             <div>{office?.phones?.[1]}</div>
             <div>{office?.email}</div>
             <div>www.airplusnepal.com</div>
+          </div>
+        </div>
+        <div>
+          <div className="mb-4 text-sm font-semibold">Newsletter</div>
+          <p className="text-sm leading-7 text-white/78">
+            Get simple travel tips, seasonal ideas, and useful updates from our team in Nepal.
+          </p>
+          <div className="mt-4 space-y-3">
+            <input
+              type="email"
+              placeholder="Your email address"
+              className="w-full rounded-lg border border-white/15 bg-white px-4 py-3 text-sm text-slate-900 outline-none"
+            />
+            <button className="w-full rounded-lg bg-accent px-4 py-3 text-sm font-semibold text-accent-foreground">
+              Subscribe
+            </button>
           </div>
         </div>
       </div>

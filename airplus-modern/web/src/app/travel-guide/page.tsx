@@ -112,7 +112,7 @@ export default function TravelGuidePage() {
       <div className="max-w-4xl">
         <h1 className="text-3xl font-semibold tracking-[-0.04em] md:text-5xl">Nepal travel guide</h1>
         <p className="mt-3 text-muted-foreground leading-7">
-          Practical planning notes for trekking in Nepal, cultural touring, permits, season choice, and realistic cost expectations for 2024/2025.
+          This page is for the questions most travelers ask before they feel ready to book: when to come, what permits they may need, how much to budget, what to pack, and how to avoid common first-trip mistakes.
         </p>
       </div>
 
@@ -143,7 +143,7 @@ export default function TravelGuidePage() {
       <section id="permits" className="panel scroll-mt-24 rounded-[1.75rem] p-5 md:p-7">
         <h2 className="text-2xl font-semibold tracking-[-0.03em]">Permits and entry basics (2024/2025)</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          Permit fees can be updated by authorities. Treat these as planning numbers and reconfirm before departure.
+          Permit rules and fees can change, so think of these as planning numbers first and final confirmation points later.
         </p>
         <div className="mt-4 overflow-x-auto rounded-2xl border border-[color:var(--border)]">
           <table className="w-full min-w-[920px] text-left text-sm">
@@ -171,7 +171,7 @@ export default function TravelGuidePage() {
         <article id="budget" className="panel scroll-mt-24 rounded-[1.75rem] p-5 md:p-7">
           <h2 className="text-2xl font-semibold tracking-[-0.03em]">Budget planner</h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Final trip cost depends on guide style, hotel class, flight choices, and how much buffer you keep for weather delays.
+            Your final cost depends on route, comfort level, guide style, hotels, transport choices, and how much flexibility you want to leave in the plan.
           </p>
           <div className="mt-4 space-y-3">
             {budgetRows.map((row) => (
@@ -187,7 +187,7 @@ export default function TravelGuidePage() {
         <article id="packing" className="panel scroll-mt-24 rounded-[1.75rem] p-5 md:p-7">
           <h2 className="text-2xl font-semibold tracking-[-0.03em]">Packing essentials</h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Keep your bag practical and light. Most people overpack clothing and underpack weather and foot-care basics.
+            Keep your bag simple and useful. Most travelers are happier when they pack fewer extra clothes and pay more attention to layers, feet, water, and small comfort items.
           </p>
           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
             {packingItems.map((item) => (
@@ -195,15 +195,15 @@ export default function TravelGuidePage() {
             ))}
           </ul>
           <div className="mt-5 rounded-2xl border border-[color:var(--border)] bg-[rgba(246,244,239,0.72)] p-4 text-sm text-muted-foreground">
-            Pro tip: If you are doing multiple activities, pack in modules so you can leave unnecessary gear at your hotel.
+            Good trick: if your trip includes both cities and trekking, pack in small groups so you can leave what you do not need at the hotel.
           </div>
         </article>
       </section>
 
       <section id="activities" className="panel scroll-mt-24 rounded-[1.75rem] p-5 md:p-7">
-        <h2 className="text-2xl font-semibold tracking-[-0.03em]">Popular activity planning links</h2>
+        <h2 className="text-2xl font-semibold tracking-[-0.03em]">Helpful activity shortcuts</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          We prepared detailed planning notes for major tours and adventure add-ons on the tours page.
+          If you already know what kind of extra experience you want, these links take you straight to the most useful planning notes.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
           {[
@@ -222,7 +222,7 @@ export default function TravelGuidePage() {
       </section>
 
       <section id="sources" className="panel scroll-mt-24 rounded-[1.75rem] p-5 md:p-7">
-        <h2 className="text-2xl font-semibold tracking-[-0.03em]">Research sources</h2>
+        <h2 className="text-2xl font-semibold tracking-[-0.03em]">Useful official references</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
           {sourceLinks.map((source) => (
             <li key={source.href}>
@@ -235,14 +235,14 @@ export default function TravelGuidePage() {
       </section>
 
       <section id="faq" className="scroll-mt-24">
-        <h2 className="mb-4 text-2xl font-semibold tracking-[-0.03em]">FAQ</h2>
+        <h2 className="mb-4 text-2xl font-semibold tracking-[-0.03em]">Common questions</h2>
         <FAQ />
       </section>
 
       <section className="panel rounded-[1.75rem] p-6 md:p-8">
-        <h2 className="text-2xl font-semibold tracking-[-0.03em]">Want a custom trip plan?</h2>
+        <h2 className="text-2xl font-semibold tracking-[-0.03em]">Want help turning this into a real itinerary?</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          Share your dates and budget style, and we can combine treks, tours, and activities into one practical route.
+          Send us your dates, budget style, and the kind of experience you want, and we can help shape it into something realistic and enjoyable.
         </p>
         <Link href="/contact" className="mt-4 inline-flex rounded-full bg-primary px-5 py-2.5 font-medium text-primary-foreground">
           Plan my trip

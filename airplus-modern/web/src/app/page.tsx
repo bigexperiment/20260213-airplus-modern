@@ -2,7 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CirclePlay, Clock3, MessageSquareQuote, ShieldCheck, Trophy, UserRoundCheck, UsersRound } from "lucide-react";
+import { ArrowRight, CalendarDays, CirclePlay, Clock3, Heart, MapPin, ShieldCheck, Star, Trophy, UserRoundCheck, UsersRound } from "lucide-react";
 import { popularTrekSlugs } from "@/content/trekGuides";
 
 async function readJson<T>(relative: string): Promise<T> {
@@ -78,10 +78,9 @@ export default async function Home() {
   };
 
   const blogPosts = [
-    { title: "Best Time to Trek in Nepal", date: "May 10, 2024", image: "/information/assets/gallery_1.jpg", href: "/travel-guide#seasons" },
-    { title: "Packing List for Nepal Trekking", date: "April 25, 2024", image: "/information/assets/gallery_2.jpg", href: "/travel-guide#packing" },
-    { title: "Top 10 Places to Visit in Nepal", date: "April 10, 2024", image: "/information/assets/gallery_7.jpg", href: "/tours" },
-    { title: "Nepal Travel Guide for Beginners", date: "March 29, 2024", image: "/information/assets/gallery_8.jpg", href: "/travel-guide" },
+    { title: "First time trekking in Nepal? Start with these 10 useful tips", date: "May 10, 2024", image: "/information/assets/gallery_1.jpg", href: "/travel-guide#seasons", category: "Trekking Tips" },
+    { title: "When is the best time to visit Nepal for your kind of trip?", date: "Apr 25, 2024", image: "/information/assets/gallery_2.jpg", href: "/travel-guide#packing", category: "Travel Guide" },
+    { title: "7 cultural experiences that make a Nepal trip feel more personal", date: "Apr 10, 2024", image: "/information/assets/gallery_7.jpg", href: "/tours", category: "Culture" },
   ];
 
   return (
@@ -93,23 +92,28 @@ export default async function Home() {
         </div>
         <div className="container-px relative z-10 py-16 md:py-24">
           <div className="max-w-3xl py-10 md:py-16">
-            <h1 className="max-w-2xl text-5xl font-semibold leading-[0.96] tracking-[-0.05em] text-white md:text-7xl">
-              Explore Nepal. Experience the Himalayas.
+            <div className="mb-4 text-white">
+              <svg width="86" height="42" viewBox="0 0 86 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 30L18 12L28 22L38 8L56 26" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M54 11L61 6L60 13" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+            <h1 className="display-face max-w-3xl text-5xl font-black uppercase leading-[0.9] tracking-[-0.06em] text-white md:text-8xl">
+              Explore Nepal.
+              <span className="block text-accent">Live The Adventure.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-8 text-white/88">
-              Airplusnepal is your trusted partner for unforgettable trekking, tours and adventure experiences in Nepal.
+              We help you see Nepal in a way that feels clear, welcoming, and worth the journey, whether you want a famous Himalayan trek, a shorter holiday, or a mix of both.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link href="#popular-treks" className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-lg">
                 Explore Treks
                 <ArrowRight className="size-4" />
               </Link>
-              <button type="button" className="inline-flex items-center gap-3 text-sm font-medium text-white">
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-primary shadow-lg">
-                  <CirclePlay className="size-5" />
-                </span>
-                Watch Video
-              </button>
+              <Link href="/contact" className="inline-flex items-center gap-2 rounded-lg border border-white/36 px-6 py-3 text-sm font-semibold text-white">
+                Plan Your Trip
+                <CirclePlay className="size-4" />
+              </Link>
             </div>
           </div>
         </div>
@@ -117,11 +121,11 @@ export default async function Home() {
 
       <section className="container-px relative z-20 -mt-10 md:-mt-12">
         <div className="grid gap-px overflow-hidden rounded-[1.25rem] border border-[color:var(--border)] bg-white shadow-[0_18px_45px_rgba(18,43,86,0.12)] md:grid-cols-4">
-          {[
-            { title: "Local Experts", text: "Team of experienced and licensed local guides.", Icon: UsersRound },
-            { title: "Safety First", text: "Your safety and comfort are our top priorities.", Icon: ShieldCheck },
-            { title: "Best Price Guarantee", text: "Competitive prices with no hidden charges.", Icon: Trophy },
-            { title: "24/7 Support", text: "We are here to assist you anytime, anywhere.", Icon: UserRoundCheck },
+            {[
+            { title: "Local Experts", text: "You are planning with people who know the trails, transport, weather shifts, and small details that make a trip smoother.", Icon: UsersRound },
+            { title: "Safety First", text: "We keep the plan realistic, talk honestly about altitude and pace, and make sure you feel looked after on the road and on the trail.", Icon: ShieldCheck },
+            { title: "Best Price Guarantee", text: "Our quotes stay simple and easy to understand, so you know what matters and what you can skip.", Icon: Trophy },
+            { title: "24/7 Support", text: "If plans change, flights move, or you just need help, there is a real team here to respond.", Icon: UserRoundCheck },
           ].map(({ title, text, Icon }) => (
             <div key={title} className="bg-white p-6">
               <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#edf4ff] text-primary">
@@ -135,11 +139,14 @@ export default async function Home() {
       </section>
 
       <section id="popular-treks" className="container-px py-16 md:py-20">
-        <div className="text-center">
-          <h2 className="text-4xl font-semibold tracking-[-0.04em]">Popular Treks</h2>
-          <p className="mt-3 text-sm text-muted-foreground">Explore our handpicked trekking packages in Nepal.</p>
+        <div className="flex items-center justify-center">
+          <h2 className="section-kicker">Popular Treks</h2>
         </div>
-        <div className="mt-10 grid gap-6 xl:grid-cols-4 md:grid-cols-2">
+        <div className="mt-3 text-center text-sm text-muted-foreground">These are some of the routes travelers ask us about most, especially when they want a classic Nepal experience without overcomplicating the planning.</div>
+        <div className="mt-2 text-right">
+          <Link href="/treks" className="text-sm font-semibold text-primary hover:underline">View All Treks</Link>
+        </div>
+        <div className="mt-8 grid gap-6 xl:grid-cols-4 md:grid-cols-2">
           {featuredTreks.map((trek, index) => (
             <article key={trek.slug} className="overflow-hidden rounded-[1.25rem] border border-[color:var(--border)] bg-white shadow-[0_12px_34px_rgba(18,43,86,0.08)]">
               <div className="relative h-64">
@@ -153,17 +160,21 @@ export default async function Home() {
                 <div className="absolute left-3 top-3 rounded-md bg-primary px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-white">
                   {trekBadge(index)}
                 </div>
+                <button type="button" className="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-primary">
+                  <Heart className="size-4" />
+                </button>
               </div>
               <div className="p-5">
                 <h3 className="text-2xl font-semibold tracking-[-0.03em]">{trek.title}</h3>
                 <div className="mt-3 flex flex-wrap gap-4 text-sm text-muted-foreground">
                   <span className="inline-flex items-center gap-1"><Clock3 className="size-4" /> {trek.duration}</span>
                   <span>{trek.difficulty || "Moderate"}</span>
+                  {trek.maxElevation && <span><MapPin className="mr-1 inline size-4" /> {trek.maxElevation}</span>}
                 </div>
                 <div className="mt-5 flex items-center justify-between gap-3">
                   <div>
-                    <div className="text-xs uppercase tracking-[0.12em] text-muted-foreground">From USD</div>
-                    <div className="text-3xl font-semibold text-primary">{trekPrice(trek.slug)}</div>
+                  <div className="text-xs uppercase tracking-[0.12em] text-muted-foreground">From USD</div>
+                  <div className="text-3xl font-semibold text-primary">{trekPrice(trek.slug)}</div>
                   </div>
                   <Link href={`/treks/${trek.slug}`} className="text-sm font-medium text-primary hover:underline">
                     View Details
@@ -172,11 +183,6 @@ export default async function Home() {
               </div>
             </article>
           ))}
-        </div>
-        <div className="mt-10 text-center">
-          <Link href="/treks" className="inline-flex rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground">
-            View All Treks
-          </Link>
         </div>
       </section>
 
@@ -190,16 +196,23 @@ export default async function Home() {
             </div>
           </div>
           <div className="rounded-[1.25rem] border border-[color:var(--border)] bg-white p-7 shadow-[0_12px_34px_rgba(18,43,86,0.08)] md:p-10">
-            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">About Airplusnepal</div>
-            <h2 className="mt-4 text-4xl font-semibold tracking-[-0.04em]">Your Journey, Our Passion</h2>
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">About Us</div>
+            <h2 className="mt-4 display-face text-5xl font-black uppercase tracking-[-0.05em]">About Airplusnepal</h2>
             <p className="mt-5 text-sm leading-7 text-muted-foreground">
-              Airplusnepal Treks & Expedition Pvt. Ltd. is a government registered company based in Kathmandu, Nepal. We are a team of passionate travel enthusiasts dedicated to providing exceptional trekking, tour and adventure experiences in the Himalayas.
+              Airplusnepal is a local team based in Kathmandu. We work with travelers who want honest advice, steady planning, and a trip that still feels personal once they arrive, not something rushed, confusing, or overly packaged.
             </p>
-            <div className="mt-6 space-y-3 text-sm text-muted-foreground">
-              <div className="inline-flex items-center gap-2"><ShieldCheck className="size-4 text-primary" /> Government Registered & Licensed Company</div>
-              <div className="inline-flex items-center gap-2"><ShieldCheck className="size-4 text-primary" /> Experienced, Friendly & Professional Team</div>
-              <div className="inline-flex items-center gap-2"><ShieldCheck className="size-4 text-primary" /> Sustainable & Responsible Tourism</div>
-              <div className="inline-flex items-center gap-2"><ShieldCheck className="size-4 text-primary" /> Thousands of Happy Travelers</div>
+            <div className="mt-8 grid gap-5 sm:grid-cols-4">
+              {[
+                ["15+", "Years of Experience"],
+                ["1,000+", "Happy Travelers"],
+                ["50+", "Destinations"],
+                ["98%", "Positive Reviews"],
+              ].map(([value, label]) => (
+                <div key={label}>
+                  <div className="text-3xl font-semibold text-primary">{value}</div>
+                  <div className="mt-1 text-sm text-muted-foreground">{label}</div>
+                </div>
+              ))}
             </div>
             <Link href="/director" className="mt-8 inline-flex rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">
               Learn More About Us
@@ -209,45 +222,64 @@ export default async function Home() {
       </section>
 
       <section className="container-px py-16">
-        <div className="text-center">
-          <h2 className="text-4xl font-semibold tracking-[-0.04em]">What Our Travelers Say</h2>
-          <p className="mt-3 text-sm text-muted-foreground">Real experiences from our happy clients.</p>
+        <div className="flex items-center justify-center">
+          <h2 className="section-kicker">What Our Travelers Say</h2>
         </div>
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        <div className="mt-3 text-center text-sm text-muted-foreground">A few notes from travelers who wanted their Nepal trip to feel exciting, but also well supported from start to finish.</div>
+        <div className="mt-4 text-right">
+          <Link href="/contact" className="text-sm font-semibold text-primary hover:underline">View All Reviews</Link>
+        </div>
+        <div className="mt-8 grid gap-6 lg:grid-cols-3">
           {home.testimonials.slice(0, 3).map((item, index) => (
             <div key={item.name + index} className="rounded-[1.25rem] border border-[color:var(--border)] bg-white p-6 shadow-[0_12px_30px_rgba(18,43,86,0.06)]">
-              <MessageSquareQuote className="size-8 text-primary" />
+              <div className="flex items-center gap-3">
+                <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#edf4ff] text-lg font-semibold text-primary">
+                  {item.name.split(" ").map((part) => part[0]).join("").slice(0, 2)}
+                </div>
+                <div>
+                  <div className="text-sm font-semibold">{item.name}</div>
+                  <div className="text-xs uppercase tracking-[0.12em] text-muted-foreground">{["France", "Australia", "USA"][index] || "Traveler"}</div>
+                </div>
+              </div>
+              <div className="mt-4 flex gap-1 text-accent">
+                {Array.from({ length: 5 }).map((_, starIndex) => (
+                  <Star key={starIndex} className="size-4 fill-current" />
+                ))}
+              </div>
               <p className="mt-4 text-sm leading-7 text-muted-foreground">“{item.text}”</p>
-              <div className="mt-5 text-sm font-semibold">{item.name}</div>
-              <div className="text-xs uppercase tracking-[0.12em] text-muted-foreground">{["USA", "UK", "Spain"][index] || "Traveler"}</div>
             </div>
           ))}
         </div>
       </section>
 
       <section className="container-px py-8 md:py-12">
-        <div className="text-center">
-          <h2 className="text-4xl font-semibold tracking-[-0.04em]">Latest from Our Blog</h2>
-          <p className="mt-3 text-sm text-muted-foreground">Tips, guides and inspiration for your next adventure.</p>
+        <div className="flex items-center justify-center">
+          <h2 className="section-kicker">Travel Blog & News</h2>
         </div>
-        <div className="mt-10 grid gap-6 xl:grid-cols-4 md:grid-cols-2">
+        <div className="mt-4 text-right">
+          <Link href="/travel-guide" className="text-sm font-semibold text-primary hover:underline">View All Posts</Link>
+        </div>
+        <div className="mt-8 grid gap-6 xl:grid-cols-3">
           {blogPosts.map((post) => (
             <article key={post.title} className="overflow-hidden rounded-[1.1rem] border border-[color:var(--border)] bg-white shadow-[0_10px_24px_rgba(18,43,86,0.06)]">
-              <Image src={post.image} alt={post.title} width={720} height={480} className="h-52 w-full object-cover" />
+              <div className="relative">
+                <Image src={post.image} alt={post.title} width={720} height={480} className="h-56 w-full object-cover" />
+                <div className="absolute left-4 top-4 rounded-md bg-accent px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-accent-foreground">
+                  {post.category}
+                </div>
+              </div>
               <div className="p-5">
-                <div className="text-xs text-muted-foreground">{post.date}</div>
+                <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
+                  <span className="inline-flex items-center gap-1"><CalendarDays className="size-3.5" /> {post.date}</span>
+                  <span>By Airplusnepal</span>
+                </div>
                 <h3 className="mt-3 text-2xl font-semibold tracking-[-0.03em]">{post.title}</h3>
                 <Link href={post.href} className="mt-5 inline-flex text-sm font-medium text-primary hover:underline">
-                  Read More
+                  Read Article
                 </Link>
               </div>
             </article>
           ))}
-        </div>
-        <div className="mt-10 text-center">
-          <Link href="/travel-guide" className="inline-flex rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground">
-            View All Articles
-          </Link>
         </div>
       </section>
     </div>

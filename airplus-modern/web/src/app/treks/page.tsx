@@ -55,9 +55,9 @@ export default async function TreksPage() {
   };
   return (
     <div className="section container-px">
-      <h1 className="text-3xl md:text-5xl font-semibold tracking-[-0.04em]">All treks</h1>
+      <h1 className="text-3xl md:text-5xl font-semibold tracking-[-0.04em]">Treks in Nepal</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground leading-7">
-        A simple list of the main routes we feature, from shorter tea-house treks to longer mountain circuits.
+        Browse the main trekking routes we feature, from shorter teahouse walks to longer high-mountain journeys. If you are still comparing options, this is a good place to get a feel for what suits your time and energy best.
       </p>
       <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {treks.map((t) => {

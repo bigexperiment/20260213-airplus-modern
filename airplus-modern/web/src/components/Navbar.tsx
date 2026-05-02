@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { ChevronDown, Mail, Menu, Phone, X } from "lucide-react";
+import { ChevronDown, Facebook, Instagram, Mail, Menu, Phone, Twitter, MapPin, X, Youtube } from "lucide-react";
 import BrandLogo from "@/components/BrandLogo";
 
 function basePath(href: string): string {
@@ -37,9 +37,14 @@ export default function Navbar() {
           <div className="inline-flex items-center gap-5">
             <span className="inline-flex items-center gap-1.5"><Mail className="size-3.5" /> info@airplusnepal.com</span>
             <span className="inline-flex items-center gap-1.5"><Phone className="size-3.5" /> +977 985-1234567</span>
+            <span className="hidden items-center gap-1.5 md:inline-flex"><MapPin className="size-3.5" /> Thamel, Kathmandu, Nepal</span>
           </div>
           <div className="hidden md:flex items-center gap-4">
-            <span>USD</span>
+            <span>EN</span>
+            <Facebook className="size-3.5" />
+            <Instagram className="size-3.5" />
+            <Youtube className="size-3.5" />
+            <Twitter className="size-3.5" />
           </div>
         </div>
       </div>
@@ -58,10 +63,10 @@ export default function Navbar() {
                   key={item.label}
                   href={item.href}
                   className={`inline-flex items-center gap-1 rounded-lg px-4 py-2 text-sm font-medium transition ${
-                    active ? "text-primary" : "text-foreground hover:text-primary"
-                  }`}
-                >
-                  {item.label}
+                  active ? "text-primary border-b-2 border-accent rounded-none" : "text-foreground hover:text-primary"
+                }`}
+              >
+                {item.label}
                   {item.hasMenu && <ChevronDown className="size-3.5" />}
                 </Link>
               );
@@ -69,9 +74,9 @@ export default function Navbar() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <Link href="/contact" className="hidden rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground md:inline-flex">
-              Enquiry Now
-            </Link>
+          <Link href="/contact" className="hidden rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground md:inline-flex">
+            Enquiry Now
+          </Link>
             <button
               type="button"
               className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[color:var(--border)] bg-white lg:hidden"
@@ -91,18 +96,18 @@ export default function Navbar() {
                   key={item.label}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block rounded-lg px-3 py-2 text-sm hover:bg-muted"
-                >
-                  {item.label}
-                </Link>
-              ))}
-              <Link
-                href="/contact"
-                onClick={() => setMobileOpen(false)}
-                className="mt-2 inline-flex w-full items-center justify-center rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground"
+                className="block rounded-lg px-3 py-2 text-sm hover:bg-muted"
               >
-                Enquiry Now
+                {item.label}
               </Link>
+            ))}
+            <Link
+              href="/contact"
+              onClick={() => setMobileOpen(false)}
+              className="mt-2 inline-flex w-full items-center justify-center rounded-lg bg-accent px-4 py-3 text-sm font-semibold text-accent-foreground"
+            >
+              Enquiry Now
+            </Link>
             </div>
           </div>
         )}

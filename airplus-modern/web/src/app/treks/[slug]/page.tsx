@@ -25,6 +25,19 @@ type Trek = {
   itinerary: ItineraryItem[];
 };
 
+function friendlySectionHeading(heading: string): string {
+  if (heading.startsWith("What's the")) return "Why people choose this trek";
+  if (heading === "The Route - Day by Day") return "How the route usually flows";
+  if (heading === "How Hard Is It?") return "How challenging it feels";
+  if (heading === "Best Time to Go") return "When this trek feels best";
+  if (heading === "How Much Does It Cost?") return "What to budget";
+  if (heading === "What to Pack") return "What to bring";
+  if (heading === "Teahouses, Food & the Vibe") return "What the trail experience is like";
+  if (heading === "Permits & Getting There") return "Permits and getting to the trail";
+  if (heading === "Tips from People Who've Done It") return "Helpful tips before you go";
+  return heading;
+}
+
 async function getTrek(slug: string): Promise<Trek | null> {
   const file = path.join(process.cwd(), "public/information/treks", `${slug}.json`);
   try {
@@ -108,7 +121,7 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
         <div className="overflow-hidden rounded-[2rem] border border-[color:var(--border)] bg-white shadow-sm">
           <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
             <div className="p-6 md:p-8 lg:p-10">
-              <div className="eyebrow">Trek detail</div>
+              <div className="eyebrow">Trek in Nepal</div>
               <h1 className="mt-4 text-3xl font-semibold tracking-[-0.04em] md:text-5xl">{trek.title}</h1>
               <p className="mt-3 text-sm leading-7 text-muted-foreground md:text-base">
                 {trek.region} • {trek.duration}
@@ -146,7 +159,7 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
           )}
 
           <section>
-            <h2 className="mb-3 text-2xl font-semibold tracking-[-0.03em]">Itinerary</h2>
+            <h2 className="mb-3 text-2xl font-semibold tracking-[-0.03em]">Day-by-day outline</h2>
             <ol className="space-y-3">
               {trek.itinerary.map((d) => (
                 <li key={d.day} className="panel rounded-xl p-4">
@@ -167,8 +180,10 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
           {guide && (
             <section className="space-y-5">
               <div className="panel rounded-[1.5rem] p-6">
-                <h2 className="text-2xl font-semibold tracking-[-0.03em]">Complete trek guide</h2>
-                <p className="mt-2 text-sm text-muted-foreground">{guide.introNote}</p>
+                <h2 className="text-2xl font-semibold tracking-[-0.03em]">Before you choose this trek</h2>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Here are the practical details travelers usually want first, including how difficult the route feels, when to go, what to budget, and what the trail experience is actually like.
+                </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {guide.quickKeywords.map((kw) => (
                     <span key={kw} className="rounded-full border border-[color:var(--border)] bg-muted px-3 py-1 text-xs">
@@ -180,7 +195,7 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
 
               {plannerCards.length > 0 && (
                 <section className="space-y-3">
-                  <h3 className="text-xl font-semibold tracking-[-0.03em]">Quick planner</h3>
+                  <h3 className="text-xl font-semibold tracking-[-0.03em]">Quick planning notes</h3>
                   <div className="grid gap-3 md:grid-cols-2">
                     {plannerCards.map((card) => (
                       <article key={card.title} className="panel rounded-[1.5rem] p-5">
@@ -213,7 +228,7 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
                   <article className="panel rounded-[1.5rem] p-5">
                     <div className="inline-flex items-center gap-2 text-primary">
                       <Utensils className="size-4" />
-                      <h3 className="text-lg font-semibold">{vibeSection.heading}</h3>
+                      <h3 className="text-lg font-semibold">{friendlySectionHeading(vibeSection.heading)}</h3>
                     </div>
                     <div className="mt-3 space-y-2">
                       {vibeSection.paragraphs.map((paragraph) => (
@@ -228,7 +243,7 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
                   <article className="panel rounded-[1.5rem] p-5">
                     <div className="inline-flex items-center gap-2 text-primary">
                       <Lightbulb className="size-4" />
-                      <h3 className="text-lg font-semibold">{tipsSection.heading}</h3>
+                      <h3 className="text-lg font-semibold">{friendlySectionHeading(tipsSection.heading)}</h3>
                     </div>
                     {tipsSection.paragraphs.length > 0 && (
                       <p className="mt-3 text-sm leading-7 text-muted-foreground">{tipsSection.paragraphs[0]}</p>
@@ -245,7 +260,7 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
               </section>
 
               <article className="panel rounded-[1.5rem] p-5 md:p-6">
-                <h3 className="text-xl font-semibold tracking-[-0.03em]">Research sources</h3>
+                <h3 className="text-xl font-semibold tracking-[-0.03em]">Useful references</h3>
                 <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
                   {guide.sources.map((source) => (
                     <li key={source.url}>
@@ -294,7 +309,7 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
 
           {trek.highlights && trek.highlights.length > 0 && (
             <div className="panel rounded-[1.5rem] p-5">
-              <div className="mb-2 font-medium">Highlights</div>
+              <div className="mb-2 font-medium">Why travelers like it</div>
               <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
                 {trek.highlights.map((h) => (
                   <li key={h}>{h}</li>
@@ -304,12 +319,12 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
           )}
 
           <div className="panel rounded-[1.5rem] p-5">
-            <div className="font-medium">Ready to trek?</div>
+            <div className="font-medium">Thinking about this trek?</div>
             <p className="mt-1 text-sm text-muted-foreground">
-              Contact us to customize your itinerary, dates, and budget style.
+              If you are comparing a few routes, we can help you figure out what fits your dates, budget, and comfort level before you commit.
             </p>
             <Link href="/contact" className="mt-4 inline-flex rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground">
-              Plan this trip
+              Ask about this trek
             </Link>
           </div>
         </aside>

@@ -10,7 +10,7 @@ export default function BrandLogo({
   className = "",
 }: BrandLogoProps) {
   const markSize = small ? 36 : 44;
-  const textSize = small ? "text-base" : "text-lg md:text-xl";
+  const textSize = small ? "text-base md:text-[2rem]" : "text-[2rem]";
 
   return (
     <span className={`inline-flex items-center gap-3 ${className}`.trim()}>
@@ -28,9 +28,11 @@ export default function BrandLogo({
       </span>
       {showWordmark && (
         <span className="flex flex-col leading-none">
-          <span className={`font-semibold tracking-[-0.02em] text-foreground ${textSize}`}>AirPlus Nepal</span>
+          <span className={`display-face font-bold tracking-[-0.05em] text-foreground ${textSize}`}>
+            Airplus<span className="text-accent">nepal</span>
+          </span>
           <span className="mt-1 text-[11px] font-medium tracking-[0.06em] text-muted-foreground">
-            Treks & Expedition Pvt. Ltd.
+            Trekking & Adventure
           </span>
         </span>
       )}

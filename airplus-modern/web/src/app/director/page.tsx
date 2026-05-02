@@ -28,7 +28,10 @@ export default async function DirectorPage() {
         </div>
       </div>
       <div className="md:col-span-2 space-y-4">
-        <h1 className="text-3xl md:text-5xl font-semibold tracking-[-0.04em]">A note from the director</h1>
+        <h1 className="text-3xl md:text-5xl font-semibold tracking-[-0.04em]">A note from our director</h1>
+        <p className="max-w-2xl text-sm leading-7 text-muted-foreground">
+          Behind every smooth trip is a lot of quiet work: route advice, weather calls, transport changes, and honest conversations about what will actually feel right for each traveler. This is a short introduction to the person guiding that work at Airplusnepal.
+        </p>
         {(director.message || []).map((p, i) => (
           <p key={i} className="text-lg leading-8 text-muted-foreground">{p}</p>
         ))}
@@ -37,4 +40,3 @@ export default async function DirectorPage() {
     </div>
   );
 }
-

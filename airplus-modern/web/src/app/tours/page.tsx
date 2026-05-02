@@ -15,12 +15,12 @@ export default function ToursPage() {
       <div className="max-w-4xl">
         <h1 className="text-3xl font-semibold tracking-[-0.04em] md:text-5xl">Nepal tours and activities</h1>
         <p className="mt-3 text-muted-foreground leading-7">
-          Practical tour and activity guides with timing notes, cost context, and planning tips in one place.
+          Not every Nepal trip needs to revolve around a long trek. These tours and activities are here for travelers who want more variety, a gentler pace, or a few meaningful days before or after heading into the mountains.
         </p>
       </div>
 
       <section className="panel rounded-[1.5rem] p-5 md:p-7">
-        <h2 className="text-xl font-semibold tracking-[-0.03em]">Quick menu</h2>
+        <h2 className="text-xl font-semibold tracking-[-0.03em]">Start here</h2>
         <div className="mt-3 grid gap-3 md:grid-cols-2">
           <div>
             <div className="text-sm font-medium text-foreground/90">Popular tours</div>
@@ -112,7 +112,7 @@ export default function ToursPage() {
       </section>
 
       <section className="space-y-6">
-        <h2 className="text-2xl font-semibold tracking-[-0.03em] md:text-3xl">Top adventure activities</h2>
+        <h2 className="text-2xl font-semibold tracking-[-0.03em] md:text-3xl">Adventure activities worth adding</h2>
         <div className="grid gap-6 xl:grid-cols-2">
           {activityGuides.map((activity) => (
             <article id={activity.id} key={activity.id} className="panel overflow-hidden rounded-[1.75rem] scroll-mt-24">
@@ -171,9 +171,9 @@ export default function ToursPage() {
       </section>
 
       <section className="panel rounded-[1.75rem] p-6 md:p-8">
-        <h2 className="text-2xl font-semibold tracking-[-0.03em]">Need a custom route?</h2>
+        <h2 className="text-2xl font-semibold tracking-[-0.03em]">Want help putting it together?</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          Tell us your number of days, comfort level, and interests. We can combine treks, cultural tours, and activities into one realistic plan.
+          Tell us how many days you have, what kind of pace you enjoy, and whether you want your trip to lean more toward mountains, culture, wildlife, or rest. We can help you combine it into one plan that actually feels comfortable to travel.
         </p>
         <Link href="/contact" className="mt-4 inline-flex rounded-full bg-primary px-5 py-2.5 font-medium text-primary-foreground">
           Plan my Nepal trip

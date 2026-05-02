@@ -1,7 +1,7 @@
 {
   "hero": {
-    "title": "Simple, well-planned trips across Nepal",
-    "subtitle": "Treks, tours, and practical local support for travelers who want clear routes, fair pricing, and a smoother trip",
+    "title": "Trips across Nepal that feel personal and easy to plan",
+    "subtitle": "Treks, tours, and local support for travelers who want honest advice, a steady plan, and a trip they can genuinely enjoy",
     "image": "/information/assets/hero_main.png"
   },
   "trekkingPackages": [
@@ -23,8 +23,8 @@
     { "name": "Adventure Sports", "icon": "Map" }
   ],
   "testimonials": [
-    { "name": "Ethan Carter", "text": "AirPlusNepal turned my Nepal dreams into an unforgettable reality. Absolutely stellar service!" },
-    { "name": "Abigail Johnson", "text": "From the majestic Himalayas to the cultural richness of Kathmandu, every moment was perfect." }
+    { "name": "Ethan Carter", "text": "From the first email to the last day of the trek, everything felt clear and thoughtfully handled. We never felt pushed, and that made the whole trip better." },
+    { "name": "Abigail Johnson", "text": "The team helped us choose a route that really matched our pace. It felt organized, warm, and much more personal than a standard package tour." }
   ],
   "gallery": {
     "images": [
