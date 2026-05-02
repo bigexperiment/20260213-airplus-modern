@@ -19,22 +19,22 @@ export default async function DirectorPage() {
   return (
     <div className="container-px section grid md:grid-cols-3 gap-8">
       <div className="md:col-span-1">
-        <div className="overflow-hidden rounded-2xl border border-white/10">
+        <div className="overflow-hidden rounded-2xl border border-[color:var(--border)] bg-white shadow-sm">
           <Image src={director.photo} alt={director.name} width={800} height={1000} className="w-full h-auto object-cover" />
         </div>
         <div className="mt-3">
-          <div className="text-xl font-semibold">{director.name}</div>
+          <div className="text-xl font-semibold tracking-[-0.03em]">{director.name}</div>
           <div className="text-muted-foreground">{director.title}</div>
         </div>
       </div>
       <div className="md:col-span-2 space-y-4">
+        <h1 className="text-3xl md:text-5xl font-semibold tracking-[-0.04em]">A note from the director</h1>
         {(director.message || []).map((p, i) => (
-          <p key={i} className="text-muted-foreground text-lg">{p}</p>
+          <p key={i} className="text-lg leading-8 text-muted-foreground">{p}</p>
         ))}
         <p className="text-sm text-muted-foreground">— {director.name}, {director.title}</p>
       </div>
     </div>
   );
 }
-
 

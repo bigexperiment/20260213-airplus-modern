@@ -89,7 +89,7 @@ export default function PlanForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-2xl border border-white/10 p-4 md:p-5 space-y-3">
+    <form onSubmit={onSubmit} className="panel rounded-[1.5rem] p-5 md:p-6 space-y-4">
       <div className="grid md:grid-cols-2 gap-3">
         <input required placeholder="Name" value={name} onChange={(e)=>setName(e.target.value)} className="field" />
         <input required type="email" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)} className="field" />
@@ -104,12 +104,11 @@ export default function PlanForm() {
         <input placeholder="Dates (e.g., Oct 10–24)" value={dates} onChange={(e)=>setDates(e.target.value)} className="field md:col-span-2" />
       </div>
       <textarea placeholder="Message" value={message} onChange={(e)=>setMessage(e.target.value)} className="field min-h-[120px]" />
-      <div className="flex items-center gap-3">
-        <button className="px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-medium hover:opacity-90 transition" type="submit">Send</button>
+      <div className="flex flex-wrap items-center gap-3">
+        <button className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition hover:opacity-90" type="submit">Send Request</button>
+        <span className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Replies within 24 hours</span>
         {status && <span className="text-sm text-muted-foreground">{status}</span>}
       </div>
     </form>
   );
 }
-
-

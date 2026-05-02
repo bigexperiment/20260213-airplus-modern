@@ -1,89 +1,61 @@
 import Link from "next/link";
 import contactData from "../../public/information/contact.json";
-import directorData from "../../public/information/director.json";
-import { footerSections } from "@/components/siteMenus";
+import BrandLogo from "@/components/BrandLogo";
 
 type Company = { registered?: string; tourismLicense?: string; vat?: string };
-type Rep = { country: string; name: string; phone: string; email: string };
 
 export default function Footer() {
   const year = new Date().getFullYear();
   const company = (contactData as { company?: Company }).company || {};
   const office = (contactData as { headOffice?: { phones?: string[]; email?: string; address?: string } }).headOffice;
-  const reps = (contactData as { representatives?: Rep[] }).representatives || [];
-  const dir = directorData as { name?: string; title?: string; message?: string[] };
-  const short = (dir.message?.[0] || "Welcome to AirPlus Nepal — seamless, memorable adventures.").replace(/\.$/, "");
-  const directorNote = `${short}.`;
 
   return (
-    <footer className="mt-10 border-t border-white/10">
-      <div className="container-px py-10 text-sm text-muted-foreground space-y-8">
-        <div className="text-base md:text-lg text-foreground/90 [font-family:'Bradley_Hand','Segoe_Script','Comic_Sans_MS',cursive]">
-          <Link href="/director" className="hover:underline">
-            “{directorNote}” <span className="text-muted-foreground">— Madan Bhandari, Director</span>
-          </Link>
+    <footer className="mt-16 bg-[#0f3468] text-white">
+      <div className="container-px grid gap-8 py-12 md:grid-cols-[1.15fr_0.85fr_0.85fr_1fr]">
+        <div className="space-y-4">
+          <BrandLogo />
+          <p className="max-w-xs text-sm leading-7 text-white/78">
+            Airplusnepal Treks & Expedition Pvt. Ltd. is your trusted travel partner in Nepal. We create memories that last a lifetime.
+          </p>
         </div>
-
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-7">
-          <div className="lg:col-span-2 space-y-3">
-            <div className="text-lg font-semibold text-foreground">AirPlus Nepal</div>
-            <p className="max-w-md text-sm">
-              Professional trekking and cultural tour operator based in Kathmandu, focused on safe itineraries, strong logistics, and real local expertise.
-            </p>
-            <div className="space-y-1 text-sm">
-              {office?.address && <div>{office.address}</div>}
-              {office?.phones && office.phones.length > 0 && <div>{office.phones.join(" • ")}</div>}
-              {office?.email && <div><a href={`mailto:${office.email}`} className="underline">{office.email}</a></div>}
-            </div>
-            <Link href="/contact" className="inline-flex rounded-full bg-primary px-4 py-2 text-primary-foreground font-medium">
-              Start Planning
-            </Link>
+        <div>
+          <div className="mb-4 text-sm font-semibold">Quick Links</div>
+          <div className="space-y-2 text-sm text-white/78">
+            <Link href="/" className="block hover:text-white">Home</Link>
+            <Link href="/director" className="block hover:text-white">About Us</Link>
+            <Link href="/treks" className="block hover:text-white">Treks</Link>
+            <Link href="/tours" className="block hover:text-white">Tour Packages</Link>
+            <Link href="/travel-guide" className="block hover:text-white">Blog</Link>
+            <Link href="/contact" className="block hover:text-white">Contact Us</Link>
           </div>
-
-          {footerSections.map((section) => (
-            <div key={section.title}>
-              <div className="text-foreground font-medium mb-3">{section.title}</div>
-              <ul className="space-y-2">
-                {section.links.map((link) => (
-                  <li key={link.href + link.label}>
-                    <Link href={link.href} className="hover:text-foreground transition-colors">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
         </div>
-
-        {/* Mini reps bar (country only) */}
-        {Array.isArray(reps) && reps.length > 0 && (
-          <div className="flex flex-wrap items-center gap-3 text-xs">
-            <span className="text-muted-foreground/80">Local reps:</span>
-            {reps.map((r: Rep) => (
-              <span key={r.email} className="px-2 py-1 rounded-full border border-white/10 bg-white/5">
-                {flagEmoji(r.country)} {r.country}
-              </span>
-            ))}
-            <span className="opacity-70">•</span>
-            <Link href="/contact" className="underline">See details</Link>
+        <div>
+          <div className="mb-4 text-sm font-semibold">Popular Treks</div>
+          <div className="space-y-2 text-sm text-white/78">
+            <Link href="/treks/everest-base-camp" className="block hover:text-white">Everest Base Camp Trek</Link>
+            <Link href="/treks/annapurna-base-camp" className="block hover:text-white">Annapurna Base Camp Trek</Link>
+            <Link href="/treks/langtang-valley" className="block hover:text-white">Langtang Valley Trek</Link>
+            <Link href="/treks/manaslu-circuit" className="block hover:text-white">Manaslu Circuit Trek</Link>
+            <Link href="/treks/gokyo-lake" className="block hover:text-white">Gokyo Lakes Trek</Link>
           </div>
-        )}
-
-        <div className="pt-3 border-t border-white/10 text-xs">
-          © {year} AirPlus Nepal • Reg: {company.registered} • License: {company.tourismLicense} • VAT: {company.vat}
+        </div>
+        <div>
+          <div className="mb-4 text-sm font-semibold">Contact Us</div>
+          <div className="space-y-2 text-sm leading-7 text-white/78">
+            <div>{office?.address}</div>
+            <div>{office?.phones?.[0]}</div>
+            <div>{office?.phones?.[1]}</div>
+            <div>{office?.email}</div>
+            <div>www.airplusnepal.com</div>
+          </div>
+        </div>
+      </div>
+      <div className="border-t border-white/12">
+        <div className="container-px flex flex-col gap-3 py-5 text-xs text-white/62 md:flex-row md:items-center md:justify-between">
+          <div>© {year} Airplusnepal Treks & Expedition Pvt. Ltd. All Rights Reserved.</div>
+          <div>Reg: {company.registered} • License: {company.tourismLicense} • VAT: {company.vat}</div>
         </div>
       </div>
     </footer>
   );
-}
-
-function flagEmoji(country: string): string {
-  const m: Record<string, string> = {
-    Australia: "🇦🇺",
-    Canada: "🇨🇦",
-    Japan: "🇯🇵",
-    USA: "🇺🇸",
-  };
-  return m[country] || "🌍";
 }

@@ -110,27 +110,26 @@ export default function TravelGuidePage() {
   return (
     <div className="container-px section space-y-10">
       <div className="max-w-4xl">
-        <h1 className="text-3xl md:text-5xl font-semibold">Nepal Travel Guide</h1>
-        <p className="mt-3 text-muted-foreground">
-          Practical planning notes for trekking in Nepal, cultural touring, permits, season choice, and realistic cost
-          expectations for 2024/2025.
+        <h1 className="text-3xl font-semibold tracking-[-0.04em] md:text-5xl">Nepal travel guide</h1>
+        <p className="mt-3 text-muted-foreground leading-7">
+          Practical planning notes for trekking in Nepal, cultural touring, permits, season choice, and realistic cost expectations for 2024/2025.
         </p>
       </div>
 
-      <section id="seasons" className="scroll-mt-24 rounded-3xl border border-white/10 bg-black/10 p-5 md:p-7">
-        <h2 className="text-2xl font-semibold">Best Seasons</h2>
-        <div className="mt-4 overflow-x-auto rounded-2xl border border-white/10">
+      <section id="seasons" className="panel scroll-mt-24 rounded-[1.75rem] p-5 md:p-7">
+        <h2 className="text-2xl font-semibold tracking-[-0.03em]">Best seasons</h2>
+        <div className="mt-4 overflow-x-auto rounded-2xl border border-[color:var(--border)]">
           <table className="w-full min-w-[860px] text-left text-sm">
-            <thead className="bg-white/5">
+            <thead className="bg-muted">
               <tr>
                 <th className="px-4 py-3 font-medium">Season</th>
                 <th className="px-4 py-3 font-medium">Conditions</th>
-                <th className="px-4 py-3 font-medium">Best For</th>
+                <th className="px-4 py-3 font-medium">Best for</th>
               </tr>
             </thead>
             <tbody>
               {seasonRows.map((row) => (
-                <tr key={row.season} className="border-t border-white/10">
+                <tr key={row.season} className="border-t border-[color:var(--border)]">
                   <td className="px-4 py-3">{row.season}</td>
                   <td className="px-4 py-3 text-muted-foreground">{row.conditions}</td>
                   <td className="px-4 py-3 text-muted-foreground">{row.bestFor}</td>
@@ -141,24 +140,23 @@ export default function TravelGuidePage() {
         </div>
       </section>
 
-      <section id="permits" className="scroll-mt-24 rounded-3xl border border-white/10 bg-black/10 p-5 md:p-7">
-        <h2 className="text-2xl font-semibold">Permits and Entry Basics (2024/2025)</h2>
+      <section id="permits" className="panel scroll-mt-24 rounded-[1.75rem] p-5 md:p-7">
+        <h2 className="text-2xl font-semibold tracking-[-0.03em]">Permits and entry basics (2024/2025)</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          Permit fees can be updated by authorities. Treat these as practical planning numbers and reconfirm before your
-          departure date.
+          Permit fees can be updated by authorities. Treat these as planning numbers and reconfirm before departure.
         </p>
-        <div className="mt-4 overflow-x-auto rounded-2xl border border-white/10">
+        <div className="mt-4 overflow-x-auto rounded-2xl border border-[color:var(--border)]">
           <table className="w-full min-w-[920px] text-left text-sm">
-            <thead className="bg-white/5">
+            <thead className="bg-muted">
               <tr>
                 <th className="px-4 py-3 font-medium">Permit</th>
-                <th className="px-4 py-3 font-medium">Typical Fee</th>
+                <th className="px-4 py-3 font-medium">Typical fee</th>
                 <th className="px-4 py-3 font-medium">Notes</th>
               </tr>
             </thead>
             <tbody>
               {permitRows.map((row) => (
-                <tr key={row.permit} className="border-t border-white/10">
+                <tr key={row.permit} className="border-t border-[color:var(--border)]">
                   <td className="px-4 py-3">{row.permit}</td>
                   <td className="px-4 py-3">{row.fee}</td>
                   <td className="px-4 py-3 text-muted-foreground">{row.note}</td>
@@ -170,15 +168,14 @@ export default function TravelGuidePage() {
       </section>
 
       <section className="grid gap-6 md:grid-cols-2">
-        <article id="budget" className="scroll-mt-24 rounded-3xl border border-white/10 bg-black/10 p-5 md:p-7">
-          <h2 className="text-2xl font-semibold">Budget Planner</h2>
+        <article id="budget" className="panel scroll-mt-24 rounded-[1.75rem] p-5 md:p-7">
+          <h2 className="text-2xl font-semibold tracking-[-0.03em]">Budget planner</h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Final trip cost depends on guide style, hotel class, flight choices, and how much buffer you keep for weather
-            delays.
+            Final trip cost depends on guide style, hotel class, flight choices, and how much buffer you keep for weather delays.
           </p>
           <div className="mt-4 space-y-3">
             {budgetRows.map((row) => (
-              <div key={row.type} className="rounded-2xl border border-white/10 bg-black/15 p-4">
+              <div key={row.type} className="rounded-2xl border border-[color:var(--border)] bg-[rgba(246,244,239,0.72)] p-4">
                 <div className="font-medium">{row.type}</div>
                 <div className="mt-1 text-sm text-primary">{row.cost}</div>
                 <p className="mt-1 text-sm text-muted-foreground">{row.includes}</p>
@@ -187,53 +184,46 @@ export default function TravelGuidePage() {
           </div>
         </article>
 
-        <article id="packing" className="scroll-mt-24 rounded-3xl border border-white/10 bg-black/10 p-5 md:p-7">
-          <h2 className="text-2xl font-semibold">Packing Essentials</h2>
+        <article id="packing" className="panel scroll-mt-24 rounded-[1.75rem] p-5 md:p-7">
+          <h2 className="text-2xl font-semibold tracking-[-0.03em]">Packing essentials</h2>
           <p className="mt-2 text-sm text-muted-foreground">
             Keep your bag practical and light. Most people overpack clothing and underpack weather and foot-care basics.
           </p>
-          <ul className="mt-4 space-y-2 text-sm text-muted-foreground list-disc pl-5">
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
             {packingItems.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
-          <div className="mt-5 rounded-2xl border border-white/10 bg-black/15 p-4 text-sm text-muted-foreground">
-            Pro tip: If you are doing multiple activities, pack in modules (trek kit, city kit, activity kit) so you can
-            leave unnecessary gear at your hotel.
+          <div className="mt-5 rounded-2xl border border-[color:var(--border)] bg-[rgba(246,244,239,0.72)] p-4 text-sm text-muted-foreground">
+            Pro tip: If you are doing multiple activities, pack in modules so you can leave unnecessary gear at your hotel.
           </div>
         </article>
       </section>
 
-      <section id="activities" className="scroll-mt-24 rounded-3xl border border-white/10 bg-black/10 p-5 md:p-7">
-        <h2 className="text-2xl font-semibold">Popular Activity Planning Links</h2>
+      <section id="activities" className="panel scroll-mt-24 rounded-[1.75rem] p-5 md:p-7">
+        <h2 className="text-2xl font-semibold tracking-[-0.03em]">Popular activity planning links</h2>
         <p className="mt-2 text-sm text-muted-foreground">
           We prepared detailed planning notes for major tours and adventure add-ons on the tours page.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
-          <a href="/tours#kathmandu-pokhara" className="rounded-full border border-white/15 px-3 py-1.5 text-xs hover:bg-white/10">
-            Kathmandu and Pokhara
-          </a>
-          <a href="/tours#kathmandu-chitwan" className="rounded-full border border-white/15 px-3 py-1.5 text-xs hover:bg-white/10">
-            Kathmandu and Chitwan
-          </a>
-          <a href="/tours#kathmandu-lumbini" className="rounded-full border border-white/15 px-3 py-1.5 text-xs hover:bg-white/10">
-            Kathmandu and Lumbini
-          </a>
-          <a href="/tours#paragliding-pokhara" className="rounded-full border border-white/15 px-3 py-1.5 text-xs hover:bg-white/10">
-            Paragliding in Pokhara
-          </a>
-          <a href="/tours#trishuli-rafting" className="rounded-full border border-white/15 px-3 py-1.5 text-xs hover:bg-white/10">
-            White Water Rafting
-          </a>
-          <a href="/tours#everest-mountain-flight" className="rounded-full border border-white/15 px-3 py-1.5 text-xs hover:bg-white/10">
-            Everest Mountain Flight
-          </a>
+          {[
+            ["/tours#kathmandu-pokhara", "Kathmandu and Pokhara"],
+            ["/tours#kathmandu-chitwan", "Kathmandu and Chitwan"],
+            ["/tours#kathmandu-lumbini", "Kathmandu and Lumbini"],
+            ["/tours#paragliding-pokhara", "Paragliding in Pokhara"],
+            ["/tours#trishuli-rafting", "White Water Rafting"],
+            ["/tours#everest-mountain-flight", "Everest Mountain Flight"],
+          ].map(([href, label]) => (
+            <a key={href} href={href} className="rounded-full border border-[color:var(--border)] bg-muted px-3 py-1.5 text-xs hover:bg-white">
+              {label}
+            </a>
+          ))}
         </div>
       </section>
 
-      <section id="sources" className="scroll-mt-24 rounded-3xl border border-white/10 bg-black/10 p-5 md:p-7">
-        <h2 className="text-2xl font-semibold">Research Sources</h2>
-        <ul className="mt-3 list-disc pl-5 space-y-2 text-sm text-muted-foreground">
+      <section id="sources" className="panel scroll-mt-24 rounded-[1.75rem] p-5 md:p-7">
+        <h2 className="text-2xl font-semibold tracking-[-0.03em]">Research sources</h2>
+        <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
           {sourceLinks.map((source) => (
             <li key={source.href}>
               <a href={source.href} target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-3">
@@ -245,17 +235,17 @@ export default function TravelGuidePage() {
       </section>
 
       <section id="faq" className="scroll-mt-24">
-        <h2 className="text-2xl font-semibold mb-4">FAQ</h2>
+        <h2 className="mb-4 text-2xl font-semibold tracking-[-0.03em]">FAQ</h2>
         <FAQ />
       </section>
 
-      <section className="rounded-3xl border border-white/10 bg-gradient-to-r from-primary/10 to-accent/10 p-6 md:p-8">
-        <h2 className="text-2xl font-semibold">Want a custom trip plan?</h2>
+      <section className="panel rounded-[1.75rem] p-6 md:p-8">
+        <h2 className="text-2xl font-semibold tracking-[-0.03em]">Want a custom trip plan?</h2>
         <p className="mt-2 text-sm text-muted-foreground">
           Share your dates and budget style, and we can combine treks, tours, and activities into one practical route.
         </p>
-        <Link href="/contact" className="mt-4 inline-flex rounded-full bg-primary px-5 py-2.5 text-primary-foreground font-medium">
-          Plan My Trip
+        <Link href="/contact" className="mt-4 inline-flex rounded-full bg-primary px-5 py-2.5 font-medium text-primary-foreground">
+          Plan my trip
         </Link>
       </section>
     </div>

@@ -11,9 +11,9 @@ export default function FAQ() {
   return (
     <Accordion.Root type="multiple" className="grid md:grid-cols-2 gap-3">
       {items.map((item) => (
-        <Accordion.Item key={item.q} value={item.q} className="rounded-2xl border border-white/10 overflow-hidden">
+        <Accordion.Item key={item.q} value={item.q} className="overflow-hidden rounded-2xl border border-[color:var(--border)] bg-white">
           <Accordion.Header>
-            <Accordion.Trigger className="w-full text-left px-4 py-3 hover:bg-white/5">{item.q}</Accordion.Trigger>
+            <Accordion.Trigger className="w-full text-left px-4 py-3 hover:bg-muted">{item.q}</Accordion.Trigger>
           </Accordion.Header>
           <Accordion.Content className="px-4 pb-4 text-sm text-muted-foreground">{item.a}</Accordion.Content>
         </Accordion.Item>
@@ -21,5 +21,4 @@ export default function FAQ() {
     </Accordion.Root>
   );
 }
-
 

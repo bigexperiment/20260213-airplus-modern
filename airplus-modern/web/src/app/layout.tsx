@@ -8,9 +8,9 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "AirPlus Nepal — Travels & Treks",
   description:
-    "Discover Nepal with AirPlus Nepal: curated treks, cultural tours, and unforgettable Himalayan adventures.",
+    "Simple, well-planned treks and cultural tours across Nepal with clear local support.",
   metadataBase: new URL("https://airplusnepal.com"),
-  icons: { icon: "/favicon.ico" },
+  icons: { icon: "/logo-mark.svg" },
 };
 
 export default function RootLayout({

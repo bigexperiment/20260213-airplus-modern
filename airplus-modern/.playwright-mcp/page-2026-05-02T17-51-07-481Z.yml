@@ -1,0 +1,503 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - img [ref=e7]
+          - text: +977 1 4525454
+        - generic [ref=e9]:
+          - img [ref=e10]
+          - text: airplusnepal@gmail.com
+      - generic [ref=e13]: Licensed trekking and tour operator
+    - generic [ref=e14]:
+      - link "AirPlus Nepal Treks and Tours" [ref=e15] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e16]:
+          - img [ref=e18]
+          - generic [ref=e22]:
+            - generic [ref=e23]: AirPlus Nepal
+            - generic [ref=e24]: Treks and Tours
+      - navigation [ref=e25]:
+        - link "Home" [ref=e26] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e27]:
+          - button "Trekking" [ref=e28]:
+            - text: Trekking
+            - img [ref=e29]
+          - generic:
+            - generic:
+              - generic:
+                - link "All Treks Browse all featured Nepal treks.":
+                  - /url: /treks
+                  - generic: All Treks
+                  - generic: Browse all featured Nepal treks.
+                - link "Everest Base Camp Trek Iconic high-altitude route in the Khumbu region.":
+                  - /url: /treks/everest-base-camp
+                  - generic: Everest Base Camp Trek
+                  - generic: Iconic high-altitude route in the Khumbu region.
+                - link "Annapurna Base Camp Trek Classic Annapurna Sanctuary teahouse route.":
+                  - /url: /treks/annapurna-base-camp
+                  - generic: Annapurna Base Camp Trek
+                  - generic: Classic Annapurna Sanctuary teahouse route.
+                - link "Annapurna Circuit Trek Long scenic circuit with Thorong La crossing.":
+                  - /url: /treks/annapurna-circuit
+                  - generic: Annapurna Circuit Trek
+                  - generic: Long scenic circuit with Thorong La crossing.
+                - link "Langtang Valley Trek Close-to-Kathmandu route with strong mountain culture.":
+                  - /url: /treks/langtang-valley
+                  - generic: Langtang Valley Trek
+                  - generic: Close-to-Kathmandu route with strong mountain culture.
+                - link "Manaslu Circuit Trek Remote restricted-area circuit with big views.":
+                  - /url: /treks/manaslu-circuit
+                  - generic: Manaslu Circuit Trek
+                  - generic: Remote restricted-area circuit with big views.
+                - link "Gokyo Lakes Trek High lakes and panoramic Gokyo Ri viewpoints.":
+                  - /url: /treks/gokyo-lake
+                  - generic: Gokyo Lakes Trek
+                  - generic: High lakes and panoramic Gokyo Ri viewpoints.
+                - link "Mardi Himal Trek Shorter ridge trek from Pokhara.":
+                  - /url: /treks/mardi-himal
+                  - generic: Mardi Himal Trek
+                  - generic: Shorter ridge trek from Pokhara.
+                - link "Poon Hill Trek Beginner-friendly sunrise route in Annapurna.":
+                  - /url: /treks/poon-hill
+                  - generic: Poon Hill Trek
+                  - generic: Beginner-friendly sunrise route in Annapurna.
+        - generic [ref=e31]:
+          - button "Tours" [ref=e32]:
+            - text: Tours
+            - img [ref=e33]
+          - generic:
+            - generic:
+              - generic:
+                - link "All Tours and Activities Detailed cultural tour and activity guides.":
+                  - /url: /tours
+                  - generic: All Tours and Activities
+                  - generic: Detailed cultural tour and activity guides.
+                - link "Kathmandu and Pokhara Heritage city and lakeside mountain getaway.":
+                  - /url: /tours#kathmandu-pokhara
+                  - generic: Kathmandu and Pokhara
+                  - generic: Heritage city and lakeside mountain getaway.
+                - link "Kathmandu and Chitwan Cultural sites plus wildlife safari.":
+                  - /url: /tours#kathmandu-chitwan
+                  - generic: Kathmandu and Chitwan
+                  - generic: Cultural sites plus wildlife safari.
+                - link "Kathmandu and Lumbini Spiritual and UNESCO-focused experience.":
+                  - /url: /tours#kathmandu-lumbini
+                  - generic: Kathmandu and Lumbini
+                  - generic: Spiritual and UNESCO-focused experience.
+                - link "Kathmandu and Nagarkot Short city-and-sunrise hill itinerary.":
+                  - /url: /tours#kathmandu-nagarkot
+                  - generic: Kathmandu and Nagarkot
+                  - generic: Short city-and-sunrise hill itinerary.
+        - generic [ref=e35]:
+          - button "Activities" [ref=e36]:
+            - text: Activities
+            - img [ref=e37]
+          - generic:
+            - generic:
+              - generic:
+                - link "Paragliding in Pokhara Tandem flights with valley and mountain views.":
+                  - /url: /tours#paragliding-pokhara
+                  - generic: Paragliding in Pokhara
+                  - generic: Tandem flights with valley and mountain views.
+                - link "White Water Rafting Trishuli and Bhote Koshi river options.":
+                  - /url: /tours#trishuli-rafting
+                  - generic: White Water Rafting
+                  - generic: Trishuli and Bhote Koshi river options.
+                - link "Chitwan Jungle Safari Jeep safaris, canoe rides, and birding.":
+                  - /url: /tours#chitwan-jungle-safari
+                  - generic: Chitwan Jungle Safari
+                  - generic: Jeep safaris, canoe rides, and birding.
+                - link "Everest Mountain Flight Scenic Himalayan flight from Kathmandu.":
+                  - /url: /tours#everest-mountain-flight
+                  - generic: Everest Mountain Flight
+                  - generic: Scenic Himalayan flight from Kathmandu.
+                - link "Bungee in Nepal Bhote Koshi and Kushma jump options.":
+                  - /url: /tours#bungee-bhotekoshi
+                  - generic: Bungee in Nepal
+                  - generic: Bhote Koshi and Kushma jump options.
+        - generic [ref=e39]:
+          - button "Adventure" [ref=e40]:
+            - text: Adventure
+            - img [ref=e41]
+          - generic:
+            - generic:
+              - generic:
+                - link "Peak Climbing Island Peak, Mera, and custom climbing support.":
+                  - /url: /contact
+                  - generic: Peak Climbing
+                  - generic: Island Peak, Mera, and custom climbing support.
+                - link "Expeditions High-altitude expedition logistics and permits.":
+                  - /url: /contact
+                  - generic: Expeditions
+                  - generic: High-altitude expedition logistics and permits.
+                - link "Helicopter Tours Everest and mountain helicopter charter options.":
+                  - /url: /contact
+                  - generic: Helicopter Tours
+                  - generic: Everest and mountain helicopter charter options.
+                - link "Private Tailor-Made Trips Custom routes for families and small groups.":
+                  - /url: /contact
+                  - generic: Private Tailor-Made Trips
+                  - generic: Custom routes for families and small groups.
+        - generic [ref=e43]:
+          - button "Travel Guide" [ref=e44]:
+            - text: Travel Guide
+            - img [ref=e45]
+          - generic:
+            - generic:
+              - generic:
+                - link "Nepal Travel Guide Permits, seasons, budget, and packing advice.":
+                  - /url: /travel-guide
+                  - generic: Nepal Travel Guide
+                  - generic: Permits, seasons, budget, and packing advice.
+                - link "Best Seasons Month and season planning notes.":
+                  - /url: /travel-guide#seasons
+                  - generic: Best Seasons
+                  - generic: Month and season planning notes.
+                - link "Permits Current permit reference table.":
+                  - /url: /travel-guide#permits
+                  - generic: Permits
+                  - generic: Current permit reference table.
+                - link "Budget Cost expectations by trip style.":
+                  - /url: /travel-guide#budget
+                  - generic: Budget
+                  - generic: Cost expectations by trip style.
+                - link "Packing Smart packing essentials.":
+                  - /url: /travel-guide#packing
+                  - generic: Packing
+                  - generic: Smart packing essentials.
+        - generic [ref=e47]:
+          - button "Company" [ref=e48]:
+            - text: Company
+            - img [ref=e49]
+          - generic:
+            - generic:
+              - generic:
+                - link "Director Message Meet AirPlus Nepal leadership.":
+                  - /url: /director
+                  - generic: Director Message
+                  - generic: Meet AirPlus Nepal leadership.
+                - link "Why AirPlus Licensed local operations and support.":
+                  - /url: /#contact
+                  - generic: Why AirPlus
+                  - generic: Licensed local operations and support.
+                - link "Contact Us Ask for dates, prices, and custom plans.":
+                  - /url: /contact
+                  - generic: Contact Us
+                  - generic: Ask for dates, prices, and custom plans.
+        - link "Contact" [ref=e51] [cursor=pointer]:
+          - /url: /contact
+      - link "Plan Trip" [ref=e53] [cursor=pointer]:
+        - /url: /contact
+  - generic [ref=e54]:
+    - generic [ref=e57]:
+      - generic [ref=e58]:
+        - generic [ref=e59]: Trek detail
+        - heading "Annapurna Base Camp Trek" [level=1] [ref=e60]
+        - paragraph [ref=e61]: Annapurna Region • 11 Days • 4,130 m
+        - paragraph [ref=e62]: Captivating journey through rhododendron forests, Gurung villages, and alpine meadows.
+      - img "Annapurna Base Camp Trek" [ref=e64]
+    - generic [ref=e65]:
+      - generic [ref=e66]:
+        - generic [ref=e67]:
+          - paragraph [ref=e68]: Sunrise over the Annapurna amphitheater is a highlight.
+          - paragraph [ref=e69]: Suitable for trekkers of all levels with cozy tea houses along the way.
+        - generic [ref=e70]:
+          - heading "Itinerary" [level=2] [ref=e71]
+          - list [ref=e72]:
+            - listitem [ref=e73]:
+              - generic [ref=e74]:
+                - generic [ref=e75]: "1"
+                - generic [ref=e76]:
+                  - generic [ref=e77]: Arrival in Kathmandu
+                  - generic [ref=e78]: Meet our representatives and trip briefing.
+            - listitem [ref=e79]:
+              - generic [ref=e80]:
+                - generic [ref=e81]: "2"
+                - generic [ref=e82]:
+                  - generic [ref=e83]: Kathmandu to Pokhara
+                  - generic [ref=e84]: Drive or fly from Kathmandu to Pokhara.
+            - listitem [ref=e85]:
+              - generic [ref=e86]:
+                - generic [ref=e87]: "3"
+                - generic [ref=e88]:
+                  - generic [ref=e89]: Trek to Chhomrong
+                  - generic [ref=e90]: Drive to Matkyu (3 hrs). Trek to Chhomrong (2,030 m).
+            - listitem [ref=e91]:
+              - generic [ref=e92]:
+                - generic [ref=e93]: "4"
+                - generic [ref=e94]:
+                  - generic [ref=e95]: Trek to Bamboo
+                  - generic [ref=e96]: Trek to Bamboo (2,300 m).
+            - listitem [ref=e97]:
+              - generic [ref=e98]:
+                - generic [ref=e99]: "5"
+                - generic [ref=e100]:
+                  - generic [ref=e101]: Trek to Deurali
+                  - generic [ref=e102]: Trek to Deurali (3,200 m).
+            - listitem [ref=e103]:
+              - generic [ref=e104]:
+                - generic [ref=e105]: "6"
+                - generic [ref=e106]:
+                  - generic [ref=e107]: Trek to Annapurna Base Camp
+                  - generic [ref=e108]: Trek to ABC (4,130 m) via MBC (3,700 m).
+            - listitem [ref=e109]:
+              - generic [ref=e110]:
+                - generic [ref=e111]: "7"
+                - generic [ref=e112]:
+                  - generic [ref=e113]: Trek to Dovan
+                  - generic [ref=e114]: Trek to Dovan (2,580 m).
+            - listitem [ref=e115]:
+              - generic [ref=e116]:
+                - generic [ref=e117]: "8"
+                - generic [ref=e118]:
+                  - generic [ref=e119]: Trek to Jhinu Danda
+                  - generic [ref=e120]: Trek to Jhinu Danda (1,740 m). Visit a natural hot spring.
+            - listitem [ref=e121]:
+              - generic [ref=e122]:
+                - generic [ref=e123]: "9"
+                - generic [ref=e124]:
+                  - generic [ref=e125]: Drive to Pokhara
+                  - generic [ref=e126]: Drive to Pokhara. Evening boating at Phewa Lake.
+            - listitem [ref=e127]:
+              - generic [ref=e128]:
+                - generic [ref=e129]: "10"
+                - generic [ref=e130]:
+                  - generic [ref=e131]: Pokhara to Kathmandu
+                  - generic [ref=e132]: Drive or fly from Pokhara to Kathmandu.
+            - listitem [ref=e133]:
+              - generic [ref=e134]:
+                - generic [ref=e135]: "11"
+                - generic [ref=e136]:
+                  - generic [ref=e137]: Final Departure
+                  - generic [ref=e138]: Departure from Kathmandu.
+        - generic [ref=e139]:
+          - generic [ref=e140]:
+            - heading "Complete trek guide" [level=2] [ref=e141]
+            - paragraph [ref=e142]: Research and prices are compiled from 2024/2025 permit tables and current operator benchmarks.
+            - generic [ref=e143]:
+              - generic [ref=e144]: Annapurna Base Camp Trek
+              - generic [ref=e145]: trekking in Nepal
+              - generic [ref=e146]: Annapurna Base Camp Trek cost
+              - generic [ref=e147]: Annapurna Base Camp Trek difficulty
+              - generic [ref=e148]: Annapurna Base Camp Trek best time
+              - generic [ref=e149]: Annapurna Base Camp Trek packing list
+          - generic [ref=e150]:
+            - heading "Quick planner" [level=3] [ref=e151]
+            - generic [ref=e152]:
+              - article [ref=e153]:
+                - generic [ref=e154]:
+                  - img [ref=e155]
+                  - generic [ref=e157]: Difficulty
+                - generic [ref=e158]:
+                  - paragraph [ref=e159]: Annapurna Base Camp Trek difficulty is usually moderate. The elevation is lower than Everest routes, but there are many stone steps and repeated up-down sections that tire your legs.
+                  - paragraph [ref=e160]: If you can comfortably walk 5 to 6 hours for several days, you can usually do well. Light training for stairs and downhill control makes the trek much easier.
+              - article [ref=e161]:
+                - generic [ref=e162]:
+                  - img [ref=e163]
+                  - generic [ref=e165]: Best season
+                - generic [ref=e166]:
+                  - paragraph [ref=e167]: Annapurna Base Camp Trek best time is March to May and September to November. Skies are often clearer, and trail temperatures are generally more comfortable.
+                  - paragraph [ref=e168]: Winter can still work with proper warm gear, but snow can affect upper sections. Monsoon months are greener, but trails can be wet and leech-prone at lower elevations.
+              - article [ref=e169]:
+                - generic [ref=e170]:
+                  - img [ref=e171]
+                  - generic [ref=e175]: Budget range
+                - generic [ref=e176]:
+                  - paragraph [ref=e177]: As of 2024/2025, Annapurna Base Camp Trek cost often falls around USD 600 to 1,300 depending on trip length and whether you use porter support.
+                  - paragraph [ref=e178]: Pokhara transport choices and guide style have the biggest effect after permits.
+                - list [ref=e179]:
+                  - listitem [ref=e180]: "Permits: ACAP plus TIMS for many organized trekkers (roughly NPR 4,000 total for many non-SAARC trekkers)."
+                  - listitem [ref=e181]: "Guide: about USD 25 to 35 per day."
+                  - listitem [ref=e182]: "Porter: about USD 20 to 28 per day."
+                  - listitem [ref=e183]: "Meals and lodging: commonly USD 25 to 40 per day on trail."
+                  - listitem [ref=e184]: "Kathmandu-Pokhara transport: budget bus, tourist bus, or short flight depending on comfort level."
+              - article [ref=e185]:
+                - generic [ref=e186]:
+                  - img [ref=e187]
+                  - generic [ref=e191]: Permits
+                - generic [ref=e192]:
+                  - paragraph [ref=e193]: You typically need ACAP and TIMS for this Annapurna route, as reflected in current NTB and trekking association guidance. Keep passport photos and copies ready during permit processing.
+                  - paragraph [ref=e194]: Most people reach the trail from Pokhara by jeep or road transfer to the chosen start village.
+              - article [ref=e195]:
+                - generic [ref=e196]:
+                  - img [ref=e197]
+                  - generic [ref=e201]: Packing
+                - paragraph [ref=e203]: Your Annapurna Base Camp Trek packing list should prioritize weather flexibility. Mornings at higher stops feel much colder than afternoons in the lower villages.
+                - list [ref=e204]:
+                  - listitem [ref=e205]: Layered clothing system and waterproof shell.
+                  - listitem [ref=e206]: Trekking poles for long stone-stair descents.
+                  - listitem [ref=e207]: Quick-dry shirts, socks, and light gloves.
+                  - listitem [ref=e208]: Basic medicine, blister care, and water treatment.
+                  - listitem [ref=e209]: Simple snacks and electrolyte powder for long days.
+          - generic [ref=e210]:
+            - article [ref=e211]:
+              - generic [ref=e212]:
+                - img [ref=e213]
+                - heading "Teahouses, Food & the Vibe" [level=3] [ref=e216]
+              - generic [ref=e217]:
+                - paragraph [ref=e218]: Teahouses on this route are generally well established because ABC has steady traffic. Rooms are simple and shared dining halls are warm social spaces in the evening.
+                - paragraph [ref=e219]: "Food is similar across villages: dal bhat, fried rice, pasta, soups, eggs, and tea. Expect menus to get more expensive as altitude and transport difficulty increase."
+            - article [ref=e220]:
+              - generic [ref=e221]:
+                - img [ref=e222]
+                - heading "Tips from People Who've Done It" [level=3] [ref=e224]
+              - paragraph [ref=e225]: ABC is beginner-friendly compared with very high routes, but your comfort still depends on pacing and footwear.
+              - list [ref=e226]:
+                - listitem [ref=e227]: Start trekking early each day to avoid afternoon cloud build-up.
+                - listitem [ref=e228]: Use trekking poles from day one, not only on the return descent.
+                - listitem [ref=e229]: Do not skip rain protection even in peak seasons.
+                - listitem [ref=e230]: Carry small cash notes because change can be limited in remote stops.
+                - listitem [ref=e231]: Add one flexible day in Pokhara if weather disrupts transport.
+          - article [ref=e232]:
+            - heading "Research sources" [level=3] [ref=e233]
+            - list [ref=e234]:
+              - listitem [ref=e235]:
+                - link "Welcome Nepal - Annapurna region trek overview" [ref=e236] [cursor=pointer]:
+                  - /url: https://www.trade.welcomenepal.com/things-to-do/trekking/annapurna-region-trek
+              - listitem [ref=e237]:
+                - link "Nepal Tourism Board - Entry fee table" [ref=e238] [cursor=pointer]:
+                  - /url: https://nepaltourismboard.gov.np/plan-your-trip/before-you-come/visas-and-entry-procedure
+              - listitem [ref=e239]:
+                - link "Nepal Tourism Board - TIMS Card" [ref=e240] [cursor=pointer]:
+                  - /url: https://ntb.gov.np/plan-your-trip/before-you-come/TIMS%20Card
+              - listitem [ref=e241]:
+                - link "Third Rock Adventures - ABC cost benchmarks" [ref=e242] [cursor=pointer]:
+                  - /url: https://www.thirdrockadventures.com/blog/annapurna-base-camp-trek-cost
+      - complementary [ref=e243]:
+        - generic [ref=e245]:
+          - generic [ref=e246]: Max elevation
+          - generic [ref=e247]: 4,130 m
+          - generic [ref=e248]: Difficulty
+          - generic [ref=e249]: Moderate
+          - generic [ref=e250]: Accommodation
+          - generic [ref=e251]: Tea House
+          - generic [ref=e252]: Transport
+          - generic [ref=e253]: Land/Flight
+          - generic [ref=e254]: Destination
+          - generic [ref=e255]: Nepal
+        - generic [ref=e256]:
+          - generic [ref=e257]: Ready to trek?
+          - paragraph [ref=e258]: Contact us to customize your itinerary, dates, and budget style.
+          - link "Plan this trip" [ref=e259] [cursor=pointer]:
+            - /url: /contact
+  - contentinfo [ref=e260]:
+    - generic [ref=e261]:
+      - link "“Welcome to AirPlus Nepal — we’re thrilled to help you plan a seamless, memorable adventure.” — Madan Bhandari, Director" [ref=e263] [cursor=pointer]:
+        - /url: /director
+      - generic [ref=e264]:
+        - generic [ref=e265]:
+          - generic [ref=e266]:
+            - img [ref=e268]
+            - generic [ref=e272]:
+              - generic [ref=e273]: AirPlus Nepal
+              - generic [ref=e274]: Treks and Tours
+          - paragraph [ref=e275]: Trekking and cultural tours based in Kathmandu, with practical itineraries, clear communication, and local support.
+          - generic [ref=e276]:
+            - generic [ref=e277]: Bhagawatisthan, Thamel, Kathmandu, Nepal
+            - generic [ref=e278]: +977 1 4525454 • +977 9862442639
+            - link "airplusnepal@gmail.com" [ref=e280] [cursor=pointer]:
+              - /url: mailto:airplusnepal@gmail.com
+          - link "Start Planning" [ref=e281] [cursor=pointer]:
+            - /url: /contact
+        - generic [ref=e282]:
+          - generic [ref=e283]: Explore
+          - list [ref=e284]:
+            - listitem [ref=e285]:
+              - link "Home" [ref=e286] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e287]:
+              - link "All Treks" [ref=e288] [cursor=pointer]:
+                - /url: /treks
+            - listitem [ref=e289]:
+              - link "Tours and Activities" [ref=e290] [cursor=pointer]:
+                - /url: /tours
+            - listitem [ref=e291]:
+              - link "Travel Guide" [ref=e292] [cursor=pointer]:
+                - /url: /travel-guide
+            - listitem [ref=e293]:
+              - link "Contact" [ref=e294] [cursor=pointer]:
+                - /url: /contact
+        - generic [ref=e295]:
+          - generic [ref=e296]: Top Treks
+          - list [ref=e297]:
+            - listitem [ref=e298]:
+              - link "Everest Base Camp" [ref=e299] [cursor=pointer]:
+                - /url: /treks/everest-base-camp
+            - listitem [ref=e300]:
+              - link "Annapurna Base Camp" [ref=e301] [cursor=pointer]:
+                - /url: /treks/annapurna-base-camp
+            - listitem [ref=e302]:
+              - link "Annapurna Circuit" [ref=e303] [cursor=pointer]:
+                - /url: /treks/annapurna-circuit
+            - listitem [ref=e304]:
+              - link "Langtang Valley" [ref=e305] [cursor=pointer]:
+                - /url: /treks/langtang-valley
+            - listitem [ref=e306]:
+              - link "Manaslu Circuit" [ref=e307] [cursor=pointer]:
+                - /url: /treks/manaslu-circuit
+        - generic [ref=e308]:
+          - generic [ref=e309]: Popular Tours
+          - list [ref=e310]:
+            - listitem [ref=e311]:
+              - link "Kathmandu and Pokhara" [ref=e312] [cursor=pointer]:
+                - /url: /tours#kathmandu-pokhara
+            - listitem [ref=e313]:
+              - link "Kathmandu and Chitwan" [ref=e314] [cursor=pointer]:
+                - /url: /tours#kathmandu-chitwan
+            - listitem [ref=e315]:
+              - link "Kathmandu and Lumbini" [ref=e316] [cursor=pointer]:
+                - /url: /tours#kathmandu-lumbini
+            - listitem [ref=e317]:
+              - link "Kathmandu and Nagarkot" [ref=e318] [cursor=pointer]:
+                - /url: /tours#kathmandu-nagarkot
+        - generic [ref=e319]:
+          - generic [ref=e320]: Adventure
+          - list [ref=e321]:
+            - listitem [ref=e322]:
+              - link "Paragliding" [ref=e323] [cursor=pointer]:
+                - /url: /tours#paragliding-pokhara
+            - listitem [ref=e324]:
+              - link "White Water Rafting" [ref=e325] [cursor=pointer]:
+                - /url: /tours#trishuli-rafting
+            - listitem [ref=e326]:
+              - link "Chitwan Safari" [ref=e327] [cursor=pointer]:
+                - /url: /tours#chitwan-jungle-safari
+            - listitem [ref=e328]:
+              - link "Everest Mountain Flight" [ref=e329] [cursor=pointer]:
+                - /url: /tours#everest-mountain-flight
+            - listitem [ref=e330]:
+              - link "Bungee" [ref=e331] [cursor=pointer]:
+                - /url: /tours#bungee-bhotekoshi
+        - generic [ref=e332]:
+          - generic [ref=e333]: Resources
+          - list [ref=e334]:
+            - listitem [ref=e335]:
+              - link "Permit Guide" [ref=e336] [cursor=pointer]:
+                - /url: /travel-guide#permits
+            - listitem [ref=e337]:
+              - link "Season Guide" [ref=e338] [cursor=pointer]:
+                - /url: /travel-guide#seasons
+            - listitem [ref=e339]:
+              - link "Packing Guide" [ref=e340] [cursor=pointer]:
+                - /url: /travel-guide#packing
+            - listitem [ref=e341]:
+              - link "FAQ" [ref=e342] [cursor=pointer]:
+                - /url: /travel-guide#faq
+            - listitem [ref=e343]:
+              - link "Director Message" [ref=e344] [cursor=pointer]:
+                - /url: /director
+      - generic [ref=e345]:
+        - generic [ref=e346]: "Local reps:"
+        - generic [ref=e347]: 🇦🇺 Australia
+        - generic [ref=e348]: 🇨🇦 Canada
+        - generic [ref=e349]: 🇯🇵 Japan
+        - generic [ref=e350]: 🇺🇸 USA
+        - generic [ref=e351]: •
+        - link "See details" [ref=e352] [cursor=pointer]:
+          - /url: /contact
+      - generic [ref=e353]: "© 2026 AirPlus Nepal • Reg: 194768/075/076 • License: 2605 • VAT: 606643944"
+  - link "Chat on WhatsApp" [ref=e354] [cursor=pointer]:
+    - /url: https://wa.me/9779862442639
+    - img [ref=e355]

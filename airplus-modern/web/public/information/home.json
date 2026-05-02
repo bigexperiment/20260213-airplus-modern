@@ -1,7 +1,7 @@
 {
   "hero": {
-    "title": "Discover the Magic of Nepal",
-    "subtitle": "Embark on a journey through breathtaking landscapes, ancient cultures, and unforgettable adventures",
+    "title": "Simple, well-planned trips across Nepal",
+    "subtitle": "Treks, tours, and practical local support for travelers who want clear routes, fair pricing, and a smoother trip",
     "image": "/information/assets/hero_main.png"
   },
   "trekkingPackages": [
@@ -43,4 +43,3 @@
     "countText": "150+ happy travelers"
   }
 }
-

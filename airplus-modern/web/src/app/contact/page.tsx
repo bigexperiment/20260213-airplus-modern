@@ -19,15 +19,17 @@ export default async function ContactPage() {
 
   return (
     <div className="container-px section">
-      <h1 className="text-3xl md:text-4xl font-semibold">Contact & Plan Your Trek</h1>
-      <p className="mt-2 text-muted-foreground">We usually respond within 24 hours. Share your dates and goals below.</p>
+      <h1 className="text-3xl md:text-5xl font-semibold tracking-[-0.04em]">Contact and trip planning</h1>
+      <p className="mt-3 max-w-2xl text-muted-foreground leading-7">
+        We usually reply within 24 hours. Share your dates, route ideas, or questions and we can help shape the plan from there.
+      </p>
 
       {/* Form + office */}
       <div className="grid lg:grid-cols-3 gap-6 mt-6">
         <div className="lg:col-span-2 space-y-4">
           <PlanForm />
 
-          <div className="glass rounded-2xl p-5">
+          <div className="panel rounded-2xl p-5">
             <div className="font-medium">Head Office</div>
             <div className="text-sm text-muted-foreground mt-1">{data.headOffice.name}</div>
             <div className="text-sm text-muted-foreground">{data.headOffice.address}</div>
@@ -40,7 +42,7 @@ export default async function ContactPage() {
         </div>
 
         <aside className="space-y-4">
-          <div className="glass rounded-2xl p-5">
+          <div className="panel rounded-2xl p-5">
             <div className="font-medium mb-1">Company</div>
             <div className="text-sm text-muted-foreground space-y-1">
               <div>Reg: {data.company.registered}</div>
@@ -48,7 +50,7 @@ export default async function ContactPage() {
               <div>VAT: {data.company.vat}</div>
             </div>
           </div>
-          <div className="glass rounded-2xl p-5">
+          <div className="panel rounded-2xl p-5">
             <div className="font-medium">Quick contact</div>
             <div className="text-sm text-muted-foreground mt-1">Email: <a className="underline" href={`mailto:${data.headOffice.email}`}>{data.headOffice.email}</a></div>
             {data.headOffice.whatsapp && (<div className="text-sm text-muted-foreground">WhatsApp: {data.headOffice.whatsapp}</div>)}
@@ -64,8 +66,8 @@ export default async function ContactPage() {
           {data.representatives.map((r) => {
             const flag = countryFlag(r.country);
             return (
-              <div key={r.email} className="rounded-2xl border border-white/10 p-4 flex items-start gap-3">
-                <div className="h-9 w-9 grid place-items-center rounded-full bg-white/10 text-lg">
+              <div key={r.email} className="panel rounded-2xl p-4 flex items-start gap-3">
+                <div className="grid h-9 w-9 place-items-center rounded-full bg-muted text-lg">
                   <span aria-hidden>{flag}</span>
                 </div>
                 <div className="space-y-1">
@@ -112,5 +114,4 @@ function flagCode(name: string): string {
   };
   return m[name] || "";
 }
-
 

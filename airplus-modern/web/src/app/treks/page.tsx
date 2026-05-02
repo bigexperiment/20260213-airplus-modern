@@ -55,20 +55,19 @@ export default async function TreksPage() {
   };
   return (
     <div className="section container-px">
-      <h1 className="text-3xl md:text-4xl font-semibold">All Treks</h1>
-      <p className="mt-2 text-muted-foreground">Curated Himalayan trekking experiences.</p>
+      <h1 className="text-3xl md:text-5xl font-semibold tracking-[-0.04em]">All treks</h1>
+      <p className="mt-3 max-w-2xl text-muted-foreground leading-7">
+        A simple list of the main routes we feature, from shorter tea-house treks to longer mountain circuits.
+      </p>
       <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {treks.map((t) => {
           const cover = pickImageFor(t);
           return (
-            <Link key={t.slug} href={`/treks/${t.slug}`} className="group rounded-3xl overflow-hidden border border-white/10">
-              <div className="relative">
-                <Image src={cover} alt={t.title} width={960} height={640} className="h-56 w-full object-cover transition group-hover:scale-[1.03]" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3">
-                  <div className="text-white text-lg font-medium">{t.title}</div>
-                  <div className="text-white/70 text-xs">{t.region} • {t.duration}</div>
-                </div>
+            <Link key={t.slug} href={`/treks/${t.slug}`} className="group panel overflow-hidden rounded-[1.5rem] transition hover:-translate-y-0.5">
+              <Image src={cover} alt={t.title} width={960} height={640} className="h-56 w-full object-cover transition group-hover:scale-[1.02]" />
+              <div className="p-5">
+                <div className="text-lg font-semibold tracking-[-0.03em]">{t.title}</div>
+                <div className="mt-1 text-sm text-muted-foreground">{t.region} • {t.duration}</div>
               </div>
             </Link>
           );

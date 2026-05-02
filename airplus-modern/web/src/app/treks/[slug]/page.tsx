@@ -84,9 +84,7 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
 
   const cover = trek.coverImage || trek.images?.[0]?.src || "/images/everest-base-camp.jpg";
   const sectionByKeyword = (keywords: string[]) =>
-    guide?.sections.find((section) =>
-      keywords.some((keyword) => section.heading.toLowerCase().includes(keyword))
-    );
+    guide?.sections.find((section) => keywords.some((keyword) => section.heading.toLowerCase().includes(keyword)));
 
   const difficultySection = sectionByKeyword(["hard"]);
   const bestTimeSection = sectionByKeyword(["best time"]);
@@ -97,91 +95,68 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
   const tipsSection = sectionByKeyword(["tips"]);
 
   const plannerCards = [
-    {
-      title: "Difficulty",
-      icon: <Lightbulb className="size-4" />,
-      section: difficultySection,
-      accent: "from-sky-400/15 to-transparent",
-    },
-    {
-      title: "Best Season",
-      icon: <CalendarDays className="size-4" />,
-      section: bestTimeSection,
-      accent: "from-emerald-400/15 to-transparent",
-    },
-    {
-      title: "Budget Range",
-      icon: <WalletCards className="size-4" />,
-      section: costSection,
-      accent: "from-amber-400/15 to-transparent",
-    },
-    {
-      title: "Permits & Access",
-      icon: <FileCheck2 className="size-4" />,
-      section: permitSection,
-      accent: "from-fuchsia-400/15 to-transparent",
-    },
-    {
-      title: "Packing",
-      icon: <Backpack className="size-4" />,
-      section: packingSection,
-      accent: "from-cyan-400/15 to-transparent",
-    },
+    { title: "Difficulty", icon: <Lightbulb className="size-4" />, section: difficultySection },
+    { title: "Best season", icon: <CalendarDays className="size-4" />, section: bestTimeSection },
+    { title: "Budget range", icon: <WalletCards className="size-4" />, section: costSection },
+    { title: "Permits", icon: <FileCheck2 className="size-4" />, section: permitSection },
+    { title: "Packing", icon: <Backpack className="size-4" />, section: packingSection },
   ].filter((card) => card.section);
 
   return (
     <div>
-      <div className="relative h-[42svh] w-full overflow-hidden">
-        <Image src={cover} alt={trek.title} fill priority className="object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 md:from-black/70 to-transparent" />
-        <div className="absolute bottom-6 left-6 right-6">
-          <h1 className="text-white text-3xl md:text-5xl font-semibold drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">{trek.title}</h1>
-          <p className="text-white/80 text-sm md:text-base mt-1">
-            {trek.region} • {trek.duration}
-          </p>
+      <div className="container-px pt-8 md:pt-10">
+        <div className="overflow-hidden rounded-[2rem] border border-[color:var(--border)] bg-white shadow-sm">
+          <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="p-6 md:p-8 lg:p-10">
+              <div className="eyebrow">Trek detail</div>
+              <h1 className="mt-4 text-3xl font-semibold tracking-[-0.04em] md:text-5xl">{trek.title}</h1>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground md:text-base">
+                {trek.region} • {trek.duration}
+                {trek.maxElevation ? ` • ${trek.maxElevation}` : ""}
+              </p>
+              {trek.overview?.[0] && <p className="mt-5 max-w-2xl text-sm leading-7 text-muted-foreground md:text-base">{trek.overview[0]}</p>}
+            </div>
+            <div className="relative min-h-[18rem]">
+              <Image src={cover} alt={trek.title} fill priority sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover" />
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="container-px section grid md:grid-cols-3 gap-8">
-        <div className="md:col-span-2 space-y-6">
-          {trek.overview && (
-            <div className="glass rounded-2xl p-6 space-y-3">
-              {trek.overview.map((p, i) => (
-                <p key={i} className="text-muted-foreground">
+      <div className="container-px section grid gap-8 md:grid-cols-3">
+        <div className="space-y-6 md:col-span-2">
+          {trek.overview && trek.overview.length > 1 && (
+            <div className="panel rounded-[1.5rem] p-6 space-y-3">
+              {trek.overview.slice(1).map((p, i) => (
+                <p key={i} className="text-sm leading-7 text-muted-foreground md:text-base">
                   {p}
                 </p>
               ))}
             </div>
           )}
 
-          {trek.images && (
+          {trek.images && trek.images.length > 0 && (
             <div className="grid grid-cols-2 gap-3">
               {trek.images.map((img) => (
                 <div className="overflow-hidden rounded-xl" key={img.src}>
-                  <Image
-                    src={img.src}
-                    alt={img.name || trek.title}
-                    width={960}
-                    height={640}
-                    className="h-48 w-full object-cover hover:scale-[1.03] transition"
-                  />
+                  <Image src={img.src} alt={img.name || trek.title} width={960} height={640} className="h-48 w-full object-cover" />
                 </div>
               ))}
             </div>
           )}
 
           <section>
-            <h2 className="text-2xl font-semibold mb-3">Itinerary</h2>
+            <h2 className="mb-3 text-2xl font-semibold tracking-[-0.03em]">Itinerary</h2>
             <ol className="space-y-3">
               {trek.itinerary.map((d) => (
-                <li key={d.day} className="rounded-xl border border-white/10 bg-black/15 p-4">
+                <li key={d.day} className="panel rounded-xl p-4">
                   <div className="flex items-start gap-3">
-                    <div className="mt-0.5 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-primary/20 text-xs text-primary font-medium">
+                    <div className="mt-0.5 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-muted text-xs font-medium text-primary">
                       {d.day}
                     </div>
                     <div>
                       <div className="font-medium">{d.title}</div>
-                      <div className="text-muted-foreground text-sm mt-1">{d.description}</div>
+                      <div className="mt-1 text-sm text-muted-foreground">{d.description}</div>
                     </div>
                   </div>
                 </li>
@@ -191,12 +166,12 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
 
           {guide && (
             <section className="space-y-5">
-              <div className="rounded-2xl border border-white/10 bg-black/15 p-6">
-                <h2 className="text-2xl font-semibold">Complete Trek Guide</h2>
+              <div className="panel rounded-[1.5rem] p-6">
+                <h2 className="text-2xl font-semibold tracking-[-0.03em]">Complete trek guide</h2>
                 <p className="mt-2 text-sm text-muted-foreground">{guide.introNote}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {guide.quickKeywords.map((kw) => (
-                    <span key={kw} className="rounded-full border border-white/15 px-3 py-1 text-xs">
+                    <span key={kw} className="rounded-full border border-[color:var(--border)] bg-muted px-3 py-1 text-xs">
                       {kw}
                     </span>
                   ))}
@@ -205,13 +180,10 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
 
               {plannerCards.length > 0 && (
                 <section className="space-y-3">
-                  <h3 className="text-xl font-semibold">Quick Planner</h3>
+                  <h3 className="text-xl font-semibold tracking-[-0.03em]">Quick planner</h3>
                   <div className="grid gap-3 md:grid-cols-2">
                     {plannerCards.map((card) => (
-                      <article
-                        key={card.title}
-                        className={`rounded-2xl border border-white/10 bg-gradient-to-br ${card.accent} p-5`}
-                      >
+                      <article key={card.title} className="panel rounded-[1.5rem] p-5">
                         <div className="inline-flex items-center gap-2 text-primary">
                           {card.icon}
                           <span className="font-medium">{card.title}</span>
@@ -224,7 +196,7 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
                           ))}
                         </div>
                         {card.section?.bullets && card.section.bullets.length > 0 && (
-                          <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground list-disc pl-5">
+                          <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
                             {card.section.bullets.slice(0, 5).map((bullet) => (
                               <li key={bullet}>{bullet}</li>
                             ))}
@@ -238,7 +210,7 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
 
               <section className="grid gap-3 md:grid-cols-2">
                 {vibeSection && (
-                  <article className="rounded-2xl border border-white/10 bg-black/10 p-5">
+                  <article className="panel rounded-[1.5rem] p-5">
                     <div className="inline-flex items-center gap-2 text-primary">
                       <Utensils className="size-4" />
                       <h3 className="text-lg font-semibold">{vibeSection.heading}</h3>
@@ -253,7 +225,7 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
                   </article>
                 )}
                 {tipsSection && (
-                  <article className="rounded-2xl border border-white/10 bg-black/10 p-5">
+                  <article className="panel rounded-[1.5rem] p-5">
                     <div className="inline-flex items-center gap-2 text-primary">
                       <Lightbulb className="size-4" />
                       <h3 className="text-lg font-semibold">{tipsSection.heading}</h3>
@@ -262,7 +234,7 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
                       <p className="mt-3 text-sm leading-7 text-muted-foreground">{tipsSection.paragraphs[0]}</p>
                     )}
                     {tipsSection.bullets && tipsSection.bullets.length > 0 && (
-                      <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground list-disc pl-5">
+                      <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
                         {tipsSection.bullets.map((bullet) => (
                           <li key={bullet}>{bullet}</li>
                         ))}
@@ -272,9 +244,9 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
                 )}
               </section>
 
-              <article className="rounded-2xl border border-white/10 bg-black/10 p-5 md:p-6">
-                <h3 className="text-xl font-semibold">Research Sources</h3>
-                <ul className="mt-3 space-y-2 text-sm text-muted-foreground list-disc pl-5">
+              <article className="panel rounded-[1.5rem] p-5 md:p-6">
+                <h3 className="text-xl font-semibold tracking-[-0.03em]">Research sources</h3>
+                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
                   {guide.sources.map((source) => (
                     <li key={source.url}>
                       <a href={source.url} target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-3">
@@ -289,11 +261,11 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
         </div>
 
         <aside className="space-y-3">
-          <div className="glass rounded-2xl p-5">
+          <div className="panel rounded-[1.5rem] p-5">
             <div className="grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
               {trek.maxElevation && (
                 <>
-                  <div className="text-muted-foreground">Max Elevation</div>
+                  <div className="text-muted-foreground">Max elevation</div>
                   <div>{trek.maxElevation}</div>
                 </>
               )}
@@ -321,9 +293,9 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
           </div>
 
           {trek.highlights && trek.highlights.length > 0 && (
-            <div className="glass rounded-2xl p-5">
-              <div className="font-medium mb-2">Highlights</div>
-              <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+            <div className="panel rounded-[1.5rem] p-5">
+              <div className="mb-2 font-medium">Highlights</div>
+              <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
                 {trek.highlights.map((h) => (
                   <li key={h}>{h}</li>
                 ))}
@@ -331,16 +303,13 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
             </div>
           )}
 
-          <div className="glass rounded-2xl p-5">
+          <div className="panel rounded-[1.5rem] p-5">
             <div className="font-medium">Ready to trek?</div>
-            <p className="text-sm text-muted-foreground mt-1">
+            <p className="mt-1 text-sm text-muted-foreground">
               Contact us to customize your itinerary, dates, and budget style.
             </p>
-            <Link
-              href="/contact"
-              className="mt-3 inline-block px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-medium"
-            >
-              Plan with AirPlus
+            <Link href="/contact" className="mt-4 inline-flex rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground">
+              Plan this trip
             </Link>
           </div>
         </aside>

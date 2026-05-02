@@ -1,28 +1,8 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import Image from "next/image";
-import {
-  Mountain,
-  MapIcon,
-  Camera,
-  Phone,
-  Mail,
-  ShieldCheck,
-  Clock3,
-  Leaf,
-  Star,
-  Route,
-  Wallet,
-  Plane,
-  Sparkles,
-} from "lucide-react";
 import Link from "next/link";
-import Hero from "@/components/Hero";
-import GradientText from "@/components/GradientText";
-import TrekCard from "@/components/TrekCard";
-import FAQ from "@/components/FAQ";
-import PlanForm from "@/components/PlanForm";
-import MasonryGallery from "@/components/MasonryGallery";
+import { ArrowRight, CirclePlay, Clock3, MessageSquareQuote, ShieldCheck, Trophy, UserRoundCheck, UsersRound } from "lucide-react";
 import { popularTrekSlugs } from "@/content/trekGuides";
 
 async function readJson<T>(relative: string): Promise<T> {
@@ -34,15 +14,7 @@ async function readJson<T>(relative: string): Promise<T> {
 type HomeData = {
   hero: { title: string; subtitle: string; image: string };
   trekkingPackages: { name: string; duration: string; image: string; link: string }[];
-  tourPackages: { name: string; duration: string; image: string; link: string }[];
-  activities: { name: string; icon: string }[];
   testimonials: { name: string; text: string }[];
-  gallery: { images: string[] };
-  reviews: { score: number; countText: string };
-};
-
-type ContactData = {
-  headOffice: { name: string; address: string; phones: string[]; whatsapp?: string; email: string };
 };
 
 type TrekSummary = {
@@ -60,45 +32,31 @@ async function readTreks(): Promise<TrekSummary[]> {
   const treksDir = path.join(process.cwd(), "public/information/treks");
   const files = await fs.readdir(treksDir);
   const jsonFiles = files.filter((f) => f.endsWith(".json"));
-  const treks = await Promise.all(
+  return Promise.all(
     jsonFiles.map(async (f) => {
       const data = await fs.readFile(path.join(treksDir, f), "utf8");
       return JSON.parse(data) as TrekSummary;
     })
   );
-  return treks;
+}
+
+function trekPrice(slug: string): string {
+  if (slug.includes("everest")) return "1,350";
+  if (slug.includes("annapurna-base-camp")) return "1,150";
+  if (slug.includes("langtang")) return "650";
+  if (slug.includes("manaslu")) return "1,450";
+  return "950";
+}
+
+function trekBadge(index: number): string {
+  return ["Best Seller", "Popular", "Trending", "Top Pick"][index] || "Featured";
 }
 
 export default async function Home() {
-  const [home, contact, treks] = await Promise.all([
+  const [home, treks] = await Promise.all([
     readJson<HomeData>("information/home.json"),
-    readJson<ContactData>("information/contact.json"),
     readTreks(),
   ]);
-
-  const iconFor = (name: string) => {
-    switch (name) {
-      case "Trekking":
-        return <Mountain className="size-5" />;
-      case "Cultural Tours":
-        return <Camera className="size-5" />;
-      default:
-        return <MapIcon className="size-5" />;
-    }
-  };
-
-  const pickImageForSlug = (slug: string): string => {
-    const s = slug.toLowerCase();
-    if (s.includes("everest")) return "/information/assets/trekking_everest1.jpg";
-    if (s.includes("annapurna-base-camp")) return "/information/assets/cover_annapurna_base_camp.jpg";
-    if (s.includes("annapurna-circuit")) return "/information/assets/cover_annapurna_circuit.jpg";
-    if (s.includes("langtang")) return "/information/assets/cover_langtang_valley.jpg";
-    if (s.includes("mardi-himal")) return "/information/assets/cover_mardi_himal.jpg";
-    if (s.includes("poon-hill")) return "/information/assets/cover_poon_hill.jpg";
-    if (s.includes("gokyo")) return "/information/assets/cover_gokyo_lake.jpg";
-    if (s.includes("manaslu")) return "/information/assets/trekking_manaslu1.jpg";
-    return "/information/assets/hero_main.png";
-  };
 
   const order = new Map<string, number>(popularTrekSlugs.map((slug, idx) => [slug, idx]));
   const featuredTreks = treks
@@ -110,268 +68,186 @@ export default async function Home() {
       if (bOrder !== undefined) return 1;
       return a.title.localeCompare(b.title);
     })
-    .slice(0, 8);
+    .slice(0, 4);
 
-  const tourAnchorFromLink = (link: string, name: string): string => {
-    const last = (link || "").split("/").filter(Boolean).pop();
-    if (last) return last;
-    return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const pickImageForTrek = (trek: TrekSummary, fallback?: string): string => {
+    if (trek.coverImage) return trek.coverImage;
+    if (trek.images?.[0]?.src) return trek.images[0].src;
+    if (fallback) return fallback;
+    return "/information/assets/hero_main.png";
   };
 
-  const seasonCards = [
-    { season: "Spring", months: "Mar - May", mood: "Colorful forests and stable mountain weather." },
-    { season: "Autumn", months: "Sep - Nov", mood: "The clearest skies and peak trekking rhythm." },
-    { season: "Winter", months: "Dec - Feb", mood: "Quiet trails and dramatic, crisp landscapes." },
-  ];
-
-  const routeIntelligence = [
-    {
-      icon: <Route className="size-4" />,
-      title: "Route Match",
-      detail: "We match trek grade, number of days, and altitude profile to your pace.",
-    },
-    {
-      icon: <Wallet className="size-4" />,
-      title: "Budget Clarity",
-      detail: "Get realistic cost bands for permits, transport, guide, and teahouse spending.",
-    },
-    {
-      icon: <Plane className="size-4" />,
-      title: "Logistics Buffer",
-      detail: "Weather and transfer buffers are built in so your trip does not feel rushed.",
-    },
+  const blogPosts = [
+    { title: "Best Time to Trek in Nepal", date: "May 10, 2024", image: "/information/assets/gallery_1.jpg", href: "/travel-guide#seasons" },
+    { title: "Packing List for Nepal Trekking", date: "April 25, 2024", image: "/information/assets/gallery_2.jpg", href: "/travel-guide#packing" },
+    { title: "Top 10 Places to Visit in Nepal", date: "April 10, 2024", image: "/information/assets/gallery_7.jpg", href: "/tours" },
+    { title: "Nepal Travel Guide for Beginners", date: "March 29, 2024", image: "/information/assets/gallery_8.jpg", href: "/travel-guide" },
   ];
 
   return (
-    <div className="min-h-screen bg-noise aurora-bg">
-      <section className="section container-px pb-4">
-        <Hero title={home.hero.title} subtitle={home.hero.subtitle} image={home.hero.image} primaryHref="#trekking" secondaryHref="#tours" />
-      </section>
-
-      <section className="container-px pb-4">
-        <div className="rounded-2xl border border-white/15 bg-gradient-to-r from-black/30 to-black/10 px-4 py-3 md:px-6 md:py-4">
-          <div className="grid gap-3 text-base md:text-sm md:grid-cols-3">
-            <div className="inline-flex items-center gap-2"><ShieldCheck className="size-4 text-primary" /> Verified guides</div>
-            <div className="inline-flex items-center gap-2"><Clock3 className="size-4 text-primary" /> 24/7 local support</div>
-            <div className="inline-flex items-center gap-2"><Leaf className="size-4 text-primary" /> Responsible routes</div>
+    <div className="bg-noise">
+      <section className="relative bg-[#0f4da0]">
+        <div className="absolute inset-0">
+          <Image src={home.hero.image} alt="Himalayan mountain" fill priority sizes="100vw" className="object-cover opacity-85" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#103d7e]/88 via-[#103d7e]/62 to-[#103d7e]/18" />
+        </div>
+        <div className="container-px relative z-10 py-16 md:py-24">
+          <div className="max-w-3xl py-10 md:py-16">
+            <h1 className="max-w-2xl text-5xl font-semibold leading-[0.96] tracking-[-0.05em] text-white md:text-7xl">
+              Explore Nepal. Experience the Himalayas.
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-8 text-white/88">
+              Airplusnepal is your trusted partner for unforgettable trekking, tours and adventure experiences in Nepal.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Link href="#popular-treks" className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-lg">
+                Explore Treks
+                <ArrowRight className="size-4" />
+              </Link>
+              <button type="button" className="inline-flex items-center gap-3 text-sm font-medium text-white">
+                <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white text-primary shadow-lg">
+                  <CirclePlay className="size-5" />
+                </span>
+                Watch Video
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="section container-px pt-8">
-        <div className="grid gap-4 md:grid-cols-3">
-          {home.activities.map((a) => (
-            <div key={a.name} className="group rounded-2xl border border-white/12 bg-black/15 p-5 transition hover:-translate-y-0.5 hover:border-primary/45">
-              <div className="inline-flex items-center gap-2 text-primary">
-                {iconFor(a.name)}
-                <span className="text-xs uppercase tracking-wider">Travel Mode</span>
+      <section className="container-px relative z-20 -mt-10 md:-mt-12">
+        <div className="grid gap-px overflow-hidden rounded-[1.25rem] border border-[color:var(--border)] bg-white shadow-[0_18px_45px_rgba(18,43,86,0.12)] md:grid-cols-4">
+          {[
+            { title: "Local Experts", text: "Team of experienced and licensed local guides.", Icon: UsersRound },
+            { title: "Safety First", text: "Your safety and comfort are our top priorities.", Icon: ShieldCheck },
+            { title: "Best Price Guarantee", text: "Competitive prices with no hidden charges.", Icon: Trophy },
+            { title: "24/7 Support", text: "We are here to assist you anytime, anywhere.", Icon: UserRoundCheck },
+          ].map(({ title, text, Icon }) => (
+            <div key={title} className="bg-white p-6">
+              <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#edf4ff] text-primary">
+                <Icon className="size-6" />
               </div>
-              <div className="mt-3 text-xl md:text-lg font-medium">{a.name}</div>
-              <p className="mt-1 text-base md:text-sm text-muted-foreground md:hidden">Clear routes, clear prices.</p>
-              <p className="mt-1 text-sm text-muted-foreground hidden md:block">Curated options with practical timings, local support, and clear cost expectations.</p>
+              <div className="mt-4 text-xl font-semibold">{title}</div>
+              <div className="mt-2 text-sm leading-6 text-muted-foreground">{text}</div>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="section container-px pt-2">
-        <div className="grid gap-3 sm:grid-cols-4">
-          {[{ k: "Years", v: "12+" }, { k: "Curated Treks", v: "100+" }, { k: "Local Guides", v: "25+" }, { k: "Guest Rating", v: "4.9/5" }].map((s) => (
-            <div key={s.k} className="rounded-2xl border border-white/10 bg-black/10 p-5">
-              <div className="text-3xl font-semibold tracking-tight">{s.v}</div>
-              <div className="text-sm text-muted-foreground">{s.k}</div>
-            </div>
-          ))}
+      <section id="popular-treks" className="container-px py-16 md:py-20">
+        <div className="text-center">
+          <h2 className="text-4xl font-semibold tracking-[-0.04em]">Popular Treks</h2>
+          <p className="mt-3 text-sm text-muted-foreground">Explore our handpicked trekking packages in Nepal.</p>
         </div>
-      </section>
-
-      <section id="trekking" className="section container-px">
-        <div className="flex items-end justify-between mb-4">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-semibold">Top Routes This Season</h2>
-            <p className="mt-1 text-base md:text-sm text-muted-foreground md:hidden">Pick your trek and go.</p>
-            <p className="mt-1 text-sm text-muted-foreground hidden md:block">From first trek to high-altitude challenge, pick your line and pace.</p>
-          </div>
-          <Link href="/treks" className="text-sm text-muted-foreground hover:text-foreground">View all treks</Link>
-        </div>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {featuredTreks.map((t) => {
-            const cover = t.coverImage || t.images?.[0]?.src || pickImageForSlug(t.slug);
-            return (
-              <TrekCard
-                key={t.slug}
-                title={t.title}
-                slug={t.slug}
-                region={t.region}
-                duration={t.duration}
-                difficulty={t.difficulty}
-                maxElevation={t.maxElevation}
-                cover={cover}
-              />
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="section container-px pt-4">
-        <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-primary/12 via-black/10 to-accent/12 p-6 md:p-8">
-          <div className="flex items-start justify-between gap-4 flex-wrap">
-            <div>
-              <h2 className="text-3xl md:text-3xl font-semibold">Trail Intelligence</h2>
-              <p className="mt-2 max-w-2xl text-base md:text-sm text-muted-foreground md:hidden">Smarter planning. Less stress.</p>
-              <p className="mt-2 max-w-2xl text-sm text-muted-foreground hidden md:block">Better trips come from better prep. We blend local logistics, route reality, and your energy level.</p>
-            </div>
-            <span className="inline-flex items-center gap-1 rounded-full border border-white/15 bg-black/20 px-3 py-1 text-xs">
-              <Sparkles className="size-3.5 text-accent" /> Smart planning, less guesswork
-            </span>
-          </div>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            {routeIntelligence.map((item) => (
-              <div key={item.title} className="glass rounded-2xl p-5">
-                <div className="inline-flex items-center gap-2 text-primary">{item.icon}<span className="font-medium">{item.title}</span></div>
-                <p className="mt-2 text-base md:text-sm text-muted-foreground">{item.detail}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="tours" className="section container-px">
-        <div className="flex items-end justify-between mb-4">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-semibold">Journeys Beyond The Trail</h2>
-            <p className="mt-1 text-base md:text-sm text-muted-foreground md:hidden">Tours, safaris, and city escapes.</p>
-            <p className="mt-1 text-sm text-muted-foreground hidden md:block">Culture, wildlife, and short escapes that pair perfectly with trekking itineraries.</p>
-          </div>
-          <Link href="/tours" className="text-sm text-muted-foreground hover:text-foreground">Open full tour guide</Link>
-        </div>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {home.tourPackages.map((p) => (
-            <Link
-              key={p.name}
-              href={`/tours#${tourAnchorFromLink(p.link, p.name)}`}
-              className="group overflow-hidden rounded-3xl border border-white/10 bg-black/15"
-            >
-              <div className="relative">
-                <Image src={p.image} alt={p.name} width={960} height={600} className="h-52 w-full object-cover transition group-hover:scale-[1.03]" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                <div className="absolute left-3 top-3 rounded-full border border-white/20 bg-black/30 px-2.5 py-1 text-[11px] text-white/85">{p.duration}</div>
-                <div className="absolute bottom-3 left-3 right-3">
-                  <div className="text-white text-base font-medium">{p.name}</div>
-                  <div className="text-xs text-white/75 mt-1">Read itinerary and cost →</div>
+        <div className="mt-10 grid gap-6 xl:grid-cols-4 md:grid-cols-2">
+          {featuredTreks.map((trek, index) => (
+            <article key={trek.slug} className="overflow-hidden rounded-[1.25rem] border border-[color:var(--border)] bg-white shadow-[0_12px_34px_rgba(18,43,86,0.08)]">
+              <div className="relative h-64">
+                <Image
+                  src={pickImageForTrek(trek, home.trekkingPackages[index]?.image)}
+                  alt={trek.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 25vw"
+                  className="object-cover"
+                />
+                <div className="absolute left-3 top-3 rounded-md bg-primary px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-white">
+                  {trekBadge(index)}
                 </div>
               </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="section container-px pt-4">
-        <div className="flex items-end justify-between mb-4">
-          <h2 className="text-3xl md:text-3xl font-semibold">Best Time To Trek</h2>
-          <Link href="/travel-guide#seasons" className="text-sm text-muted-foreground hover:text-foreground">Season planner</Link>
-        </div>
-        <div className="grid gap-4 md:grid-cols-3">
-          {seasonCards.map((s) => (
-            <div key={s.season} className="rounded-2xl border border-white/10 bg-black/15 p-5">
-              <div className="text-lg font-medium">{s.season}</div>
-              <div className="text-xs tracking-wide text-primary mt-1">{s.months}</div>
-              <p className="mt-2 text-sm text-muted-foreground">{s.mood}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="section container-px pt-2">
-        <div className="mb-4 flex items-center gap-2 text-amber-300">
-          <Star className="size-4 fill-current" />
-          <Star className="size-4 fill-current" />
-          <Star className="size-4 fill-current" />
-          <Star className="size-4 fill-current" />
-          <Star className="size-4 fill-current" />
-          <span className="ml-1 text-base md:text-sm text-muted-foreground">Loved by trekkers worldwide</span>
-        </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          {home.testimonials.map((t) => (
-            <div key={t.name} className="glass rounded-2xl p-6">
-              <blockquote className="text-balance text-lg">“{t.text}”</blockquote>
-              <div className="mt-3 text-sm text-muted-foreground">— {t.name}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="section container-px">
-        <h2 className="text-3xl md:text-3xl font-semibold"><GradientText>Moments from Nepal</GradientText></h2>
-        <div className="mt-4">
-          <MasonryGallery images={home.gallery.images} />
-        </div>
-      </section>
-
-      <section className="section container-px pt-4">
-        <div className="rounded-3xl border border-white/10 p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-gradient-to-r from-primary/10 to-accent/10">
-          <div>
-            <div className="text-3xl md:text-2xl font-semibold">Ready for the Himalayas?</div>
-            <div className="text-base md:text-sm text-muted-foreground md:hidden">Send dates. Get your plan.</div>
-            <div className="text-sm text-muted-foreground hidden md:block">Tell us your dates and goals and get a free custom itinerary with realistic pace and logistics.</div>
-          </div>
-          <Link href="#contact" className="px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-medium hover:opacity-90 transition">Start planning</Link>
-        </div>
-      </section>
-
-      <section className="section container-px pb-16">
-        <div className="glass rounded-3xl p-6 flex items-center justify-between">
-          <div>
-            <div className="text-2xl font-semibold">Rated {home.reviews.score} / 5</div>
-            <div className="text-base md:text-sm text-muted-foreground">{home.reviews.countText}</div>
-          </div>
-          <Link href="/contact" className="px-5 py-2.5 rounded-full bg-accent text-accent-foreground font-medium hover:opacity-90 transition">Plan your trip</Link>
-        </div>
-      </section>
-
-      <section className="section container-px pt-0">
-        <h2 className="text-3xl md:text-3xl font-semibold">FAQ</h2>
-        <div className="mt-3">
-          <FAQ />
-        </div>
-      </section>
-
-      <section id="contact" className="section container-px pb-24">
-        <h2 className="text-3xl md:text-3xl font-semibold">Plan Your Trek</h2>
-        <p className="text-base md:text-sm text-muted-foreground mt-1">Share dates and goals. We build a clear plan.</p>
-        <div className="mt-4 grid gap-6 md:grid-cols-3">
-          <div className="md:col-span-2">
-            <PlanForm />
-          </div>
-          <div className="space-y-3">
-            <div className="glass rounded-2xl p-6 space-y-2">
-              <div className="text-lg font-medium">Contact</div>
-              <div className="text-sm text-muted-foreground">{contact.headOffice.name}</div>
-              <div className="text-sm text-muted-foreground">{contact.headOffice.address}</div>
-              <div className="mt-2 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-                <div className="inline-flex items-center gap-2"><Phone className="size-4" /> {contact.headOffice.phones.join(", ")}</div>
-                <div className="inline-flex items-center gap-2"><Mail className="size-4" /> <a className="underline" href={`mailto:${contact.headOffice.email}`}>{contact.headOffice.email}</a></div>
+              <div className="p-5">
+                <h3 className="text-2xl font-semibold tracking-[-0.03em]">{trek.title}</h3>
+                <div className="mt-3 flex flex-wrap gap-4 text-sm text-muted-foreground">
+                  <span className="inline-flex items-center gap-1"><Clock3 className="size-4" /> {trek.duration}</span>
+                  <span>{trek.difficulty || "Moderate"}</span>
+                </div>
+                <div className="mt-5 flex items-center justify-between gap-3">
+                  <div>
+                    <div className="text-xs uppercase tracking-[0.12em] text-muted-foreground">From USD</div>
+                    <div className="text-3xl font-semibold text-primary">{trekPrice(trek.slug)}</div>
+                  </div>
+                  <Link href={`/treks/${trek.slug}`} className="text-sm font-medium text-primary hover:underline">
+                    View Details
+                  </Link>
+                </div>
               </div>
-            </div>
-            <div className="glass rounded-2xl p-6">
-              <div className="font-medium mb-2">What you get in your plan</div>
-              <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
-                <li>Route options with days and elevation profile</li>
-                <li>Accommodation and transport recommendations</li>
-                <li>Packing and weather prep guidance</li>
-                <li>Transparent cost estimate with no hidden fees</li>
-              </ul>
-            </div>
-            <div className="glass rounded-2xl p-6">
-              <div className="font-medium mb-2">Why trek with us?</div>
-              <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
-                <li>Licensed guides and safety-first planning</li>
-                <li>Flexible itineraries with acclimatization days</li>
-                <li>Local-first, low-impact travel ethos</li>
-                <li>24/7 support during your trek</li>
-              </ul>
+            </article>
+          ))}
+        </div>
+        <div className="mt-10 text-center">
+          <Link href="/treks" className="inline-flex rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground">
+            View All Treks
+          </Link>
+        </div>
+      </section>
+
+      <section className="container-px py-8 md:py-12">
+        <div className="grid gap-8 lg:grid-cols-[1fr_0.95fr]">
+          <div className="relative overflow-hidden rounded-[1.25rem]">
+            <Image src="/information/assets/gallery_7.jpg" alt="Nepal landmark" width={1200} height={900} className="h-full w-full object-cover" />
+            <div className="absolute bottom-5 left-5 inline-flex h-28 w-28 flex-col items-center justify-center rounded-full bg-primary text-center text-white shadow-xl">
+              <span className="text-4xl font-semibold leading-none">10+</span>
+              <span className="mt-1 text-xs uppercase tracking-[0.12em]">Years of Experience</span>
             </div>
           </div>
+          <div className="rounded-[1.25rem] border border-[color:var(--border)] bg-white p-7 shadow-[0_12px_34px_rgba(18,43,86,0.08)] md:p-10">
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">About Airplusnepal</div>
+            <h2 className="mt-4 text-4xl font-semibold tracking-[-0.04em]">Your Journey, Our Passion</h2>
+            <p className="mt-5 text-sm leading-7 text-muted-foreground">
+              Airplusnepal Treks & Expedition Pvt. Ltd. is a government registered company based in Kathmandu, Nepal. We are a team of passionate travel enthusiasts dedicated to providing exceptional trekking, tour and adventure experiences in the Himalayas.
+            </p>
+            <div className="mt-6 space-y-3 text-sm text-muted-foreground">
+              <div className="inline-flex items-center gap-2"><ShieldCheck className="size-4 text-primary" /> Government Registered & Licensed Company</div>
+              <div className="inline-flex items-center gap-2"><ShieldCheck className="size-4 text-primary" /> Experienced, Friendly & Professional Team</div>
+              <div className="inline-flex items-center gap-2"><ShieldCheck className="size-4 text-primary" /> Sustainable & Responsible Tourism</div>
+              <div className="inline-flex items-center gap-2"><ShieldCheck className="size-4 text-primary" /> Thousands of Happy Travelers</div>
+            </div>
+            <Link href="/director" className="mt-8 inline-flex rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">
+              Learn More About Us
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="container-px py-16">
+        <div className="text-center">
+          <h2 className="text-4xl font-semibold tracking-[-0.04em]">What Our Travelers Say</h2>
+          <p className="mt-3 text-sm text-muted-foreground">Real experiences from our happy clients.</p>
+        </div>
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          {home.testimonials.slice(0, 3).map((item, index) => (
+            <div key={item.name + index} className="rounded-[1.25rem] border border-[color:var(--border)] bg-white p-6 shadow-[0_12px_30px_rgba(18,43,86,0.06)]">
+              <MessageSquareQuote className="size-8 text-primary" />
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">“{item.text}”</p>
+              <div className="mt-5 text-sm font-semibold">{item.name}</div>
+              <div className="text-xs uppercase tracking-[0.12em] text-muted-foreground">{["USA", "UK", "Spain"][index] || "Traveler"}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="container-px py-8 md:py-12">
+        <div className="text-center">
+          <h2 className="text-4xl font-semibold tracking-[-0.04em]">Latest from Our Blog</h2>
+          <p className="mt-3 text-sm text-muted-foreground">Tips, guides and inspiration for your next adventure.</p>
+        </div>
+        <div className="mt-10 grid gap-6 xl:grid-cols-4 md:grid-cols-2">
+          {blogPosts.map((post) => (
+            <article key={post.title} className="overflow-hidden rounded-[1.1rem] border border-[color:var(--border)] bg-white shadow-[0_10px_24px_rgba(18,43,86,0.06)]">
+              <Image src={post.image} alt={post.title} width={720} height={480} className="h-52 w-full object-cover" />
+              <div className="p-5">
+                <div className="text-xs text-muted-foreground">{post.date}</div>
+                <h3 className="mt-3 text-2xl font-semibold tracking-[-0.03em]">{post.title}</h3>
+                <Link href={post.href} className="mt-5 inline-flex text-sm font-medium text-primary hover:underline">
+                  Read More
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="mt-10 text-center">
+          <Link href="/travel-guide" className="inline-flex rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground">
+            View All Articles
+          </Link>
         </div>
       </section>
     </div>

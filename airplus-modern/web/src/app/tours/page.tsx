@@ -13,39 +13,30 @@ export default function ToursPage() {
   return (
     <div className="container-px section space-y-10">
       <div className="max-w-4xl">
-        <h1 className="text-3xl md:text-5xl font-semibold">Nepal Tours and Activities</h1>
-        <p className="mt-3 text-muted-foreground">
-          This page collects practical, research-based tour and activity guides with current 2024/2025 cost ranges,
-          timing notes, and planning tips.
+        <h1 className="text-3xl font-semibold tracking-[-0.04em] md:text-5xl">Nepal tours and activities</h1>
+        <p className="mt-3 text-muted-foreground leading-7">
+          Practical tour and activity guides with timing notes, cost context, and planning tips in one place.
         </p>
       </div>
 
-      <section className="rounded-3xl border border-white/10 bg-black/10 p-5 md:p-7">
-        <h2 className="text-xl font-semibold">Quick Menu</h2>
+      <section className="panel rounded-[1.5rem] p-5 md:p-7">
+        <h2 className="text-xl font-semibold tracking-[-0.03em]">Quick menu</h2>
         <div className="mt-3 grid gap-3 md:grid-cols-2">
           <div>
-            <div className="text-sm font-medium text-foreground/90">Popular Tours</div>
+            <div className="text-sm font-medium text-foreground/90">Popular tours</div>
             <div className="mt-2 flex flex-wrap gap-2">
               {tourGuides.map((tour) => (
-                <a
-                  key={tour.id}
-                  href={`#${tour.id}`}
-                  className="rounded-full border border-white/15 px-3 py-1.5 text-xs hover:bg-white/10"
-                >
+                <a key={tour.id} href={`#${tour.id}`} className="rounded-full border border-[color:var(--border)] bg-muted px-3 py-1.5 text-xs hover:bg-white">
                   {tour.title}
                 </a>
               ))}
             </div>
           </div>
           <div>
-            <div className="text-sm font-medium text-foreground/90">Adventure Activities</div>
+            <div className="text-sm font-medium text-foreground/90">Adventure activities</div>
             <div className="mt-2 flex flex-wrap gap-2">
               {activityGuides.map((activity) => (
-                <a
-                  key={activity.id}
-                  href={`#${activity.id}`}
-                  className="rounded-full border border-white/15 px-3 py-1.5 text-xs hover:bg-white/10"
-                >
+                <a key={activity.id} href={`#${activity.id}`} className="rounded-full border border-[color:var(--border)] bg-muted px-3 py-1.5 text-xs hover:bg-white">
                   {activity.title}
                 </a>
               ))}
@@ -55,42 +46,36 @@ export default function ToursPage() {
       </section>
 
       <section className="space-y-6">
-        <h2 className="text-2xl md:text-3xl font-semibold">Popular Nepal Tours</h2>
+        <h2 className="text-2xl font-semibold tracking-[-0.03em] md:text-3xl">Popular Nepal tours</h2>
         {tourGuides.map((tour, idx) => (
-          <article
-            id={tour.id}
-            key={tour.id}
-            className="overflow-hidden rounded-3xl border border-white/10 bg-black/10 scroll-mt-24"
-          >
-            <div className="relative">
-              <Image
-                src={tour.image}
-                alt={tour.title}
-                width={1280}
-                height={760}
-                sizes="(max-width: 768px) 100vw, 90vw"
-                priority={idx === 0}
-                className="h-64 md:h-80 w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-              <div className="absolute bottom-4 left-5 right-5">
-                <h3 className="text-2xl font-semibold text-white">{tour.title}</h3>
-                <p className="text-sm text-white/80">{tour.duration}</p>
-              </div>
-            </div>
+          <article id={tour.id} key={tour.id} className="panel overflow-hidden rounded-[1.75rem] scroll-mt-24">
+            <Image
+              src={tour.image}
+              alt={tour.title}
+              width={1280}
+              height={760}
+              sizes="(max-width: 768px) 100vw, 90vw"
+              priority={idx === 0}
+              className="h-64 w-full object-cover md:h-80"
+            />
 
-            <div className="p-5 md:p-7 space-y-4">
-              <p className="text-sm text-muted-foreground">{tour.introNote}</p>
+            <div className="space-y-4 p-5 md:p-7">
+              <div>
+                <h3 className="text-2xl font-semibold tracking-[-0.03em]">{tour.title}</h3>
+                <p className="text-sm text-muted-foreground">{tour.duration}</p>
+              </div>
+
+              <p className="text-sm text-muted-foreground leading-7">{tour.introNote}</p>
               <div className="flex flex-wrap gap-2">
                 {tour.quickKeywords.map((keyword) => (
-                  <span key={keyword} className="rounded-full border border-white/15 px-3 py-1 text-xs">
+                  <span key={keyword} className="rounded-full border border-[color:var(--border)] bg-muted px-3 py-1 text-xs">
                     {keyword}
                   </span>
                 ))}
               </div>
 
               {tour.sections.map((section) => (
-                <section key={section.heading} className="rounded-2xl border border-white/10 bg-black/15 p-4 md:p-5">
+                <section key={section.heading} className="rounded-2xl border border-[color:var(--border)] bg-[rgba(246,244,239,0.72)] p-4 md:p-5">
                   <h4 className="text-lg font-semibold">{section.heading}</h4>
                   <div className="mt-2 space-y-2">
                     {section.paragraphs.map((paragraph) => (
@@ -100,7 +85,7 @@ export default function ToursPage() {
                     ))}
                   </div>
                   {section.bullets && section.bullets.length > 0 && (
-                    <ul className="mt-3 list-disc pl-5 space-y-1.5 text-sm text-muted-foreground">
+                    <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
                       {section.bullets.map((bullet) => (
                         <li key={bullet}>{bullet}</li>
                       ))}
@@ -109,17 +94,12 @@ export default function ToursPage() {
                 </section>
               ))}
 
-              <section className="rounded-2xl border border-white/10 bg-black/15 p-4 md:p-5">
-                <h4 className="text-lg font-semibold">Research Sources</h4>
-                <ul className="mt-2 list-disc pl-5 space-y-1.5 text-sm text-muted-foreground">
+              <section className="rounded-2xl border border-[color:var(--border)] bg-[rgba(246,244,239,0.72)] p-4 md:p-5">
+                <h4 className="text-lg font-semibold">Research sources</h4>
+                <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
                   {tour.sources.map((source) => (
                     <li key={source.url}>
-                      <a
-                        href={source.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="underline decoration-dotted underline-offset-3"
-                      >
+                      <a href={source.url} target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-3">
                         {source.label}
                       </a>
                     </li>
@@ -132,32 +112,28 @@ export default function ToursPage() {
       </section>
 
       <section className="space-y-6">
-        <h2 className="text-2xl md:text-3xl font-semibold">Top Adventure Activities</h2>
+        <h2 className="text-2xl font-semibold tracking-[-0.03em] md:text-3xl">Top adventure activities</h2>
         <div className="grid gap-6 xl:grid-cols-2">
           {activityGuides.map((activity) => (
-            <article
-              id={activity.id}
-              key={activity.id}
-              className="overflow-hidden rounded-3xl border border-white/10 bg-black/10 scroll-mt-24"
-            >
+            <article id={activity.id} key={activity.id} className="panel overflow-hidden rounded-[1.75rem] scroll-mt-24">
               <Image src={activity.image} alt={activity.title} width={1200} height={700} className="h-56 w-full object-cover" />
-              <div className="p-5 md:p-6 space-y-4">
+              <div className="space-y-4 p-5 md:p-6">
                 <div>
-                  <h3 className="text-xl md:text-2xl font-semibold">{activity.title}</h3>
+                  <h3 className="text-xl font-semibold tracking-[-0.03em] md:text-2xl">{activity.title}</h3>
                   <p className="text-sm text-muted-foreground">Level: {activity.level}</p>
                 </div>
 
-                <p className="text-sm text-muted-foreground">{activity.introNote}</p>
+                <p className="text-sm leading-7 text-muted-foreground">{activity.introNote}</p>
                 <div className="flex flex-wrap gap-2">
                   {activity.quickKeywords.map((keyword) => (
-                    <span key={keyword} className="rounded-full border border-white/15 px-3 py-1 text-xs">
+                    <span key={keyword} className="rounded-full border border-[color:var(--border)] bg-muted px-3 py-1 text-xs">
                       {keyword}
                     </span>
                   ))}
                 </div>
 
                 {activity.sections.map((section) => (
-                  <section key={section.heading} className="rounded-2xl border border-white/10 bg-black/15 p-4">
+                  <section key={section.heading} className="rounded-2xl border border-[color:var(--border)] bg-[rgba(246,244,239,0.72)] p-4">
                     <h4 className="text-base font-semibold">{section.heading}</h4>
                     <div className="mt-2 space-y-2">
                       {section.paragraphs.map((paragraph) => (
@@ -167,7 +143,7 @@ export default function ToursPage() {
                       ))}
                     </div>
                     {section.bullets && section.bullets.length > 0 && (
-                      <ul className="mt-2 list-disc pl-5 space-y-1.5 text-sm text-muted-foreground">
+                      <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
                         {section.bullets.map((bullet) => (
                           <li key={bullet}>{bullet}</li>
                         ))}
@@ -176,17 +152,12 @@ export default function ToursPage() {
                   </section>
                 ))}
 
-                <section className="rounded-2xl border border-white/10 bg-black/15 p-4">
-                  <h4 className="text-base font-semibold">Research Sources</h4>
-                  <ul className="mt-2 list-disc pl-5 space-y-1.5 text-sm text-muted-foreground">
+                <section className="rounded-2xl border border-[color:var(--border)] bg-[rgba(246,244,239,0.72)] p-4">
+                  <h4 className="text-base font-semibold">Research sources</h4>
+                  <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
                     {activity.sources.map((source) => (
                       <li key={source.url}>
-                        <a
-                          href={source.url}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="underline decoration-dotted underline-offset-3"
-                        >
+                        <a href={source.url} target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-3">
                           {source.label}
                         </a>
                       </li>
@@ -199,14 +170,13 @@ export default function ToursPage() {
         </div>
       </section>
 
-      <section className="rounded-3xl border border-white/10 bg-gradient-to-r from-primary/12 to-accent/12 p-6 md:p-8">
-        <h2 className="text-2xl font-semibold">Need a custom route?</h2>
+      <section className="panel rounded-[1.75rem] p-6 md:p-8">
+        <h2 className="text-2xl font-semibold tracking-[-0.03em]">Need a custom route?</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          Tell us your number of days, comfort level, and interests. We can combine treks, cultural tours, and
-          activities into one realistic plan.
+          Tell us your number of days, comfort level, and interests. We can combine treks, cultural tours, and activities into one realistic plan.
         </p>
-        <Link href="/contact" className="mt-4 inline-flex rounded-full bg-primary px-5 py-2.5 text-primary-foreground font-medium">
-          Plan My Nepal Trip
+        <Link href="/contact" className="mt-4 inline-flex rounded-full bg-primary px-5 py-2.5 font-medium text-primary-foreground">
+          Plan my Nepal trip
         </Link>
       </section>
     </div>
