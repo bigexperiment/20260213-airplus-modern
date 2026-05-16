@@ -5,7 +5,8 @@ import path from "node:path";
 import Image from "next/image";
 import Link from "next/link";
 import { getTrekGuide } from "@/content/trekGuides";
-import { Backpack, CalendarDays, FileCheck2, Lightbulb, Utensils, WalletCards } from "lucide-react";
+import { Backpack, CalendarDays, FileCheck2, Lightbulb, Utensils } from "lucide-react";
+import InstagramFeed from "@/components/InstagramFeed";
 
 type ItineraryItem = { day: number; title: string; description: string };
 type Trek = {
@@ -36,6 +37,11 @@ function friendlySectionHeading(heading: string): string {
   if (heading === "Permits & Getting There") return "Permits and getting to the trail";
   if (heading === "Tips from People Who've Done It") return "Helpful tips before you go";
   return heading;
+}
+
+function isPriceSection(heading: string): boolean {
+  const h = heading.toLowerCase();
+  return h.includes("cost") || h.includes("price") || h.includes("budget");
 }
 
 async function getTrek(slug: string): Promise<Trek | null> {
@@ -101,7 +107,6 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
 
   const difficultySection = sectionByKeyword(["hard"]);
   const bestTimeSection = sectionByKeyword(["best time"]);
-  const costSection = sectionByKeyword(["cost"]);
   const packingSection = sectionByKeyword(["pack"]);
   const permitSection = sectionByKeyword(["permit"]);
   const vibeSection = sectionByKeyword(["teahouse", "food", "vibe"]);
@@ -110,24 +115,27 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
   const plannerCards = [
     { title: "Difficulty", icon: <Lightbulb className="size-4" />, section: difficultySection },
     { title: "Best season", icon: <CalendarDays className="size-4" />, section: bestTimeSection },
-    { title: "Budget range", icon: <WalletCards className="size-4" />, section: costSection },
     { title: "Permits", icon: <FileCheck2 className="size-4" />, section: permitSection },
     { title: "Packing", icon: <Backpack className="size-4" />, section: packingSection },
   ].filter((card) => card.section);
+  const articleSections = guide?.sections.filter(
+    (section) =>
+      !["teahouse", "food", "vibe", "tips"].some((keyword) => section.heading.toLowerCase().includes(keyword)) &&
+      !isPriceSection(section.heading)
+  );
 
   return (
     <div>
       <div className="container-px pt-8 md:pt-10">
-        <div className="overflow-hidden rounded-[2rem] border border-[color:var(--border)] bg-white shadow-sm">
+        <div className="overflow-hidden rounded-[1.5rem] bg-white">
           <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
             <div className="p-6 md:p-8 lg:p-10">
-              <div className="eyebrow">Trek in Nepal</div>
-              <h1 className="mt-4 text-3xl font-semibold tracking-[-0.04em] md:text-5xl">{trek.title}</h1>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground md:text-base">
+              <h1 className="text-3xl font-semibold tracking-[-0.04em] text-slate-950 md:text-5xl">{trek.title}</h1>
+              <p className="mt-3 text-sm leading-7 text-slate-800 md:text-base">
                 {trek.region} • {trek.duration}
                 {trek.maxElevation ? ` • ${trek.maxElevation}` : ""}
               </p>
-              {trek.overview?.[0] && <p className="mt-5 max-w-2xl text-sm leading-7 text-muted-foreground md:text-base">{trek.overview[0]}</p>}
+              {trek.overview?.[0] && <p className="mt-5 max-w-2xl text-sm leading-7 text-slate-800 md:text-base">{trek.overview[0]}</p>}
             </div>
             <div className="relative min-h-[18rem]">
               <Image src={cover} alt={trek.title} fill priority sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover" />
@@ -136,12 +144,12 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
         </div>
       </div>
 
-      <div className="container-px section grid gap-8 md:grid-cols-3">
+      <div className="container-px section grid gap-10 md:grid-cols-3">
         <div className="space-y-6 md:col-span-2">
           {trek.overview && trek.overview.length > 1 && (
-            <div className="panel rounded-[1.5rem] p-6 space-y-3">
+            <div className="space-y-3 border-l-2 border-[color:var(--border)] pl-5">
               {trek.overview.slice(1).map((p, i) => (
-                <p key={i} className="text-sm leading-7 text-muted-foreground md:text-base">
+                <p key={i} className="text-sm leading-7 text-slate-800 md:text-base">
                   {p}
                 </p>
               ))}
@@ -162,14 +170,14 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
             <h2 className="mb-3 text-2xl font-semibold tracking-[-0.03em]">Day-by-day outline</h2>
             <ol className="space-y-3">
               {trek.itinerary.map((d) => (
-                <li key={d.day} className="panel rounded-xl p-4">
+                <li key={d.day} className="rounded-xl bg-white px-1 py-3">
                   <div className="flex items-start gap-3">
-                    <div className="mt-0.5 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-muted text-xs font-medium text-primary">
+                    <div className="mt-0.5 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-[color:var(--muted)] text-xs font-medium text-primary">
                       {d.day}
                     </div>
                     <div>
                       <div className="font-medium">{d.title}</div>
-                      <div className="mt-1 text-sm text-muted-foreground">{d.description}</div>
+                      <div className="mt-1 text-sm text-slate-800">{d.description}</div>
                     </div>
                   </div>
                 </li>
@@ -179,9 +187,9 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
 
           {guide && (
             <section className="space-y-5">
-              <div className="panel rounded-[1.5rem] p-6">
+              <div className="space-y-3">
                 <h2 className="text-2xl font-semibold tracking-[-0.03em]">Before you choose this trek</h2>
-                <p className="mt-2 text-sm text-muted-foreground">
+                <p className="mt-2 text-sm text-slate-800">
                   Here are the practical details travelers usually want first, including how difficult the route feels, when to go, what to budget, and what the trail experience is actually like.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -194,24 +202,24 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
               </div>
 
               {plannerCards.length > 0 && (
-                <section className="space-y-3">
+                <section className="space-y-4 border-t border-[color:var(--border)] pt-6">
                   <h3 className="text-xl font-semibold tracking-[-0.03em]">Quick planning notes</h3>
                   <div className="grid gap-3 md:grid-cols-2">
                     {plannerCards.map((card) => (
-                      <article key={card.title} className="panel rounded-[1.5rem] p-5">
+                      <article key={card.title} className="rounded-xl bg-white p-4">
                         <div className="inline-flex items-center gap-2 text-primary">
                           {card.icon}
                           <span className="font-medium">{card.title}</span>
                         </div>
                         <div className="mt-2 space-y-2">
                           {card.section?.paragraphs.slice(0, 2).map((paragraph) => (
-                            <p key={paragraph} className="text-sm leading-7 text-muted-foreground">
+                            <p key={paragraph} className="text-sm leading-7 text-slate-800">
                               {paragraph}
                             </p>
                           ))}
                         </div>
                         {card.section?.bullets && card.section.bullets.length > 0 && (
-                          <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
+                          <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-slate-800">
                             {card.section.bullets.slice(0, 5).map((bullet) => (
                               <li key={bullet}>{bullet}</li>
                             ))}
@@ -225,14 +233,14 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
 
               <section className="grid gap-3 md:grid-cols-2">
                 {vibeSection && (
-                  <article className="panel rounded-[1.5rem] p-5">
+                  <article className="rounded-xl bg-white p-4">
                     <div className="inline-flex items-center gap-2 text-primary">
                       <Utensils className="size-4" />
                       <h3 className="text-lg font-semibold">{friendlySectionHeading(vibeSection.heading)}</h3>
                     </div>
                     <div className="mt-3 space-y-2">
                       {vibeSection.paragraphs.map((paragraph) => (
-                        <p key={paragraph} className="text-sm leading-7 text-muted-foreground">
+                        <p key={paragraph} className="text-sm leading-7 text-slate-800">
                           {paragraph}
                         </p>
                       ))}
@@ -240,16 +248,16 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
                   </article>
                 )}
                 {tipsSection && (
-                  <article className="panel rounded-[1.5rem] p-5">
+                  <article className="rounded-xl bg-white p-4">
                     <div className="inline-flex items-center gap-2 text-primary">
                       <Lightbulb className="size-4" />
                       <h3 className="text-lg font-semibold">{friendlySectionHeading(tipsSection.heading)}</h3>
                     </div>
                     {tipsSection.paragraphs.length > 0 && (
-                      <p className="mt-3 text-sm leading-7 text-muted-foreground">{tipsSection.paragraphs[0]}</p>
+                      <p className="mt-3 text-sm leading-7 text-slate-800">{tipsSection.paragraphs[0]}</p>
                     )}
                     {tipsSection.bullets && tipsSection.bullets.length > 0 && (
-                      <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-muted-foreground">
+                      <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-slate-800">
                         {tipsSection.bullets.map((bullet) => (
                           <li key={bullet}>{bullet}</li>
                         ))}
@@ -259,9 +267,9 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
                 )}
               </section>
 
-              <article className="panel rounded-[1.5rem] p-5 md:p-6">
+              <article className="border-t border-[color:var(--border)] pt-6">
                 <h3 className="text-xl font-semibold tracking-[-0.03em]">Useful references</h3>
-                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
+                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-slate-800">
                   {guide.sources.map((source) => (
                     <li key={source.url}>
                       <a href={source.url} target="_blank" rel="noreferrer" className="underline decoration-dotted underline-offset-3">
@@ -271,12 +279,42 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
                   ))}
                 </ul>
               </article>
+
+              {articleSections && articleSections.length > 0 && (
+                <article className="border-t border-[color:var(--border)] pt-6">
+                  <h3 className="text-2xl font-semibold tracking-[-0.03em] text-slate-950">Detailed route article</h3>
+                  <p className="mt-2 text-sm leading-7 text-slate-800">
+                    If you are researching seriously, this section gives a fuller breakdown in plain language so you can understand the route before you decide.
+                  </p>
+                  <div className="mt-5 space-y-6">
+                    {articleSections.map((section) => (
+                      <section key={section.heading} className="space-y-3">
+                        <h4 className="text-xl font-semibold text-slate-950">{friendlySectionHeading(section.heading)}</h4>
+                        {section.paragraphs.map((paragraph) => (
+                          <p key={paragraph} className="text-sm leading-7 text-slate-800 md:text-base">
+                            {paragraph}
+                          </p>
+                        ))}
+                        {section.bullets && section.bullets.length > 0 && (
+                          <ul className="list-disc space-y-1.5 pl-5 text-sm text-slate-800 md:text-base">
+                            {section.bullets.map((bullet) => (
+                              <li key={bullet}>{bullet}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </section>
+                    ))}
+                  </div>
+                </article>
+              )}
+
+              <InstagramFeed />
             </section>
           )}
         </div>
 
-        <aside className="space-y-3">
-          <div className="panel rounded-[1.5rem] p-5">
+        <aside className="space-y-6 md:sticky md:top-24 md:self-start">
+          <div className="rounded-xl bg-white p-5">
             <div className="grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
               {trek.maxElevation && (
                 <>
@@ -308,9 +346,9 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
           </div>
 
           {trek.highlights && trek.highlights.length > 0 && (
-            <div className="panel rounded-[1.5rem] p-5">
+            <div className="rounded-xl bg-white p-5">
               <div className="mb-2 font-medium">Why travelers like it</div>
-              <ul className="list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+              <ul className="list-disc space-y-1 pl-5 text-sm text-slate-800">
                 {trek.highlights.map((h) => (
                   <li key={h}>{h}</li>
                 ))}
@@ -318,9 +356,9 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
             </div>
           )}
 
-          <div className="panel rounded-[1.5rem] p-5">
+          <div className="rounded-xl bg-white p-5">
             <div className="font-medium">Thinking about this trek?</div>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="mt-1 text-sm text-slate-800">
               If you are comparing a few routes, we can help you figure out what fits your dates, budget, and comfort level before you commit.
             </p>
             <Link href="/contact" className="mt-4 inline-flex rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground">

@@ -3,9 +3,9 @@ import Link from "next/link";
 import FAQ from "@/components/FAQ";
 
 export const metadata: Metadata = {
-  title: "Nepal Travel Guide (2024/2025): Permits, Seasons, Budget and Packing",
+  title: "Nepal Travel Guide (2024/2025): Permits, Seasons and Packing",
   description:
-    "A practical Nepal travel guide with current permit references, seasonal planning, estimated costs, and smart packing advice.",
+    "A practical Nepal travel guide with current permit references, seasonal planning, and smart packing advice.",
 };
 
 const seasonRows = [
@@ -67,13 +67,6 @@ const permitRows = [
     fee: "Seasonal USD rate + daily extension",
     note: "Guide/agency handling required. Check latest official rates for your exact travel month.",
   },
-];
-
-const budgetRows = [
-  { type: "Short Trek (4-7 days)", cost: "USD 350-900", includes: "Permits, guide, teahouse basics, local transport" },
-  { type: "Classic Trek (10-15 days)", cost: "USD 900-2,300", includes: "Guide support, permits, accommodation, meals on trail" },
-  { type: "Cultural Tour (4-7 days)", cost: "USD 300-1,000", includes: "Hotels, city transfer, sightseeing logistics" },
-  { type: "Adventure Add-ons", cost: "USD 35-300", includes: "Rafting, paragliding, mountain flight, bungee (activity dependent)" },
 ];
 
 const packingItems = [
@@ -167,23 +160,7 @@ export default function TravelGuidePage() {
         </div>
       </section>
 
-      <section className="grid gap-6 md:grid-cols-2">
-        <article id="budget" className="panel scroll-mt-24 rounded-[1.75rem] p-5 md:p-7">
-          <h2 className="text-2xl font-semibold tracking-[-0.03em]">Budget planner</h2>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Your final cost depends on route, comfort level, guide style, hotels, transport choices, and how much flexibility you want to leave in the plan.
-          </p>
-          <div className="mt-4 space-y-3">
-            {budgetRows.map((row) => (
-              <div key={row.type} className="rounded-2xl border border-[color:var(--border)] bg-[rgba(246,244,239,0.72)] p-4">
-                <div className="font-medium">{row.type}</div>
-                <div className="mt-1 text-sm text-primary">{row.cost}</div>
-                <p className="mt-1 text-sm text-muted-foreground">{row.includes}</p>
-              </div>
-            ))}
-          </div>
-        </article>
-
+      <section className="grid gap-6 md:grid-cols-1">
         <article id="packing" className="panel scroll-mt-24 rounded-[1.75rem] p-5 md:p-7">
           <h2 className="text-2xl font-semibold tracking-[-0.03em]">Packing essentials</h2>
           <p className="mt-2 text-sm text-muted-foreground">

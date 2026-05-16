@@ -2,8 +2,9 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CalendarDays, CirclePlay, Clock3, Heart, MapPin, ShieldCheck, Star, Trophy, UserRoundCheck, UsersRound } from "lucide-react";
+import { ArrowRight, CalendarDays, CirclePlay, Clock3, Heart, MapPin, ShieldCheck, Star, UserRoundCheck, UsersRound } from "lucide-react";
 import { popularTrekSlugs } from "@/content/trekGuides";
+import InstagramFeed from "@/components/InstagramFeed";
 
 async function readJson<T>(relative: string): Promise<T> {
   const file = path.join(process.cwd(), "public", relative);
@@ -38,14 +39,6 @@ async function readTreks(): Promise<TrekSummary[]> {
       return JSON.parse(data) as TrekSummary;
     })
   );
-}
-
-function trekPrice(slug: string): string {
-  if (slug.includes("everest")) return "1,350";
-  if (slug.includes("annapurna-base-camp")) return "1,150";
-  if (slug.includes("langtang")) return "650";
-  if (slug.includes("manaslu")) return "1,450";
-  return "950";
 }
 
 function trekBadge(index: number): string {
@@ -124,7 +117,7 @@ export default async function Home() {
             {[
             { title: "Local Experts", text: "You are planning with people who know the trails, transport, weather shifts, and small details that make a trip smoother.", Icon: UsersRound },
             { title: "Safety First", text: "We keep the plan realistic, talk honestly about altitude and pace, and make sure you feel looked after on the road and on the trail.", Icon: ShieldCheck },
-            { title: "Best Price Guarantee", text: "Our quotes stay simple and easy to understand, so you know what matters and what you can skip.", Icon: Trophy },
+            { title: "Clear Planning", text: "Everything is explained clearly, so you know what to expect before the trip starts.", Icon: ShieldCheck },
             { title: "24/7 Support", text: "If plans change, flights move, or you just need help, there is a real team here to respond.", Icon: UserRoundCheck },
           ].map(({ title, text, Icon }) => (
             <div key={title} className="bg-white p-6">
@@ -171,11 +164,7 @@ export default async function Home() {
                   <span>{trek.difficulty || "Moderate"}</span>
                   {trek.maxElevation && <span><MapPin className="mr-1 inline size-4" /> {trek.maxElevation}</span>}
                 </div>
-                <div className="mt-5 flex items-center justify-between gap-3">
-                  <div>
-                  <div className="text-xs uppercase tracking-[0.12em] text-muted-foreground">From USD</div>
-                  <div className="text-3xl font-semibold text-primary">{trekPrice(trek.slug)}</div>
-                  </div>
+                <div className="mt-5 flex items-center justify-end gap-3">
                   <Link href={`/treks/${trek.slug}`} className="text-sm font-medium text-primary hover:underline">
                     View Details
                   </Link>
@@ -281,6 +270,10 @@ export default async function Home() {
             </article>
           ))}
         </div>
+      </section>
+
+      <section className="container-px py-8 md:py-12">
+        <InstagramFeed />
       </section>
     </div>
   );
