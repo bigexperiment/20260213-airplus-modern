@@ -32,8 +32,11 @@ export default function BrandLogo({
       </span>
       {showWordmark && (
         <span className="leading-none">
-          <span className={`display-face font-extrabold tracking-[-0.045em] text-[#0d2d5e] ${textSize}`}>
-            Airplus<span className="text-[#f07f17]">nepal</span>
+          <span
+            className={`font-extrabold tracking-[-0.02em] text-[#0d2d5e] ${textSize}`}
+            style={{ fontFamily: "var(--font-brand), 'Segoe UI', sans-serif" }}
+          >
+            Airplus<span className="text-[#f07f17]">Nepal</span>
           </span>
         </span>
       )}
