@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { ChevronDown, Facebook, Instagram, Mail, Menu, Phone, Twitter, MapPin, X, Youtube } from "lucide-react";
+import { ChevronDown, Facebook, Instagram, Mail, Menu, Phone, Twitter, MapPin, X, Youtube, MessageCircle } from "lucide-react";
 import BrandLogo from "@/components/BrandLogo";
 
 function basePath(href: string): string {
@@ -33,11 +33,32 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50">
       <div className="bg-[#0f3468] text-white">
-        <div className="container-px flex h-9 items-center justify-between text-xs">
-          <div className="inline-flex items-center gap-5">
-            <span className="inline-flex items-center gap-1.5"><Mail className="size-3.5" /> info@airplusnepal.com</span>
-            <span className="inline-flex items-center gap-1.5"><Phone className="size-3.5" /> +977 985-1234567</span>
-            <span className="hidden items-center gap-1.5 md:inline-flex"><MapPin className="size-3.5" /> Thamel, Kathmandu, Nepal</span>
+        <div className="container-px flex h-8 items-center justify-between text-[13px]">
+          <div className="inline-flex min-w-0 items-center gap-4">
+            <a href="tel:+9779851234567" className="inline-flex items-center gap-1.5 whitespace-nowrap text-white/90 hover:text-white">
+              <Phone className="size-4" />
+              +977 985-1234567
+            </a>
+            <a
+              href="https://wa.me/9779851234567"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 whitespace-nowrap text-white/90 hover:text-white"
+            >
+              <MessageCircle className="size-4" />
+              WhatsApp
+            </a>
+            <a
+              href="mailto:info@airplusnepal.com"
+              className="hidden items-center gap-1.5 whitespace-nowrap text-white/90 hover:text-white sm:inline-flex"
+            >
+              <Mail className="size-4" />
+              info@airplusnepal.com
+            </a>
+            <span className="hidden items-center gap-1.5 whitespace-nowrap md:inline-flex text-white/90">
+              <MapPin className="size-4" />
+              Thamel, Kathmandu, Nepal
+            </span>
           </div>
           <div className="hidden md:flex items-center gap-4">
             <span>EN</span>
@@ -50,9 +71,9 @@ export default function Navbar() {
       </div>
 
       <div className="border-b border-[color:var(--border)] bg-white shadow-[0_1px_0_rgba(21,89,198,0.03)]">
-        <div className="container-px flex h-20 items-center justify-between">
+        <div className="container-px flex h-14 items-center justify-between md:h-16">
           <Link href="/" className="flex items-center">
-            <BrandLogo />
+            <BrandLogo small />
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">

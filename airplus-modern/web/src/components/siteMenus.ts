@@ -22,6 +22,11 @@ export const navItems: NavItem[] = [
         description: "Iconic high-altitude route in the Khumbu region.",
       },
       {
+        label: "Everest Three Passes Trek",
+        href: "/treks/everest-three-passes",
+        description: "Strenuous circuit linking EBC, Gokyo, and three high passes.",
+      },
+      {
         label: "Annapurna Base Camp Trek",
         href: "/treks/annapurna-base-camp",
         description: "Classic Annapurna Sanctuary teahouse route.",
@@ -42,6 +47,11 @@ export const navItems: NavItem[] = [
         description: "Remote restricted-area circuit with big views.",
       },
       {
+        label: "Tsum Valley Trek",
+        href: "/treks/tsum-valley",
+        description: "Remote cultural valley trek with a quieter pace.",
+      },
+      {
         label: "Gokyo Lakes Trek",
         href: "/treks/gokyo-lake",
         description: "High lakes and panoramic Gokyo Ri viewpoints.",
@@ -55,6 +65,16 @@ export const navItems: NavItem[] = [
         label: "Poon Hill Trek",
         href: "/treks/poon-hill",
         description: "Beginner-friendly sunrise route in Annapurna.",
+      },
+      {
+        label: "Khopra Danda Trek",
+        href: "/treks/khopra-danda",
+        description: "Quieter Annapurna ridge alternative near Poon Hill.",
+      },
+      {
+        label: "Upper Mustang Trek",
+        href: "/treks/upper-mustang",
+        description: "Trans-Himalayan desert landscapes and Tibetan culture.",
       },
     ],
   },
@@ -163,10 +183,12 @@ export const footerSections: { title: string; links: NavLinkItem[] }[] = [
     title: "Top Treks",
     links: [
       { label: "Everest Base Camp", href: "/treks/everest-base-camp" },
+      { label: "Everest Three Passes", href: "/treks/everest-three-passes" },
       { label: "Annapurna Base Camp", href: "/treks/annapurna-base-camp" },
       { label: "Annapurna Circuit", href: "/treks/annapurna-circuit" },
       { label: "Langtang Valley", href: "/treks/langtang-valley" },
       { label: "Manaslu Circuit", href: "/treks/manaslu-circuit" },
+      { label: "Upper Mustang", href: "/treks/upper-mustang" },
     ],
   },
   {

@@ -33,10 +33,17 @@ export default function Footer() {
           <div className="mb-4 text-sm font-semibold">Popular Treks</div>
           <div className="space-y-2 text-sm text-white/78">
             <Link href="/treks/everest-base-camp" className="block hover:text-white">Everest Base Camp Trek</Link>
+            <Link href="/treks/everest-three-passes" className="block hover:text-white">Everest Three Passes Trek</Link>
+            <Link href="/treks/gokyo-lake" className="block hover:text-white">Gokyo Lakes Trek</Link>
             <Link href="/treks/annapurna-base-camp" className="block hover:text-white">Annapurna Base Camp Trek</Link>
+            <Link href="/treks/annapurna-circuit" className="block hover:text-white">Annapurna Circuit Trek</Link>
+            <Link href="/treks/poon-hill" className="block hover:text-white">Poon Hill Trek</Link>
+            <Link href="/treks/khopra-danda" className="block hover:text-white">Khopra Danda Trek</Link>
+            <Link href="/treks/mardi-himal" className="block hover:text-white">Mardi Himal Trek</Link>
             <Link href="/treks/langtang-valley" className="block hover:text-white">Langtang Valley Trek</Link>
             <Link href="/treks/manaslu-circuit" className="block hover:text-white">Manaslu Circuit Trek</Link>
-            <Link href="/treks/gokyo-lake" className="block hover:text-white">Gokyo Lakes Trek</Link>
+            <Link href="/treks/tsum-valley" className="block hover:text-white">Tsum Valley Trek</Link>
+            <Link href="/treks/upper-mustang" className="block hover:text-white">Upper Mustang Trek</Link>
           </div>
         </div>
         <div>

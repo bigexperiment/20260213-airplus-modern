@@ -4,11 +4,15 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import Image from "next/image";
 import Link from "next/link";
+import { Inter } from "next/font/google";
 import { getTrekGuide } from "@/content/trekGuides";
 import { Backpack, CalendarDays, FileCheck2, Lightbulb, Utensils } from "lucide-react";
 import InstagramFeed from "@/components/InstagramFeed";
 
+const articleFont = Inter({ subsets: ["latin"], display: "swap" });
+
 type ItineraryItem = { day: number; title: string; description: string };
+type LongformArticle = { title: string; body: string };
 type Trek = {
   slug: string;
   title: string;
@@ -24,6 +28,7 @@ type Trek = {
   overview?: string[];
   highlights?: string[];
   itinerary: ItineraryItem[];
+  longformArticle?: LongformArticle;
 };
 
 function friendlySectionHeading(heading: string): string {
@@ -39,11 +44,6 @@ function friendlySectionHeading(heading: string): string {
   return heading;
 }
 
-function isPriceSection(heading: string): boolean {
-  const h = heading.toLowerCase();
-  return h.includes("cost") || h.includes("price") || h.includes("budget");
-}
-
 async function getTrek(slug: string): Promise<Trek | null> {
   const file = path.join(process.cwd(), "public/information/treks", `${slug}.json`);
   try {
@@ -52,6 +52,159 @@ async function getTrek(slug: string): Promise<Trek | null> {
   } catch {
     return null;
   }
+}
+
+function renderLongformArticle(raw: string) {
+  // Lightweight markdown-ish renderer (no dependency) that supports:
+  // headings (#/##/###), paragraphs, unordered lists, and simple tables.
+  const text = raw.replace(/\r\n/g, "\n").trim();
+  const lines = text.split("\n");
+
+  type Node =
+    | { kind: "h"; level: 1 | 2 | 3; text: string }
+    | { kind: "p"; text: string }
+    | { kind: "ul"; items: string[] }
+    | { kind: "table"; header: string[]; rows: string[][] };
+
+  const nodes: Node[] = [];
+  let i = 0;
+
+  const pushParagraph = (buf: string[]) => {
+    const txt = buf.join(" ").trim();
+    if (txt) nodes.push({ kind: "p", text: txt });
+  };
+
+  while (i < lines.length) {
+    const line = lines[i].trimEnd();
+    const trimmed = line.trim();
+
+    if (!trimmed) {
+      i++;
+      continue;
+    }
+
+    // Headings
+    const hMatch = trimmed.match(/^(#{1,3})\s+(.*)$/);
+    if (hMatch) {
+      const level = hMatch[1].length as 1 | 2 | 3;
+      nodes.push({ kind: "h", level, text: hMatch[2].trim() });
+      i++;
+      continue;
+    }
+
+    // Tables (pipe rows with separator line)
+    if (trimmed.startsWith("|")) {
+      const headerLine = trimmed;
+      const sepLine = (lines[i + 1] || "").trim();
+      if (sepLine.startsWith("|") && sepLine.replace(/[|\s:-]/g, "") === "") {
+        const parseRow = (row: string) =>
+          row
+            .trim()
+            .replace(/^\|/, "")
+            .replace(/\|$/, "")
+            .split("|")
+            .map((c) => c.trim());
+        const header = parseRow(headerLine);
+        const rows: string[][] = [];
+        i += 2;
+        while (i < lines.length) {
+          const r = lines[i].trim();
+          if (!r || !r.startsWith("|")) break;
+          rows.push(parseRow(r));
+          i++;
+        }
+        nodes.push({ kind: "table", header, rows });
+        continue;
+      }
+    }
+
+    // Unordered list: lines starting with "-", "*", or "•"
+    if (/^(-|\*|•)\s+/.test(trimmed)) {
+      const items: string[] = [];
+      while (i < lines.length) {
+        const li = lines[i].trim();
+        if (!/^(-|\*|•)\s+/.test(li)) break;
+        items.push(li.replace(/^(-|\*|•)\s+/, "").trim());
+        i++;
+      }
+      nodes.push({ kind: "ul", items });
+      continue;
+    }
+
+    // Paragraph block: collect until blank line or a structural token.
+    const buf: string[] = [];
+    while (i < lines.length) {
+      const cur = lines[i].trim();
+      if (!cur) break;
+      if (/^(#{1,3})\s+/.test(cur)) break;
+      if (/^(-|\*|•)\s+/.test(cur)) break;
+      if (cur.startsWith("|")) break;
+      buf.push(cur);
+      i++;
+    }
+    pushParagraph(buf);
+  }
+
+  return (
+    <div className="space-y-6 text-[17px] leading-8 text-slate-800 md:text-[18px]">
+      {nodes.map((n, idx) => {
+        if (n.kind === "h") {
+          const Tag = n.level === 1 ? "h3" : n.level === 2 ? "h4" : "h5";
+          const cls =
+            n.level === 1
+              ? "text-2xl font-semibold tracking-[-0.03em] text-slate-950 md:text-3xl"
+              : n.level === 2
+                ? "text-xl font-semibold text-slate-950 md:text-2xl"
+                : "text-lg font-semibold text-slate-950 md:text-xl";
+          return (
+            <Tag key={idx} className={cls}>
+              {n.text}
+            </Tag>
+          );
+        }
+        if (n.kind === "ul") {
+          return (
+            <ul key={idx} className="list-disc space-y-2 pl-6">
+              {n.items.map((it) => (
+                <li key={it}>{it}</li>
+              ))}
+            </ul>
+          );
+        }
+        if (n.kind === "table") {
+          return (
+            <div key={idx} className="overflow-x-auto">
+              <table className="w-full border-collapse text-left text-[15px] md:text-[16px]">
+                <thead>
+                  <tr>
+                    {n.header.map((h) => (
+                      <th key={h} className="border-b border-[color:var(--border)] px-3 py-2 font-semibold text-slate-950">
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {n.rows.map((r, rIdx) => (
+                    <tr key={rIdx}>
+                      {r.map((c, cIdx) => (
+                        <td key={`${rIdx}-${cIdx}`} className="border-b border-[color:var(--border)] px-3 py-2">
+                          {c}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          );
+        }
+        return (
+          <p key={idx}>{n.text}</p>
+        );
+      })}
+    </div>
+  );
 }
 
 export async function generateStaticParams() {
@@ -77,18 +230,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const image = trek.coverImage || trek.images?.[0]?.src || "/images/everest-base-camp.jpg";
 
   return {
-    title: guide?.seoTitle || `${trek.title} | AirPlus Nepal`,
+    title: `${trek.title} | AirPlus Nepal`,
     description: guide?.metaDescription || `Explore ${trek.title} with detailed route and planning support from AirPlus Nepal.`,
     keywords: guide?.quickKeywords,
     openGraph: {
-      title: guide?.seoTitle || `${trek.title} | AirPlus Nepal`,
+      title: `${trek.title} | AirPlus Nepal`,
       description: guide?.metaDescription || `Explore ${trek.title} with practical route planning in Nepal.`,
       images: [image],
       type: "article",
     },
     twitter: {
       card: "summary_large_image",
-      title: guide?.seoTitle || `${trek.title} | AirPlus Nepal`,
+      title: `${trek.title} | AirPlus Nepal`,
       description: guide?.metaDescription || `Explore ${trek.title} with practical route planning in Nepal.`,
       images: [image],
     },
@@ -120,33 +273,43 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
   ].filter((card) => card.section);
   const articleSections = guide?.sections.filter(
     (section) =>
-      !["teahouse", "food", "vibe", "tips"].some((keyword) => section.heading.toLowerCase().includes(keyword)) &&
-      !isPriceSection(section.heading)
+      !["teahouse", "food", "vibe", "tips"].some((keyword) => section.heading.toLowerCase().includes(keyword))
   );
 
   return (
     <div>
-      <div className="container-px pt-8 md:pt-10">
-        <div className="overflow-hidden rounded-[1.5rem] bg-white">
-          <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="p-6 md:p-8 lg:p-10">
-              <h1 className="text-3xl font-semibold tracking-[-0.04em] text-slate-950 md:text-5xl">{trek.title}</h1>
-              <p className="mt-3 text-sm leading-7 text-slate-800 md:text-base">
-                {trek.region} • {trek.duration}
-                {trek.maxElevation ? ` • ${trek.maxElevation}` : ""}
-              </p>
-              {trek.overview?.[0] && <p className="mt-5 max-w-2xl text-sm leading-7 text-slate-800 md:text-base">{trek.overview[0]}</p>}
-            </div>
-            <div className="relative min-h-[18rem]">
-              <Image src={cover} alt={trek.title} fill priority sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover" />
+      {!trek.longformArticle?.body && (
+        <div className="container-px pt-8 md:pt-10">
+          <div className="overflow-hidden rounded-[1.5rem] bg-white">
+            <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
+              <div className="p-6 md:p-8 lg:p-10">
+                <h1 className="text-3xl font-semibold tracking-[-0.04em] text-slate-950 md:text-5xl">{trek.title}</h1>
+                <p className="mt-3 text-sm leading-7 text-slate-800 md:text-base">
+                  {trek.region} • {trek.duration}
+                  {trek.maxElevation ? ` • ${trek.maxElevation}` : ""}
+                </p>
+                {trek.overview?.[0] && (
+                  <p className="mt-5 max-w-2xl text-sm leading-7 text-slate-800 md:text-base">{trek.overview[0]}</p>
+                )}
+              </div>
+              <div className="relative min-h-[18rem]">
+                <Image
+                  src={cover}
+                  alt={trek.title}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 45vw"
+                  className="object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="container-px section grid gap-10 md:grid-cols-3">
         <div className="space-y-6 md:col-span-2">
-          {trek.overview && trek.overview.length > 1 && (
+          {!trek.longformArticle?.body && trek.overview && trek.overview.length > 1 && (
             <div className="space-y-3 border-l-2 border-[color:var(--border)] pl-5">
               {trek.overview.slice(1).map((p, i) => (
                 <p key={i} className="text-sm leading-7 text-slate-800 md:text-base">
@@ -156,7 +319,7 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
             </div>
           )}
 
-          {trek.images && trek.images.length > 0 && (
+          {!trek.longformArticle?.body && trek.images && trek.images.length > 0 && (
             <div className="grid grid-cols-2 gap-3">
               {trek.images.map((img) => (
                 <div className="overflow-hidden rounded-xl" key={img.src}>
@@ -166,26 +329,28 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
             </div>
           )}
 
-          <section>
-            <h2 className="mb-3 text-2xl font-semibold tracking-[-0.03em]">Day-by-day outline</h2>
-            <ol className="space-y-3">
-              {trek.itinerary.map((d) => (
-                <li key={d.day} className="rounded-xl bg-white px-1 py-3">
-                  <div className="flex items-start gap-3">
-                    <div className="mt-0.5 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-[color:var(--muted)] text-xs font-medium text-primary">
-                      {d.day}
+          {!trek.longformArticle?.body && (
+            <section>
+              <h2 className="mb-3 text-2xl font-semibold tracking-[-0.03em]">Day-by-day outline</h2>
+              <ol className="space-y-3">
+                {trek.itinerary.map((d) => (
+                  <li key={d.day} className="rounded-xl bg-white px-1 py-3">
+                    <div className="flex items-start gap-3">
+                      <div className="mt-0.5 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-[color:var(--muted)] text-xs font-medium text-primary">
+                        {d.day}
+                      </div>
+                      <div>
+                        <div className="font-medium">{d.title}</div>
+                        <div className="mt-1 text-sm text-slate-800">{d.description}</div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="font-medium">{d.title}</div>
-                      <div className="mt-1 text-sm text-slate-800">{d.description}</div>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </section>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
 
-          {guide && (
+          {!trek.longformArticle?.body && guide && (
             <section className="space-y-5">
               <div className="space-y-3">
                 <h2 className="text-2xl font-semibold tracking-[-0.03em]">Before you choose this trek</h2>
@@ -280,7 +445,8 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
                 </ul>
               </article>
 
-              {articleSections && articleSections.length > 0 && (
+              {/* If a trek has a curated long-form article in JSON, prefer that over the generic guide blocks. */}
+              {!trek.longformArticle?.body && articleSections && articleSections.length > 0 && (
                 <article className="border-t border-[color:var(--border)] pt-6">
                   <h3 className="text-2xl font-semibold tracking-[-0.03em] text-slate-950">Detailed route article</h3>
                   <p className="mt-2 text-sm leading-7 text-slate-800">
@@ -308,12 +474,32 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
                 </article>
               )}
 
+              {trek.longformArticle?.body && (
+                <article className="border-t border-[color:var(--border)] pt-6">
+                  <h3 className="text-2xl font-semibold tracking-[-0.03em] text-slate-950">
+                    {trek.longformArticle.title || "Full Annapurna Base Camp article"}
+                  </h3>
+                  <div className="mt-5">{renderLongformArticle(trek.longformArticle.body)}</div>
+                </article>
+              )}
+
+              <InstagramFeed />
+            </section>
+          )}
+
+          {trek.longformArticle?.body && (
+            <section className="pt-2">
+              <h1 className="text-3xl font-semibold tracking-[-0.04em] text-slate-950 md:text-5xl">{trek.title}</h1>
+              <div className={`mt-6 max-w-[70ch] ${articleFont.className}`}>
+                {renderLongformArticle(trek.longformArticle.body)}
+              </div>
               <InstagramFeed />
             </section>
           )}
         </div>
 
-        <aside className="space-y-6 md:sticky md:top-24 md:self-start">
+        {!trek.longformArticle?.body && (
+          <aside className="space-y-6 md:sticky md:top-24 md:self-start">
           <div className="rounded-xl bg-white p-5">
             <div className="grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
               {trek.maxElevation && (
@@ -365,7 +551,8 @@ export default async function TrekDetail({ params }: { params: Promise<{ slug: s
               Ask about this trek
             </Link>
           </div>
-        </aside>
+          </aside>
+        )}
       </div>
     </div>
   );
