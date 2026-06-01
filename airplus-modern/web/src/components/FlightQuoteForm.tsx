@@ -296,19 +296,14 @@ export default function FlightQuoteForm() {
           />
         </label>
 
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <button
-            type="submit"
-            disabled={status === "sending"}
-            className="btn-accent inline-flex w-full px-8 py-3.5 sm:w-auto"
-          >
-            <Plane className="size-4" />
-            {status === "sending" ? "Sending..." : "Request a quote"}
-          </button>
-          <p className="text-sm text-muted-foreground">
-            No payment now — we&apos;ll send you options to choose from.
-          </p>
-        </div>
+        <button
+          type="submit"
+          disabled={status === "sending"}
+          className="btn-accent inline-flex w-full px-8 py-3.5 sm:w-auto"
+        >
+          <Plane className="size-4" />
+          {status === "sending" ? "Sending..." : "Request a quote"}
+        </button>
 
         {status === "error" && (
           <p className="text-sm text-red-600">
