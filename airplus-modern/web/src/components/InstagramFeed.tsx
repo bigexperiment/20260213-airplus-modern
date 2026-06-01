@@ -49,19 +49,20 @@ export default function InstagramFeed() {
   if (!posts.length) return null;
 
   return (
-    <section className="border-t border-[color:var(--border)] pt-7">
+    <section className="surface-card p-6 md:p-8">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h3 className="text-2xl font-semibold tracking-[-0.03em] text-slate-950">From our Instagram</h3>
-          <p className="mt-1 text-sm text-slate-800">
-            Real updates from the trail at <span className="font-medium">@airplusnepal</span>.
+          <p className="text-sm font-semibold uppercase tracking-wider text-primary">Social</p>
+          <h3 className="mt-1 text-xl font-bold md:text-2xl">From our Instagram</h3>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Real updates from the trail at <span className="font-medium text-foreground">@airplusnepal</span>.
           </p>
         </div>
         <a
           href="https://www.instagram.com/airplusnepal/"
           target="_blank"
           rel="noreferrer"
-          className="rounded-full bg-[#e86f11] px-4 py-2 text-sm font-semibold text-white"
+          className="btn-accent px-4 py-2"
         >
           View Profile
         </a>
@@ -74,26 +75,26 @@ export default function InstagramFeed() {
             href={post.permalink}
             target="_blank"
             rel="noreferrer"
-            className="group overflow-hidden rounded-xl bg-white"
+            className="group overflow-hidden rounded-xl border border-[color:var(--border)] bg-white"
           >
-            <div className="relative h-56">
+            <div className="relative h-48 sm:h-56">
               <Image
                 src={post.media_url || "/information/assets/gallery_1.jpg"}
                 alt="Instagram post from Airplusnepal"
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-cover transition group-hover:scale-[1.02]"
+                className="object-cover transition duration-300 group-hover:scale-[1.03]"
               />
             </div>
             <div className="p-3">
-              <p className="text-sm leading-6 text-slate-800">{captionPreview(post.caption)}</p>
+              <p className="text-sm leading-6 text-muted-foreground">{captionPreview(post.caption)}</p>
             </div>
           </a>
         ))}
       </div>
 
       {source === "fallback" && (
-        <p className="mt-3 text-xs text-slate-600">
+        <p className="mt-3 text-xs text-muted-foreground">
           Live Instagram sync is ready. Add `INSTAGRAM_USER_ID` and `INSTAGRAM_ACCESS_TOKEN` to enable direct feed updates.
         </p>
       )}

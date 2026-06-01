@@ -78,32 +78,27 @@ export default async function Home() {
 
   return (
     <div className="bg-noise">
-      <section className="relative bg-[#0f4da0]">
-        <div className="absolute inset-0">
-          <Image src={home.hero.image} alt="Himalayan mountain" fill priority sizes="100vw" className="object-cover opacity-85" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#103d7e]/88 via-[#103d7e]/62 to-[#103d7e]/18" />
-        </div>
-        <div className="container-px relative z-10 py-16 md:py-24">
-          <div className="max-w-3xl py-10 md:py-16">
-            <div className="mb-4 text-white">
-              <svg width="86" height="42" viewBox="0 0 86 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 30L18 12L28 22L38 8L56 26" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M54 11L61 6L60 13" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+      <section className="container-px py-12 md:py-16">
+        <div className="grid items-center gap-8 lg:grid-cols-2">
+          <div className="overflow-hidden rounded-2xl border border-[color:var(--border)] bg-white shadow-sm">
+            <div className="relative aspect-[4/3] w-full">
+              <Image src={home.hero.image} alt="Himalayan mountain" fill priority sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
             </div>
-            <h1 className="display-face max-w-3xl text-5xl font-black uppercase leading-[0.9] tracking-[-0.06em] text-white md:text-8xl">
+          </div>
+          <div>
+            <h1 className="display-face max-w-xl text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
               Explore Nepal.
-              <span className="block text-accent">Live The Adventure.</span>
+              <span className="mt-1 block text-primary">Live the adventure.</span>
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-8 text-white/88">
-              We help you see Nepal in a way that feels clear, welcoming, and worth the journey, whether you want a famous Himalayan trek, a shorter holiday, or a mix of both.
+            <p className="mt-5 max-w-lg text-lg leading-8 text-muted-foreground">
+              {home.hero.subtitle}
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link href="#popular-treks" className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground shadow-lg">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Link href="#popular-treks" className="btn-accent px-6 py-3">
                 Explore Treks
                 <ArrowRight className="size-4" />
               </Link>
-              <Link href="/contact" className="inline-flex items-center gap-2 rounded-lg border border-white/36 px-6 py-3 text-sm font-semibold text-white">
+              <Link href="/contact" className="inline-flex items-center gap-2 rounded-xl border border-[color:var(--border)] bg-white px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-muted">
                 Plan Your Trip
                 <CirclePlay className="size-4" />
               </Link>
@@ -111,18 +106,17 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
-      <section className="container-px relative z-20 -mt-10 md:-mt-12">
-        <div className="grid gap-px overflow-hidden rounded-[1.25rem] border border-[color:var(--border)] bg-white shadow-[0_18px_45px_rgba(18,43,86,0.12)] md:grid-cols-4">
-            {[
+      <section className="container-px pb-8 md:pb-12">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {[
             { title: "Local Experts", text: "You are planning with people who know the trails, transport, weather shifts, and small details that make a trip smoother.", Icon: UsersRound },
             { title: "Safety First", text: "We keep the plan realistic, talk honestly about altitude and pace, and make sure you feel looked after on the road and on the trail.", Icon: ShieldCheck },
             { title: "Clear Planning", text: "Everything is explained clearly, so you know what to expect before the trip starts.", Icon: ShieldCheck },
             { title: "24/7 Support", text: "If plans change, flights move, or you just need help, there is a real team here to respond.", Icon: UserRoundCheck },
           ].map(({ title, text, Icon }) => (
-            <div key={title} className="bg-white p-6">
-              <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#edf4ff] text-primary">
-                <Icon className="size-6" />
+            <div key={title} className="surface-card p-6">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <Icon className="size-5" />
               </div>
               <div className="mt-4 text-xl font-semibold">{title}</div>
               <div className="mt-2 text-sm leading-6 text-muted-foreground">{text}</div>
@@ -141,7 +135,7 @@ export default async function Home() {
         </div>
         <div className="mt-8 grid gap-6 xl:grid-cols-4 md:grid-cols-2">
           {featuredTreks.map((trek, index) => (
-            <article key={trek.slug} className="overflow-hidden rounded-[1.25rem] border border-[color:var(--border)] bg-white shadow-[0_12px_34px_rgba(18,43,86,0.08)]">
+            <article key={trek.slug} className="surface-card group overflow-hidden transition hover:shadow-md">
               <div className="relative h-64">
                 <Image
                   src={pickImageForTrek(trek, home.trekkingPackages[index]?.image)}
@@ -150,7 +144,7 @@ export default async function Home() {
                   sizes="(max-width: 768px) 100vw, 25vw"
                   className="object-cover"
                 />
-                <div className="absolute left-3 top-3 rounded-md bg-primary px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-white">
+                <div className="absolute left-3 top-3 rounded-full bg-primary px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-white">
                   {trekBadge(index)}
                 </div>
                 <button type="button" className="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-primary">
@@ -184,7 +178,7 @@ export default async function Home() {
               <span className="mt-1 text-xs uppercase tracking-[0.12em]">Years of Experience</span>
             </div>
           </div>
-          <div className="rounded-[1.25rem] border border-[color:var(--border)] bg-white p-7 shadow-[0_12px_34px_rgba(18,43,86,0.08)] md:p-10">
+          <div className="surface-card p-7 md:p-10">
             <div className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">About Us</div>
             <h2 className="mt-4 display-face text-5xl font-black uppercase tracking-[-0.05em]">About Airplusnepal</h2>
             <p className="mt-5 text-sm leading-7 text-muted-foreground">
@@ -203,7 +197,7 @@ export default async function Home() {
                 </div>
               ))}
             </div>
-            <Link href="/director" className="mt-8 inline-flex rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">
+            <Link href="/director" className="btn-primary mt-8">
               Learn More About Us
             </Link>
           </div>
@@ -220,9 +214,9 @@ export default async function Home() {
         </div>
         <div className="mt-8 grid gap-6 lg:grid-cols-3">
           {home.testimonials.slice(0, 3).map((item, index) => (
-            <div key={item.name + index} className="rounded-[1.25rem] border border-[color:var(--border)] bg-white p-6 shadow-[0_12px_30px_rgba(18,43,86,0.06)]">
+            <div key={item.name + index} className="surface-card p-6">
               <div className="flex items-center gap-3">
-                <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#edf4ff] text-lg font-semibold text-primary">
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-base font-semibold text-primary">
                   {item.name.split(" ").map((part) => part[0]).join("").slice(0, 2)}
                 </div>
                 <div>
@@ -250,7 +244,7 @@ export default async function Home() {
         </div>
         <div className="mt-8 grid gap-6 xl:grid-cols-3">
           {blogPosts.map((post) => (
-            <article key={post.title} className="overflow-hidden rounded-[1.1rem] border border-[color:var(--border)] bg-white shadow-[0_10px_24px_rgba(18,43,86,0.06)]">
+            <article key={post.title} className="surface-card group overflow-hidden transition hover:shadow-md">
               <div className="relative">
                 <Image src={post.image} alt={post.title} width={720} height={480} className="h-56 w-full object-cover" />
                 <div className="absolute left-4 top-4 rounded-md bg-accent px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-accent-foreground">

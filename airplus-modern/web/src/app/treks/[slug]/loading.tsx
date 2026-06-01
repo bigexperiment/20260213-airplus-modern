@@ -1,20 +1,13 @@
 export default function Loading() {
   return (
-    <div className="container-px section">
-      <div className="h-8 w-2/3 bg-white/10 rounded mb-4 animate-pulse" />
-      <div className="grid md:grid-cols-3 gap-8">
-        <div className="md:col-span-2 space-y-4">
-          <div className="h-40 bg-white/5 rounded animate-pulse" />
-          <div className="h-40 bg-white/5 rounded animate-pulse" />
-          <div className="h-40 bg-white/5 rounded animate-pulse" />
-        </div>
-        <div className="space-y-4">
-          <div className="h-40 bg-white/5 rounded animate-pulse" />
-          <div className="h-40 bg-white/5 rounded animate-pulse" />
-        </div>
+    <div className="container-px py-8">
+      <div className="mb-6 h-4 w-48 animate-pulse rounded bg-muted" />
+      <div className="aspect-[2/1] max-h-72 animate-pulse rounded-2xl bg-muted md:max-h-80" />
+      <div className="mt-6 h-10 w-2/3 animate-pulse rounded bg-muted" />
+      <div className="mt-8 space-y-6">
+        <div className="surface-card h-64 animate-pulse" />
+        <div className="surface-card h-96 animate-pulse" />
       </div>
     </div>
   );
 }
-
-
