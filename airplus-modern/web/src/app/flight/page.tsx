@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import FlightQuoteForm from "@/components/FlightQuoteForm";
 
 export const metadata: Metadata = {
-  title: "Flight Quotes | AirPlus Nepal",
+  title: "Book a Flight | AirPlus Nepal",
   description:
     "Request a flight quote for any route. Share your dates and details — we'll send options by email.",
 };
@@ -11,7 +11,7 @@ export default function FlightPage() {
   return (
     <div className="container-px section">
       <div className="mx-auto max-w-3xl">
-        <h1 className="text-3xl font-bold md:text-4xl">Flight quotes</h1>
+        <h1 className="text-3xl font-bold md:text-4xl">Book a Flight</h1>
         <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
           Tell us where you&apos;re flying from and to, your dates, and how many people are traveling.
           We&apos;ll send quote options by email — no booking engine, no payment on this page.
