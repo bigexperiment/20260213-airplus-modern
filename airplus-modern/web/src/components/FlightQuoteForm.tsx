@@ -2,17 +2,18 @@
 
 import { useState } from "react";
 import { ArrowLeftRight, CalendarDays, Mail, Plane, Users } from "lucide-react";
-import PhoneField from "@/components/PhoneField";
-import { formatFullPhone, isValidLocalPhone, type PhoneCountry } from "@/lib/phone-countries";
 
 type TripType = "round-trip" | "one-way";
 
 const today = new Date().toISOString().slice(0, 10);
 
+function phoneDigits(value: string): string {
+  return value.replace(/\D/g, "");
+}
+
 export default function FlightQuoteForm() {
   const [tripType, setTripType] = useState<TripType>("round-trip");
-  const [phoneCountry, setPhoneCountry] = useState<PhoneCountry | null>(null);
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phone, setPhone] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [from, setFrom] = useState("");
@@ -21,11 +22,10 @@ export default function FlightQuoteForm() {
   const [returnDate, setReturnDate] = useState("");
   const [adults, setAdults] = useState("1");
   const [children, setChildren] = useState("0");
-  const [cabinClass, setCabinClass] = useState("");
+  const [cabinClass, setCabinClass] = useState("economy");
   const [notes, setNotes] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [phoneError, setPhoneError] = useState<string | null>(null);
 
   function swapAirports() {
     setFrom(to);
@@ -35,14 +35,9 @@ export default function FlightQuoteForm() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    const phone = formatFullPhone(phoneCountry, phoneNumber);
-    if (!phoneCountry || !isValidLocalPhone(phoneCountry, phoneNumber)) {
-      setPhoneError("Enter a valid phone number for the selected country.");
-      return;
-    }
-    if (!phone || !departDate || !cabinClass) return;
+    const phoneValue = phone.trim();
+    if (phoneDigits(phoneValue).length < 7 || !departDate) return;
 
-    setPhoneError(null);
     setStatus("sending");
 
     try {
@@ -52,7 +47,7 @@ export default function FlightQuoteForm() {
         body: JSON.stringify({
           name,
           email,
-          phone,
+          phone: phoneValue,
           tripType,
           from,
           to,
@@ -68,8 +63,7 @@ export default function FlightQuoteForm() {
       const data = await res.json().catch(() => ({}));
       if (res.ok && data?.ok) {
         setStatus("sent");
-        setPhoneCountry(null);
-        setPhoneNumber("");
+        setPhone("");
         setName("");
         setEmail("");
         setFrom("");
@@ -78,7 +72,7 @@ export default function FlightQuoteForm() {
         setReturnDate("");
         setAdults("1");
         setChildren("0");
-        setCabinClass("");
+        setCabinClass("economy");
         setNotes("");
       } else {
         setStatus("error");
@@ -134,19 +128,22 @@ export default function FlightQuoteForm() {
         <div className="rounded-xl border border-[color:var(--border)] bg-[#f8fafc] p-4">
           <p className="mb-3 text-sm font-medium text-foreground">Your contact details</p>
           <div className="space-y-3">
-            <PhoneField
-              country={phoneCountry}
-              onCountryChange={(c) => {
-                setPhoneCountry(c);
-                setPhoneError(null);
-              }}
-              number={phoneNumber}
-              onNumberChange={(n) => {
-                setPhoneNumber(n);
-                setPhoneError(null);
-              }}
-            />
-            {phoneError && <p className="text-sm text-red-600">{phoneError}</p>}
+            <label className="block">
+              <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                Phone / WhatsApp <span className="text-accent">*</span>
+              </span>
+              <input
+                required
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Your phone or WhatsApp number"
+                minLength={7}
+                className="field"
+              />
+            </label>
             <div className="grid gap-3 md:grid-cols-2">
               <label className="block">
                 <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
@@ -272,17 +269,9 @@ export default function FlightQuoteForm() {
           </label>
           <label className="block">
             <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Cabin <span className="text-accent">*</span>
+              Cabin
             </span>
-            <select
-              required
-              value={cabinClass}
-              onChange={(e) => setCabinClass(e.target.value)}
-              className="field"
-            >
-              <option value="" disabled>
-                Select cabin class
-              </option>
+            <select value={cabinClass} onChange={(e) => setCabinClass(e.target.value)} className="field">
               <option value="economy">Economy</option>
               <option value="premium-economy">Premium economy</option>
               <option value="business">Business</option>
