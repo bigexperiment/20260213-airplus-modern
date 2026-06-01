@@ -43,6 +43,7 @@ export default function Navbar() {
     { label: "About", href: "/director" },
     { label: "Treks", href: "/treks" },
     { label: "Tours", href: "/tours" },
+    { label: "Flights", href: "/flight" },
     { label: "Travel Guide", href: "/travel-guide" },
     { label: "Contact", href: "/contact" },
   ];

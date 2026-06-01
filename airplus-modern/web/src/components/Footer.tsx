@@ -28,6 +28,7 @@ export default function Footer() {
             <Link href="/director" className="block hover:text-primary">About Us</Link>
             <Link href="/treks" className="block hover:text-primary">Treks</Link>
             <Link href="/tours" className="block hover:text-primary">Tour Packages</Link>
+            <Link href="/flight" className="block hover:text-primary">Flight Quotes</Link>
             <Link href="/travel-guide" className="block hover:text-primary">Blog</Link>
             <Link href="/contact" className="block hover:text-primary">Contact Us</Link>
           </div>

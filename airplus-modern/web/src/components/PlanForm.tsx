@@ -10,6 +10,7 @@ export default function PlanForm() {
   const [trek, setTrek] = useState("");
   const [dates, setDates] = useState("");
   const [message, setMessage] = useState("");
+  const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState<string | null>(null);
   const [options, setOptions] = useState<Option[]>([]);
 
@@ -42,54 +43,33 @@ export default function PlanForm() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus(null);
-    const lines = [
-      `Name: ${name || "-"}`,
-      `Email: ${email || "-"}`,
-      `Country: ${country || "-"}`,
-      `Preferred: ${trek || "-"}`,
-      `Dates: ${dates || "-"}`,
-      "---",
-      message || ""
-    ];
-    const payload = lines.join("\n").trim();
 
-    let ok = false;
     try {
-      const direct = await fetch("https://ntfy.sh/airplusnepal", {
+      const res = await fetch("/api/notify", {
         method: "POST",
-        headers: { Priority: "high" },
-        body: payload,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, country, trek, dates, message, honeypot }),
       });
-      ok = direct.ok;
-    } catch {
-      ok = false;
-    }
+      const data = await res.json().catch(() => ({}));
 
-    if (!ok) {
-      try {
-        const res = await fetch("/api/notify", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, country, trek, dates, message }),
-        });
-        const data = await res.json().catch(() => ({}));
-        ok = !!(res.ok && data?.ok);
-      } catch {
-        ok = false;
+      if (res.ok && data?.ok) {
+        setStatus("Sent");
+        setName("");
+        setEmail("");
+        setCountry("");
+        setTrek("");
+        setDates("");
+        setMessage("");
+      } else {
+        setStatus(data?.error || "Failed to send. Please email airplusnepal@gmail.com");
       }
-    }
-
-    if (ok) {
-      alert("Message sent! Thanks — we’ll reply shortly.");
-      setStatus("Sent");
-      setName(""); setEmail(""); setCountry(""); setTrek(""); setDates(""); setMessage("");
-    } else {
+    } catch {
       setStatus("Failed to send. Please email airplusnepal@gmail.com");
     }
   }
 
   return (
-    <form onSubmit={onSubmit} className="panel rounded-[1.5rem] p-5 md:p-6 space-y-4">
+    <form onSubmit={onSubmit} className="panel relative rounded-[1.5rem] p-5 md:p-6 space-y-4">
       <div className="grid md:grid-cols-2 gap-3">
         <input required placeholder="Your name" value={name} onChange={(e)=>setName(e.target.value)} className="field" />
         <input required type="email" placeholder="Your email" value={email} onChange={(e)=>setEmail(e.target.value)} className="field" />
@@ -104,6 +84,15 @@ export default function PlanForm() {
         <input placeholder="Travel dates or month (for example, Oct 10-24)" value={dates} onChange={(e)=>setDates(e.target.value)} className="field md:col-span-2" />
       </div>
       <textarea placeholder="Tell us what kind of trip you have in mind, how many people are coming, and anything you are unsure about." value={message} onChange={(e)=>setMessage(e.target.value)} className="field min-h-[120px]" />
+      <label aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        Leave blank
+        <input
+          tabIndex={-1}
+          autoComplete="off"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+        />
+      </label>
       <div className="flex flex-wrap items-center gap-3">
         <button className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition hover:opacity-90" type="submit">Send My Trip Inquiry</button>
         <span className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Replies within 24 hours</span>

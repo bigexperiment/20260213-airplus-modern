@@ -16,6 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/tours`, lastModified: new Date() },
     { url: `${baseUrl}/travel-guide`, lastModified: new Date() },
     { url: `${baseUrl}/contact`, lastModified: new Date() },
+    { url: `${baseUrl}/flight`, lastModified: new Date() },
     { url: `${baseUrl}/director`, lastModified: new Date() },
     ...treks.map((slug) => ({ url: `${baseUrl}/treks/${slug}`, lastModified: new Date() })),
   ];
