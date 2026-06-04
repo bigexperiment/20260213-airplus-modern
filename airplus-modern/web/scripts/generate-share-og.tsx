@@ -8,7 +8,7 @@ import path from "node:path";
 import sharp from "sharp";
 import { loadOgFonts } from "../src/lib/og-fonts";
 import { OG_HEIGHT, OG_WIDTH } from "../src/lib/og-image";
-import { SITE_COLORS, SITE_DOMAIN, SITE_NAME } from "../src/lib/site";
+import { SITE_COLORS, SITE_DOMAIN } from "../src/lib/site";
 
 const PAD_X = 36;
 const PAD_Y = 14;
@@ -17,7 +17,7 @@ const CARD_W = LEFT_COL - 12;
 const CARD_H = OG_HEIGHT - PAD_Y * 2;
 const GAP = 36;
 
-const { background, heading, primary, accent, brandNavy, border, muted, white } = SITE_COLORS;
+const { background, heading, primary, accent, brandNavy, border, white } = SITE_COLORS;
 
 function publicPath(...parts: string[]) {
   return path.join(process.cwd(), "public", ...parts);
@@ -111,7 +111,7 @@ async function main() {
               display: "flex",
               flexDirection: "column",
               fontFamily: "DM Sans",
-              fontSize: 64,
+              fontSize: 58,
               fontWeight: 700,
               lineHeight: 1.05,
               letterSpacing: "-0.025em",
@@ -122,36 +122,14 @@ async function main() {
             <span style={{ display: "flex", color: primary, marginTop: 6 }}>
               Live the adventure.
             </span>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              marginTop: 22,
-              fontFamily: "DM Sans",
-            }}
-          >
             <span
               style={{
                 display: "flex",
-                fontSize: 26,
-                fontWeight: 600,
+                marginTop: 14,
+                fontSize: 40,
+                fontWeight: 700,
                 color: brandNavy,
-                letterSpacing: "-0.01em",
-              }}
-            >
-              {SITE_NAME}
-            </span>
-            <span
-              style={{
-                display: "flex",
-                marginTop: 8,
-                fontSize: 22,
-                fontWeight: 400,
-                color: muted,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
+                letterSpacing: "-0.02em",
               }}
             >
               {SITE_DOMAIN}

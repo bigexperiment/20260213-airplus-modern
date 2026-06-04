@@ -39,8 +39,8 @@ export const metadata: Metadata = {
     description: DEFAULT_OG_DESCRIPTION,
     images: [
       {
-        url: "/og/share.jpg?v=4",
-        secureUrl: "/og/share.jpg?v=4",
+        url: "/og/share.jpg?v=5",
+        secureUrl: "/og/share.jpg?v=5",
         width: OG_WIDTH,
         height: OG_HEIGHT,
         alt: `${SITE_NAME} — Explore Nepal. Live the adventure.`,
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: DEFAULT_OG_TITLE,
     description: DEFAULT_OG_DESCRIPTION,
-    images: ["/og/share.jpg?v=4"],
+    images: ["/og/share.jpg?v=5"],
   },
 };
 
