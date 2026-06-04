@@ -22,7 +22,11 @@ async function loadFont(
 }
 
 export async function loadOgFonts() {
-  const [dmSansBold, manropeExtraBold] = await Promise.all([
+  const [dmSansRegular, dmSansBold, manropeExtraBold] = await Promise.all([
+    loadFont(
+      `${FONT_CDN}/@fontsource/dm-sans@5.2.8/files/dm-sans-latin-400-normal.woff`,
+      ["@fontsource/dm-sans/files/dm-sans-latin-400-normal.woff"],
+    ),
     loadFont(
       `${FONT_CDN}/@fontsource/dm-sans@5.2.8/files/dm-sans-latin-700-normal.woff`,
       ["@fontsource/dm-sans/files/dm-sans-latin-700-normal.woff"],
@@ -33,5 +37,5 @@ export async function loadOgFonts() {
     ),
   ]);
 
-  return { dmSansBold, manropeExtraBold };
+  return { dmSansRegular, dmSansBold, manropeExtraBold };
 }

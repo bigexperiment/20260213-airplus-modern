@@ -8,7 +8,7 @@ import path from "node:path";
 import sharp from "sharp";
 import { loadOgFonts } from "../src/lib/og-fonts";
 import { OG_HEIGHT, OG_WIDTH } from "../src/lib/og-image";
-import { SITE_COLORS } from "../src/lib/site";
+import { SITE_COLORS, SITE_DOMAIN, SITE_NAME } from "../src/lib/site";
 
 const PAD_X = 36;
 const PAD_Y = 14;
@@ -17,7 +17,7 @@ const CARD_W = LEFT_COL - 12;
 const CARD_H = OG_HEIGHT - PAD_Y * 2;
 const GAP = 36;
 
-const { background, heading, primary, accent, brandNavy, border, white } = SITE_COLORS;
+const { background, heading, primary, accent, brandNavy, border, muted, white } = SITE_COLORS;
 
 function publicPath(...parts: string[]) {
   return path.join(process.cwd(), "public", ...parts);
@@ -123,6 +123,40 @@ async function main() {
               Live the adventure.
             </span>
           </div>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              marginTop: 22,
+              fontFamily: "DM Sans",
+            }}
+          >
+            <span
+              style={{
+                display: "flex",
+                fontSize: 26,
+                fontWeight: 600,
+                color: brandNavy,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              {SITE_NAME}
+            </span>
+            <span
+              style={{
+                display: "flex",
+                marginTop: 8,
+                fontSize: 22,
+                fontWeight: 400,
+                color: muted,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+              }}
+            >
+              {SITE_DOMAIN}
+            </span>
+          </div>
         </div>
       </div>
     ),
@@ -130,6 +164,7 @@ async function main() {
       width: OG_WIDTH,
       height: OG_HEIGHT,
       fonts: [
+        { name: "DM Sans", data: fonts.dmSansRegular, weight: 400, style: "normal" },
         { name: "DM Sans", data: fonts.dmSansBold, weight: 700, style: "normal" },
         { name: "Manrope", data: fonts.manropeExtraBold, weight: 800, style: "normal" },
       ],

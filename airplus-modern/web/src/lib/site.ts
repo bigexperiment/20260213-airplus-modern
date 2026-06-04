@@ -1,4 +1,5 @@
 export const SITE_URL = "https://www.airplusnepal.com";
+export const SITE_DOMAIN = "airplusnepal.com";
 export const SITE_NAME = "AirPlus Nepal";
 
 export const DEFAULT_TITLE = "AirPlus Nepal — Travels & Treks";
