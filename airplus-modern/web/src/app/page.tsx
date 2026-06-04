@@ -57,13 +57,13 @@ export async function generateMetadata(): Promise<Metadata> {
       title: DEFAULT_OG_TITLE,
       description: home.hero.subtitle || DEFAULT_OG_DESCRIPTION,
       url: SITE_URL,
-      images: [{ url: "/og/share.jpg?v=2", width: 1200, height: 630, type: "image/jpeg" }],
+      images: [{ url: "/og/share.jpg?v=3", width: 1200, height: 630, type: "image/jpeg" }],
     },
     twitter: {
       card: "summary_large_image",
       title: DEFAULT_OG_TITLE,
       description: home.hero.subtitle || DEFAULT_OG_DESCRIPTION,
-      images: ["/og/share.jpg?v=2"],
+      images: ["/og/share.jpg?v=3"],
     },
   };
 }

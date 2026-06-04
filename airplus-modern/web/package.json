@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "generate:og": "npx --yes tsx scripts/generate-share-og.tsx",
     "start": "next start",
     "lint": "next lint"
   },
