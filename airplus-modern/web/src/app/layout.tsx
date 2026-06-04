@@ -39,10 +39,11 @@ export const metadata: Metadata = {
     description: DEFAULT_OG_DESCRIPTION,
     images: [
       {
-        url: "/opengraph-image",
+        url: "/og/share.jpg",
         width: OG_WIDTH,
         height: OG_HEIGHT,
         alt: `${SITE_NAME} — Explore Nepal. Live the adventure.`,
+        type: "image/jpeg",
       },
     ],
   },
