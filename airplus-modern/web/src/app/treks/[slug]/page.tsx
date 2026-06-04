@@ -236,7 +236,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     openGraph: {
       title: `${trek.title} | AirPlus Nepal`,
       description: guide?.metaDescription || `Explore ${trek.title} with practical route planning in Nepal.`,
-      images: [image],
+      images: [{ url: image, width: 1200, height: 630, alt: trek.title }],
       type: "article",
     },
     twitter: {

@@ -1,7 +1,9 @@
+import type { Metadata } from "next";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import Image from "next/image";
 import Link from "next/link";
+import { DEFAULT_OG_DESCRIPTION, DEFAULT_OG_TITLE, SITE_NAME, SITE_URL } from "@/lib/site";
 import { ArrowRight, CalendarDays, CirclePlay, Clock3, Heart, MapPin, ShieldCheck, Star, UserRoundCheck, UsersRound } from "lucide-react";
 import { popularTrekSlugs } from "@/content/trekGuides";
 import InstagramFeed from "@/components/InstagramFeed";
@@ -43,6 +45,25 @@ async function readTreks(): Promise<TrekSummary[]> {
 
 function trekBadge(index: number): string {
   return ["Best Seller", "Popular", "Trending", "Top Pick"][index] || "Featured";
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const home = await readJson<HomeData>("information/home.json");
+
+  return {
+    title: `${DEFAULT_OG_TITLE} | ${SITE_NAME}`,
+    description: home.hero.subtitle,
+    openGraph: {
+      title: DEFAULT_OG_TITLE,
+      description: home.hero.subtitle || DEFAULT_OG_DESCRIPTION,
+      url: SITE_URL,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: DEFAULT_OG_TITLE,
+      description: home.hero.subtitle || DEFAULT_OG_DESCRIPTION,
+    },
+  };
 }
 
 export default async function Home() {

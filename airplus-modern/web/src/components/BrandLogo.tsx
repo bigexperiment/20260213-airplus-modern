@@ -9,7 +9,7 @@ type BrandLogoProps = {
 
 const brandFont = Manrope({ subsets: ["latin"], display: "swap", weight: ["600", "700", "800"] });
 
-const MARK_SRC = "/brand/airplusnepal-hiker-mark.png";
+const MARK_SRC = "/brand/airplusnepal-hiker-mark-tight.png";
 
 export default function BrandLogo({
   showWordmark = true,
@@ -20,12 +20,12 @@ export default function BrandLogo({
   const textSize = small ? "text-[1.2rem] md:text-[1.35rem]" : "text-[1.5rem]";
 
   return (
-    <span className={`inline-flex items-center gap-2.5 ${className}`.trim()}>
+    <span className={`inline-flex items-center gap-1 ${className}`.trim()}>
       <Image
         src={MARK_SRC}
         alt=""
-        width={496}
-        height={419}
+        width={455}
+        height={259}
         className={markClass}
         priority={small}
         aria-hidden="true"
