@@ -101,15 +101,18 @@ export default async function Home() {
 
   return (
     <div className="bg-noise">
-      <section className="container-px py-12 md:py-16">
+      <section className="container-px relative overflow-hidden py-12 md:py-20">
+        <div className="pointer-events-none absolute -left-24 top-4 h-72 w-72 rounded-full bg-accent/10 blur-3xl" />
         <div className="grid items-center gap-8 lg:grid-cols-2">
-          <div className="overflow-hidden rounded-2xl border border-[color:var(--border)] bg-white shadow-sm">
+          <div className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-white p-2 shadow-[0_24px_70px_rgba(30,93,82,0.16)]">
             <div className="relative aspect-[4/3] w-full">
-              <Image src={home.hero.image} alt="Himalayan mountain" fill priority sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
+              <Image src={home.hero.image} alt="Himalayan mountain" fill priority sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover rounded-[1.5rem] saturate-[.9]" />
             </div>
+            <div className="absolute bottom-6 left-6 rounded-2xl bg-white/90 px-4 py-3 shadow-lg backdrop-blur"><div className="text-xs font-semibold uppercase tracking-[.18em] text-accent">Since 2009</div><div className="mt-1 text-sm font-medium text-slate-700">Your local Nepal experts</div></div>
           </div>
           <div>
-            <h1 className="display-face max-w-xl text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
+            <div className="eyebrow mb-5">Made for the curious</div>
+            <h1 className="display-face max-w-xl text-4xl font-bold leading-[1.05] md:text-5xl lg:text-7xl">
               Explore Nepal.
               <span className="mt-1 block text-primary">Live the adventure.</span>
             </h1>
