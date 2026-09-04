@@ -43,8 +43,21 @@ cd web
 npm run build
 ```
 
+## Flight quote storage
+Submissions from `/flight` are saved to `data/flight-quotes.json` with a unique quote code (e.g. `FQ-A7K3M2`), contact details, trip fields, and visitor geo (IP, city, state, country).
+
+View saved quotes at `/admin/flight-quotes` using an admin token:
+
+```bash
+# .env.local
+FLIGHT_QUOTES_ADMIN_TOKEN=your-secret-token
+```
+
+The data file is gitignored because it contains personal information.
+
 ## Deploy
 Any static hosting or Vercel works:
 - Set project root to `web/`
 - Build command: `npm run build`
 - Output directory: `.next`
+- Set `FLIGHT_QUOTES_ADMIN_TOKEN` in production to access the quote list

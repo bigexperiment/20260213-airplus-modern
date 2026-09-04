@@ -1,3 +1,4 @@
+import { saveFlightQuote } from "@/lib/flight-quotes-store";
 import { formatLocation, getRequestGeo, isHoneypotTripped, logRequestGeo, toHttpHeaderValue } from "@/lib/request-geo";
 
 export async function POST(req: Request) {
@@ -33,12 +34,31 @@ export async function POST(req: Request) {
       );
     }
 
+    const record = await saveFlightQuote(
+      {
+        name,
+        email,
+        phone,
+        tripType,
+        from,
+        to,
+        departDate,
+        returnDate,
+        adults,
+        children,
+        cabinClass,
+        notes,
+      },
+      geo,
+    );
+
     const location = formatLocation(geo);
-    const opener = `${name || "Someone"} from ${location} and ${geo.ip} requested a flight quote with these details:`;
+    const opener = `${name || "Someone"} from ${location} and ${geo.ip} requested a flight quote (${record.quoteCode}) with these details:`;
 
     const lines = [
       opener,
       "",
+      `Quote code: ${record.quoteCode}`,
       `Email: ${email?.trim() || "not provided"}`,
       `Phone: ${phone || "-"}`,
       `Trip: ${tripType || "-"}`,
@@ -70,7 +90,7 @@ export async function POST(req: Request) {
       return Response.json({ ok: false, error: text }, { status: 502 });
     }
 
-    return Response.json({ ok: true });
+    return Response.json({ ok: true, quoteCode: record.quoteCode });
   } catch (error) {
     return Response.json({ ok: false, error: String(error) }, { status: 500 });
   }

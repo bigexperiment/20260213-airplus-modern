@@ -26,6 +26,7 @@ export default function FlightQuoteForm() {
   const [notes, setNotes] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [quoteCode, setQuoteCode] = useState("");
 
   function swapAirports() {
     setFrom(to);
@@ -63,6 +64,7 @@ export default function FlightQuoteForm() {
       const data = await res.json().catch(() => ({}));
       if (res.ok && data?.ok) {
         setStatus("sent");
+        setQuoteCode(typeof data.quoteCode === "string" ? data.quoteCode : "");
         setPhone("");
         setName("");
         setEmail("");
@@ -89,13 +91,21 @@ export default function FlightQuoteForm() {
           <Mail className="size-7" />
         </div>
         <h2 className="text-2xl font-bold">Request received</h2>
+        {quoteCode && (
+          <p className="mt-3 text-sm font-medium text-foreground">
+            Your quote reference: <span className="font-mono text-primary">{quoteCode}</span>
+          </p>
+        )}
         <p className="mt-3 text-muted-foreground">
           Thanks — we&apos;ll review your flight details and get back to you with quote options, usually within 24 hours.
         </p>
         <button
           type="button"
           className="btn-primary mt-6"
-          onClick={() => setStatus("idle")}
+          onClick={() => {
+            setQuoteCode("");
+            setStatus("idle");
+          }}
         >
           Send another request
         </button>
